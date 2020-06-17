@@ -1,0 +1,5 @@
+coc/
+nvim/plugged
+configstore
+zsh/.zsh_history
+zsh/.zcompdump-*

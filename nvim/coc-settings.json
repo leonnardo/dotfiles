@@ -1,0 +1,23 @@
+{
+  "python.linting.pylintEnabled": true,
+  "python.linting.pep8Enabled": false,
+  "python.linting.enabled": true,
+  "explorer.width": 30,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.previewAction.onHover": false,
+  "explorer.keyMappings": {
+    "<cr>": ["expandable?", "expand", "open"],
+    "v": "open:vsplit"
+  },
+    "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true,
+         "completeUnimported": true
+      }
+    }
+  }
+}
