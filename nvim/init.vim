@@ -118,6 +118,8 @@ map <C-u> <C-W>k
 map <C-e> <C-W>j
 
 " Save & quit
+" TODO: check if there's a smart way to quit buffers, splits and full program
+" https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
 noremap <leader>q :q<CR>
 noremap <silent> Q :bw<CR>
 noremap <C-q> :qa<CR>
@@ -232,6 +234,8 @@ let g:go_highlight_fields = 1
 
 " Fugitive Mappings
 nnoremap <silent> <leader>gs :Git<CR>
+nnoremap <silent> <leader>gu :Git pull<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
 
 " vim-plug mappings
 noremap <silent> <leader>pi :PlugInstall<CR>
