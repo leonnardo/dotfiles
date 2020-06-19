@@ -154,6 +154,7 @@ key_bindings:
   - { key: D,     mods: Command|Shift,       chars: "\x01\x22"                 }
   - { key: T,     mods: Command,             chars: "\x01\x63"                 }
   - { key: W,     mods: Command,             chars: "\x01\x78"                 }
+  - { key: R,     mods: Command,             chars: "\x12"                     }
   - { key: Key1,  mods: Command,             chars: "\x01\x31"                 }
   - { key: Key2,  mods: Command,             chars: "\x01\x32"                 }
   - { key: Key3,  mods: Command,             chars: "\x01\x33"                 }
