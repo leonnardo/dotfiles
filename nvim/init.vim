@@ -239,3 +239,9 @@ nnoremap <silent> <leader>gp :Git push<CR>
 
 " vim-plug mappings
 noremap <silent> <leader>pi :PlugInstall<CR>
+
+" Move a line of text using arrow keys
+nmap <S-Down> mz:m+<cr>`z
+nmap <S-Up> mz:m-2<cr>`z
+vmap <S-Down> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <S-Up> :m'<-2<cr>`>my`<mzgv`yo`z
