@@ -72,26 +72,17 @@ let g:loaded_python_provider = 0
 let g:auto_save = 1
 let g:auto_save_silent = 1
 
-" Colorizer
-let g:colorizer_auto_color = 1
-
-" Save & quit
-noremap <leader>q :q<CR>
-noremap <C-q> :qa<CR>
-noremap <leader>w :w<CR>
-
 " Undo operations
 noremap l u
-
 
 " Insert Key
 noremap k i
 noremap K I
 
 " Next and previous search
-noremap <C-]> n
-noremap <C-[> N
-noremap <leader>nh :nohl<CR>
+noremap <C-k> n
+noremap <C-p> N
+noremap <silent> <leader><Enter> :nohl<Enter>
 
 " ===
 " === Cursor Movement
@@ -117,19 +108,34 @@ noremap <silent> I $
 " ===
 " === Tab management
 " ===
-noremap tn :bprev<CR>
-noremap ti :bnext<CR>
-noremap Q :bw<CR>
+noremap <silent> tn :bprev<CR>
+noremap <silent> ti :bnext<CR>
+
+" Smart window movements
+map <C-n> <C-W>h
+map <C-i> <C-W>l
+map <C-u> <C-W>k
+map <C-e> <C-W>j
+
+" Save & quit
+noremap <leader>q :q<CR>
+noremap <silent> Q :bw<CR>
+noremap <C-q> :qa<CR>
+noremap <leader>w :w<CR>
 
 " ===
 " === FZF
 " ===
 set rtp+=/usr/local/opt/fzf
-noremap <C-y> :Files<CR>
-noremap <C-f> :Rg<CR>
-noremap <C-e> :History<CR>
-noremap <C-l> :Lines<CR>
-noremap <C-t> :Buffers<CR>
+noremap <silent> <leader>f :Lines<CR>
+noremap <silent> <leader>F :Rg<CR>
+noremap <silent> <leader>e :History<CR>
+noremap <silent> <leader>t :Buffers<CR>
+noremap <silent> <leader>u :Files<CR>
+
+" Better breakline shorstcuts in normal mode
+noremap <silent> <S-Enter> o<Esc>
+
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -149,7 +155,7 @@ let g:fzf_colors =
 " ===
 " === coc-exploxer
 " ===
-nmap tt :CocCommand explorer<CR>
+nmap <silent> tt :CocCommand explorer<CR>
 let g:coc_explorer_global_presets = {
 \   'floating': {
 \      'position': 'floating',
@@ -225,7 +231,7 @@ let g:go_highlight_variable_assignments = 1
 let g:go_highlight_fields = 1
 
 " Fugitive Mappings
-nnoremap <leader>gs :Git<CR>
+nnoremap <silent> <leader>gs :Git<CR>
 
 " vim-plug mappings
-noremap <leader>pi :PlugInstall<CR>
+noremap <silent> <leader>pi :PlugInstall<CR>
