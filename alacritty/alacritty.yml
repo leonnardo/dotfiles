@@ -61,7 +61,7 @@ selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
   save_to_clipboard: true
 
-dynamic_title: true
+dynamic_title: false
 
 live_config_reload: true
 
@@ -168,6 +168,8 @@ key_bindings:
   - { key: Down,  mods: Command,             chars: "\x01\x4a"                 }
   - { key: Up,    mods: Command,             chars: "\x01\x4b"                 }
   - { key: Right, mods: Command,             chars: "\x01\x4c"                 }
+  - { key: Return,   mods: Shift,   chars: "\x1b[13;2u" }
+  - { key: Return,   mods: Control, chars: "\x1b[13;5u" }
 
 #debug:
   # Display the time it takes to redraw each frame.
