@@ -102,8 +102,11 @@ setopt globdots
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="lsd -Ah --group-dirs first"
 alias la="ls -l"
+alias lt="ls -1t"
 alias cat="bat"
 alias vim="nvim"
+alias lg="lazygit"
+alias tmux="tmux -u"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -19,5 +19,7 @@
          "completeUnimported": true
       }
     }
-  }
+  },
+  "git.enableGutters": false,
+  "metals.javaHome": "/Users/leonnardo.rabello/.asdf/installs/java/adopt-openjdk-11.0.6+10"
 }

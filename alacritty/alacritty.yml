@@ -6,8 +6,8 @@ window:
     x: 2
     y: 2
   dynamic_padding: false
-  decorations: full
-  startup_mode: Maximized
+  decorations: none
+  startup_mode: Windowed
 
 scrolling:
   history: 10000
@@ -55,7 +55,7 @@ colors:
     cyan: '0x8FBCBB'
     white: '0xECEFF4'
 
-background_opacity: 1.0
+background_opacity: 0.90
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
