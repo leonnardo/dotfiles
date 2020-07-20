@@ -35,14 +35,14 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug '907th/vim-auto-save'
-"Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'vim-test/vim-test'
 Plug 'liuchengxu/vim-which-key'
-Plug 'kdheepak/lazygit.vim'
-Plug 'tpope/vim-commentary'
+Plug 'kdheepak/lazygit.vim', { 'branch': 'nvim-v0.4.3' }
 Plug 'mhinz/vim-startify'
 Plug 'uarun/vim-protobuf'
 Plug 'hashivim/vim-terraform'
+Plug 'preservim/nerdcommenter' 
 call plug#end()
 let mapleader = " "
 
@@ -81,14 +81,17 @@ set timeoutlen=500
 set signcolumn=yes
 set clipboard=unnamedplus
 set shortmess+=c
+" Set to auto read when a file is changed from the outside
+set autoread
+au FocusGained,BufEnter * checktime
 
-colorscheme nord
+colorscheme gruvbox
 set background=dark
 set termguicolors
 
 highlight Comment cterm=italic gui=italic
 hi Normal guibg=NONE ctermbg=NONE
-let g:airline_theme='nord'
+let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#hunks#enabled = 0
@@ -101,27 +104,30 @@ let g:loaded_python_provider = 0
 let g:auto_save = 1
 let g:auto_save_silent = 1
 
-" Undo operations
-noremap l u
-
 " Insert Key
-noremap k i
-noremap K I
+noremap u i
+noremap U I
+
+" end of word
+noremap j e
+noremap J E
 
 " Next and previous search
-noremap <C-k> n
-noremap <C-p> N
+noremap k n
+noremap K N
 
-" ===
-" === Cursor Movement
-" ===
+" Undo
+noremap l u
+noremap L U
+
+" Cursor movement
 noremap <silent> e gk
 noremap <silent> n gj
 noremap <silent> i l
 noremap <silent> ge gk
 noremap <silent> gn gj
 
-" N key: go to the start of the line
+" H key: go to the start of the line
 noremap <silent> H ^
 " I key: go to the end of the line
 noremap <silent> I $
@@ -132,20 +138,14 @@ noremap <silent> I $
 nnoremap <silent> <Tab> :bnext<CR>
 nnoremap <silent> <S-Tab> :bprev<CR>
 
-" Smart window movements
-" map <C-N> <C-W>h
-" map <C-I> <C-W>l
-" map <C-U> <C-W>k
-" map <C-E> <C-W>j
-
 " Save & quit
 " TODO: check if there's a smart way to quit buffers, splits and full program
 " https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
 noremap <leader>q :q<CR>
 noremap <silent> Q :bw<CR>
 noremap <C-q> :qa<CR>
-noremap <leader>w :w<CR>
 
+" kk to leave insert mode
 inoremap kk <Esc>
 
 " FZF
@@ -153,24 +153,9 @@ set rtp+=/usr/local/opt/fzf
 noremap <silent> <leader>f :Lines<CR>
 noremap <silent> <leader>F :Rg<CR>
 noremap <silent> <leader>e :History<CR>
-noremap <silent> <leader>t :Buffers<CR>
 noremap <silent> <leader>u :Files<CR>
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
 
 nnoremap <silent> <M-Up> :res +1<CR>
 nnoremap <silent> <M-Down> :res -1<CR>
@@ -179,6 +164,7 @@ nnoremap <silent> <M-S-Right> :vertical res +1<CR>
 " ===
 " === coc-exploxer
 " ===
+map <silent> <F2> :CocCommand explorer --width 45'<CR>
 let g:coc_explorer_global_presets = {
 \   'floating': {
 \      'position': 'floating',
@@ -285,12 +271,15 @@ nnoremap <silent> <leader>gs :Git<cr>
 nnoremap <silent> <leader>gp :Git pull<cr>
 nnoremap <silent> <leader>gP :Git push<cr>
 
+" LazyGit
+nnoremap <silent> <leader>lg :LazyGit<CR>
+
 " vim-plug mappings
 noremap <silent> <leader>pi :PlugInstall<CR>
 
-" Move block of lines (normal or visual) using shift+[UE]
-xnoremap <silent> E :move '>+1<CR>gv-gv
-xnoremap <silent> U :move '<-2<CR>gv-gv
+" Move block of lines (normal or visual) using shift+[NE]
+xnoremap <silent> N :move '>+1<CR>gv-gv
+xnoremap <silent> E :move '<-2<CR>gv-gv
 
 " Vim which key for <leader>
 nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
@@ -298,12 +287,17 @@ vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
 " Create map to add keys to
 let g:which_key_map =  {}
+
 " Define a separator
 let g:which_key_sep = '→'
-let g:which_key_map['/'] = [ ':Commentary'  , 'Toggle comment' ]
+
+" Some custom keys
 let g:which_key_map['.']  = [ ':e $MYVIMRC', 'Open vimrc' ]
+let g:which_key_map['/'] = [ "<Plug>NERDCommenterToggle"  , "Toggle comment" ]
 let g:which_key_map[';'] = [ ':Commands', 'commands' ]
 let g:which_key_map['1'] =  [':CocCommand explorer --width 45', "Toggle File Explorer"]
+
+" Search
 let g:which_key_map.s = {
   \ 'name': 'Search',
   \ 'l': [':Lines', 'Search lines in this buffer'],
@@ -312,13 +306,38 @@ let g:which_key_map.s = {
   \ 'b': [':Buffers', 'Search for open buffers'],
   \ 'f': [':Files', 'Search in current directory'],
   \ 's': [':CocList outline', 'Fuzzy search symbols of this file'],
+  \ 'w' : ['Windows'    , 'Search in open windows']            ,
   \ }
-let g:which_key_map.a = {
-  \ 'name': 'Action',
-  \ 'r': [ ':set relativenumber!', 'Toggle relative lines' ],
-  \ 'l': [ ':set nonumber!', 'Toggle show lines' ],
+
+" Toggles
+let g:which_key_map.t = {
+  \ 'name': 'Toggle',
+  \ 'r': [ ':set relativenumber!', 'Relative lines' ],
+  \ 'l': [ ':set nonumber!', 'Show lines' ],
   \ 'h': [ ':let @/ = ""', 'Remove search highlight' ],
-  \ 's': [ ':so $MYVIMRC', "Source init.vim" ]
+  \ 's': [ ':so $MYVIMRC', "Source init.vim" ],
+  \ 'c': [ "<Plug>NERDCommenterToggle"  , "Toggle comment" ],
+  \ 'e': [':CocCommand explorer --width 45', "Toggle File Explorer"]
+  \ }
+
+" Winodow actions
+let g:which_key_map.w = {
+  \ 'name' : 'Windows' ,
+  \ 'w' : ['<C-W>w'     , 'other-window']          ,
+  \ 'q' : ['<C-W>c'     , 'delete-window']         ,
+  \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
+  \ 'h' : ['<C-W>h'     , 'window-left']           ,
+  \ 'n' : ['<C-W>j'     , 'window-below']          ,
+  \ 'i' : ['<C-W>l'     , 'window-right']          ,
+  \ 'e' : ['<C-W>k'     , 'window-up']             ,
+  \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
+  \ 'N' : ['resize +5'  , 'expand-window-below']   ,
+  \ 'I' : ['<C-W>5>'    , 'expand-window-right']   ,
+  \ 'E' : ['resize -5'  , 'expand-window-up']      ,
+  \ '=' : ['<C-W>='     , 'balance-window']        ,
+  \ 's' : ['<C-W>s'     , 'split-window-below']    ,
+  \ 'v' : ['<C-W>v'     , 'split-window-right']    ,
+  \ 'c' : ['Windows'    , 'fzf-window']            ,
   \ }
 
 call which_key#register('<Space>', "g:which_key_map")
