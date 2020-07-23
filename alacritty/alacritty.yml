@@ -2,9 +2,10 @@ env:
   TERM: xterm-256color
 
 window:
+  dynamic_title: false
   padding:
-    x: 2
-    y: 2
+    x: 5
+    y: 5
   dynamic_padding: false
   decorations: none
   startup_mode: Windowed
@@ -15,9 +16,11 @@ scrolling:
 
 font:
   normal:
-    family: RobotoMono Nerd Font
+    family: 'RobotoMono Nerd Font'
+    #family: 'Iosevka Nerd Font Mono'
+    #family: 'MesloLGS NF'
     style: Regular
-  size: 14
+  size: 14.0
   offset:
     x: 0
     y: 0
@@ -78,8 +81,6 @@ background_opacity: 0.90
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
   save_to_clipboard: true
-
-dynamic_title: false
 
 live_config_reload: true
 
