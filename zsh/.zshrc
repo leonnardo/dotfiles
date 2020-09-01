@@ -15,7 +15,6 @@ export ZSH="/Users/leonnardo.rabello/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="spaceship"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
@@ -76,16 +75,28 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git golang)
+plugins=(
+  fzf
+  asdf
+  zsh-z
+  git
+  golang
+  colored-man-pages
+  httpie
+  tmux
+  zsh_reload
+  zsh-interactive-cd
+  zsh-navigation-tools
+  colemak
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # NeoVim as editor
 export EDITOR=nvim
@@ -93,13 +104,20 @@ export EDITOR=nvim
 # Autocomplete hidden files
 setopt globdots
 
+# Vi Mode
+bindkey -v
+export KEYTIMEOUT=1
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
+# some $PATH exports
+export PATH="/usr/local/sbin:$PATH"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="lsd -Ah --group-dirs first"
 alias la="ls -l"
 alias lt="ls -1t"
@@ -107,18 +125,12 @@ alias cat="bat"
 alias vim="nvim"
 alias lg="lazygit"
 alias tmux="tmux -u"
+alias top="bpytop"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/usr/local/sbin:$PATH"
-. /usr/local/opt/asdf/asdf.sh
-. /usr/local/etc/profile.d/z.sh
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-    --color=fg:#e5e9f0,bg:#3b4251,hl:#81a1c1
-    --color=fg+:#e5e9f0,bg+:#3b4251,hl+:#81a1c1
-    --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac'
-
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
+
+source /Users/leonnardo.rabello/.config/broot/launcher/bash/br

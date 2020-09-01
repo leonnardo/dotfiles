@@ -1,5 +1,4 @@
 " ============= Vim-Plug ============== "{{{
-
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 let g:vim_bootstrap_editor = "nvim"
 
@@ -16,7 +15,6 @@ if !filereadable(vimplug_exists)
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-
 " }}}
 
 Plug 'junegunn/fzf'
@@ -34,7 +32,7 @@ Plug 'wakatime/vim-wakatime'
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-Plug '907th/vim-auto-save'
+"Plug '907th/vim-auto-save'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'vim-test/vim-test'
 Plug 'liuchengxu/vim-which-key'
@@ -43,6 +41,9 @@ Plug 'mhinz/vim-startify'
 Plug 'uarun/vim-protobuf'
 Plug 'hashivim/vim-terraform'
 Plug 'preservim/nerdcommenter' 
+Plug 'ryanoasis/vim-devicons'
+Plug 'sebdah/vim-delve'
+Plug 'junegunn/vim-easy-align'
 call plug#end()
 let mapleader = " "
 
@@ -81,6 +82,7 @@ set timeoutlen=500
 set signcolumn=yes
 set clipboard=unnamedplus
 set shortmess+=c
+
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * checktime
@@ -105,42 +107,41 @@ let g:auto_save = 1
 let g:auto_save_silent = 1
 
 " Insert Key
-noremap u i
-noremap U I
+nnoremap u i
+nnoremap U I
 
 " end of word
-noremap j e
-noremap J E
+nmap j e
+nmap J E
 
 " Next and previous search
-noremap k n
-noremap K N
+nnoremap k n
+nnoremap K N
 
 " Undo
-noremap l u
-noremap L U
+nnoremap l u
+nnoremap L U
+
+" nei = jkl
+nnoremap N J
+nnoremap E K
+nnoremap I L
 
 " Cursor movement
-noremap <silent> e gk
-noremap <silent> n gj
-noremap <silent> i l
-noremap <silent> ge gk
-noremap <silent> gn gj
+vnoremap <silent> e <Up>
+nnoremap <silent> e <Up>
+nnoremap <silent> n <Down>
+vnoremap <silent> n <Down>
+nnoremap <silent> i <Right>
+vnoremap <silent> i <Right>
+nnoremap <silent> ge gk
+nnoremap <silent> gn gj
 
-" H key: go to the start of the line
-noremap <silent> H ^
-" I key: go to the end of the line
-noremap <silent> I $
-
-" ===
-" === Tab management
-" ===
+" Tab management
 nnoremap <silent> <Tab> :bnext<CR>
 nnoremap <silent> <S-Tab> :bprev<CR>
 
 " Save & quit
-" TODO: check if there's a smart way to quit buffers, splits and full program
-" https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
 noremap <leader>q :q<CR>
 noremap <silent> Q :bw<CR>
 noremap <C-q> :qa<CR>
@@ -161,28 +162,10 @@ nnoremap <silent> <M-Up> :res +1<CR>
 nnoremap <silent> <M-Down> :res -1<CR>
 nnoremap <silent> <M-S-Left> :vertical res -1<CR>
 nnoremap <silent> <M-S-Right> :vertical res +1<CR>
-" ===
-" === coc-exploxer
-" ===
-map <silent> <F2> :CocCommand explorer --width 45'<CR>
-let g:coc_explorer_global_presets = {
-\   'floating': {
-\      'position': 'floating',
-\   },
-\   'floatingLeftside': {
-\      'position': 'floating',
-\      'floating-position': 'left-center',
-\      'floating-width': 50,
-\   },
-\   'floatingRightside': {
-\      'position': 'floating',
-\      'floating-position': 'left-center',
-\      'floating-width': 50,
-\   },
-\   'simplify': {
-\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
-\   }
-\ }
+
+" coc-exploxer
+map <silent> <F2> :CocCommand explorer<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " Coc mappings
 " Use tab for trigger completion with characters ahead and navigate.
@@ -192,6 +175,7 @@ inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
@@ -236,7 +220,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap <F6> <Plug>(coc-rename)
 
 " Refactor current word
 nmap <leader>rf <Plug>(coc-refactor)
@@ -245,14 +229,17 @@ augroup go
   autocmd!
   " Show by default 4 spaces for a tab
   autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-  autocmd FileType go nmap <silent> <F5> <Plug>(go-run)
-  autocmd FileType go nmap <silent> <F6> <Plug>(go-test-func)
 augroup END
 
+nmap <F4> <Plug>(go-test-func)
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 0
 let g:go_def_mapping_enabled = 0
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
+let g:go_pls_enabled = 0
 let g:go_code_completion_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+let g:go_textobj_enable = 0
+let g:go_echo_go_info = 1
 let g:go_highlight_structs = 1 
 let g:go_highlight_methods = 1
 let g:go_highlight_functions = 1
@@ -266,10 +253,6 @@ let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
 let g:go_highlight_fields = 1
 
-" fugitive mappings
-nnoremap <silent> <leader>gs :Git<cr>
-nnoremap <silent> <leader>gp :Git pull<cr>
-nnoremap <silent> <leader>gP :Git push<cr>
 
 " LazyGit
 nnoremap <silent> <leader>lg :LazyGit<CR>
@@ -295,11 +278,28 @@ let g:which_key_sep = '→'
 let g:which_key_map['.']  = [ ':e $MYVIMRC', 'Open vimrc' ]
 let g:which_key_map['/'] = [ "<Plug>NERDCommenterToggle"  , "Toggle comment" ]
 let g:which_key_map[';'] = [ ':Commands', 'commands' ]
-let g:which_key_map['1'] =  [':CocCommand explorer --width 45', "Toggle File Explorer"]
+let g:which_key_map['<Tab>'] =  [':CocCommand explorer', "Toggle File Explorer"]
+
+" Actions
+let g:which_key_map.a = {
+  \ 'name': '+actions',
+  \ 's': [':w', 'Save current buffer'],
+  \ 'a': [':wa', 'Save all buffers'],
+  \ }
+
+" Fugitive
+let g:which_key_map.g = {
+  \ 'name': '+git',
+  \ 's': [':Git', 'Status'],
+  \ 'p': [':Git pull', 'Pull'],
+  \ 'P': [':Git push', 'Push'],
+  \ 'd': [':Gdiff', 'Diff'],
+  \ 'c': [':Git commit', 'Commit'],
+  \ }
 
 " Search
 let g:which_key_map.s = {
-  \ 'name': 'Search',
+  \ 'name': '+search',
   \ 'l': [':Lines', 'Search lines in this buffer'],
   \ 'g': [':Rg', 'ripgrep'],
   \ 'h': [':History', 'Search in buffer history'],
@@ -311,33 +311,35 @@ let g:which_key_map.s = {
 
 " Toggles
 let g:which_key_map.t = {
-  \ 'name': 'Toggle',
+  \ 'name': 'toggle',
   \ 'r': [ ':set relativenumber!', 'Relative lines' ],
   \ 'l': [ ':set nonumber!', 'Show lines' ],
   \ 'h': [ ':let @/ = ""', 'Remove search highlight' ],
   \ 's': [ ':so $MYVIMRC', "Source init.vim" ],
   \ 'c': [ "<Plug>NERDCommenterToggle"  , "Toggle comment" ],
-  \ 'e': [':CocCommand explorer --width 45', "Toggle File Explorer"]
+  \ 'e': [':CocCommand explorer', "Toggle File Explorer"]
   \ }
 
-" Winodow actions
+" Windows actions
 let g:which_key_map.w = {
-  \ 'name' : 'Windows' ,
-  \ 'w' : ['<C-W>w'     , 'other-window']          ,
-  \ 'q' : ['<C-W>c'     , 'delete-window']         ,
-  \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
-  \ 'h' : ['<C-W>h'     , 'window-left']           ,
-  \ 'n' : ['<C-W>j'     , 'window-below']          ,
-  \ 'i' : ['<C-W>l'     , 'window-right']          ,
-  \ 'e' : ['<C-W>k'     , 'window-up']             ,
-  \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
-  \ 'N' : ['resize +5'  , 'expand-window-below']   ,
-  \ 'I' : ['<C-W>5>'    , 'expand-window-right']   ,
-  \ 'E' : ['resize -5'  , 'expand-window-up']      ,
-  \ '=' : ['<C-W>='     , 'balance-window']        ,
-  \ 's' : ['<C-W>s'     , 'split-window-below']    ,
-  \ 'v' : ['<C-W>v'     , 'split-window-right']    ,
-  \ 'c' : ['Windows'    , 'fzf-window']            ,
+  \ 'name' : '+windows' ,
+  \ 'w' : ['<C-W>w',    'other-window']          ,
+  \ 'd': [':bd!', 'buffer-delete'  ],
+  \ 'a': [':wa' , 'buffer-save-all'],
+  \ 'q' : ['<C-W>c',    'delete-window']         ,
+  \ '2' : ['<C-W>v',    'layout-double-columns'] ,
+  \ 'h' : ['<C-W>h',    'window-left']           ,
+  \ 'n' : ['<C-W>j',    'window-below']          ,
+  \ 'i' : ['<C-W>l',    'window-right']          ,
+  \ 'e' : ['<C-W>k',    'window-up']             ,
+  \ 'H' : ['<C-W>5<',   'expand-window-left']    ,
+  \ 'N' : ['resize +5', 'expand-window-below']   ,
+  \ 'I' : ['<C-W>5>',   'expand-window-right']   ,
+  \ 'E' : ['resize -5', 'expand-window-up']      ,
+  \ '=' : ['<C-W>=',    'balance-window']        ,
+  \ 's' : ['<C-W>s',    'split-window-below']    ,
+  \ 'v' : ['<C-W>v',    'split-window-right']    ,
+  \ 'c' : ['Windows',   'fzf-window']            ,
   \ }
 
 call which_key#register('<Space>', "g:which_key_map")
@@ -352,5 +354,47 @@ autocmd CmdwinEnter * nnoremap <CR> <CR>
 autocmd BufReadPost quickfix nnoremap <CR> <CR>
 
 " vim-terraform config
-let g:terraform_align =1
+let g:terraform_align = 1
 let g:terraform_fmt_on_save = 1
+
+let s:header = [
+\"    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠉⠉⠉⠉⠀⠀⠀⠀⠀⠉⠉⠉⠉⠛⠛⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⠁⠀⠀⠀⠀⠀⢀⣀⣤⡤⠶⠖⠚⠛⠛⠛⠛⠛⠛⠳⠶⣦⣤⣄⡀⠀⠀⠀⠀⠀⠈⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⣠⣴⣾⡿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⢿⣿⣶⣄⡀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⢀⣴⣾⣿⡿⠋⠀⠀⢀⣠⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⣄⡀⠀⠀⠹⣿⣿⣿⣦⡀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⣴⣿⣿⣿⡿⠁⠀⣠⣾⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣷⣄⠀⠘⣿⣿⣿⣿⣦⠀⠀⠀⠀⠘⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⠃⠀⠀⠀⢀⣾⣿⣿⣿⣿⠃⠀⣾⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⡇⠀⢹⣿⣿⣿⣿⣷⡀⠀⠀⠀⠸⣿⣿⣿",
+\"    ⣿⣿⣿⡟⠀⠀⠀⢀⣾⣿⣿⣿⣿⡟⠀⢀⢸⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⢠⠀⠈⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⢻⣿⣿",
+\"    ⣿⣿⣿⠇⠀⠀⠀⣼⣿⣿⣿⣿⣿⡇⠀⢸⠀⣿⣿⣿⣿⣿⣿⣧⣀⣀⣄⣀⣠⣿⣿⣿⣿⣿⣿⡏⢸⠀⠀⣿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠸⣿⣿",
+\"    ⣿⣿⣿⠀⠀⠀⢠⣿⣿⣿⣿⣿⡿⠃⠀⣼⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⡄⠀⠻⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⣿⣿",
+\"    ⣿⣿⣿⠀⠀⠀⣸⣿⣿⣿⣿⣿⠀⠀⠀⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⡇⠀⠀⢸⣿⣿⣿⣿⣿⡇⠀⠀⠀⣿⣿",
+\"    ⣿⣿⣿⠀⠀⠀⣿⣿⣿⣿⣿⣿⠀⠀⢠⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣧⠀⠀⢸⣿⣿⣿⣿⣿⡇⠀⠀⠀⣿⣿",
+\"    ⣿⣿⣿⠀⠀⠀⣿⣿⣿⣿⣿⣿⡄⠀⣾⣿⠀⠈⠛⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠉⠀⢸⣿⡆⠀⣾⣿⣿⣿⣿⣿⡇⠀⠀⠀⣿⣿",
+\"    ⣿⣿⣿⠀⠀⠀⣿⣿⣿⣿⣿⣿⡇⠀⠻⣿⡄⠀⠀⠀⠀⠀⠉⢉⣉⣛⣛⣉⣉⠉⠀⠀⠀⠀⠀⠀⣾⡿⠁⠀⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⣿⣿",
+\"    ⣿⣿⣿⠀⠀⠀⢻⣿⣿⣿⣿⣿⡇⠀⠀⠙⢿⣿⣶⣶⣤⣤⣴⣿⣿⣿⣿⣿⣿⣷⣤⣤⣶⣶⣾⣿⠏⠀⠀⠀⣿⣿⣿⣿⣿⣿⠃⠀⠀⢀⣿⣿",
+\"    ⣿⣿⣿⡀⠀⠀⠘⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⡡⠀⠀⢀⣼⣿⣿⣿⣿⣿⡟⠀⠀⠀⢸⣿⣿",
+\"    ⣿⣿⣿⣇⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣷⡄⠀⠱⣄⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣡⡾⠁⠀⣴⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⣾⣿⣿",
+\"    ⣿⣿⣿⣿⡀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⡇⠀⠀⢹⣷⡄⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⣾⣿⠁⠀⠀⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⣸⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣷⡀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣧⠀⠀⠀⢻⣷⠈⣿⣿⣿⣿⣿⣿⣿⣿⡏⣸⣿⠃⠀⠀⢰⣿⣿⣿⣿⣿⡿⠃⠀⠀⢀⣰⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠙⢿⣿⣿⣿⣿⣦⡀⠀⠈⣿⠇⢰⣶⣶⣶⣶⣶⣶⣶⠀⣿⡏⠀⠀⣠⣾⣿⣿⣿⣿⠟⠁⠂⠀⠀⣼⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠙⢿⣿⣿⣿⣷⣄⠀⠈⠀⢸⣿⣿⣿⣿⣿⣿⣿⠀⠈⠀⢀⣴⣿⣿⣿⣿⠟⠁⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠈⠻⢿⣿⣿⣦⡀⠀⠈⠉⠉⠉⠉⠉⠉⠁⠀⠀⣠⣿⣿⣿⠿⠋⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⡀⠀⠀⠀⠀⠈⠉⠛⠻⠤⢤⣤⣤⣤⣀⣀⣀⣤⡠⠼⠟⠛⠉⠀⠀⠀⠀⠀⣀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
+\"    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
+\]
+function! s:center(lines) abort
+  let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
+  let centered_lines = map(copy(a:lines),
+        \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+  return centered_lines
+endfunction
+let g:startify_custom_header = s:header
+let g:startify_change_to_dir = 1
+
+" keep lines selected to indent
+vnoremap > >gv
+vnoremap < <gv
