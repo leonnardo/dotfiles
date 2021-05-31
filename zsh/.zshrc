@@ -104,6 +104,8 @@ export EDITOR=nvim
 # Autocomplete hidden files
 setopt globdots
 
+setopt extendedglob
+
 # Vi Mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -114,6 +116,8 @@ bindkey '^e' edit-command-line
 export PATH="/usr/local/sbin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export AWS_VAULT_BACKEND="file"
+export AWS_VAULT_FILE_PASSPHRASE="my_strong_password"
 
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -125,7 +129,8 @@ alias cat="bat"
 alias vim="nvim"
 alias lg="lazygit"
 alias tmux="tmux -u"
-alias top="bpytop"
+alias top="btm -T"
+alias tail="multitail"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -134,3 +139,19 @@ alias top="bpytop"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 
 source /Users/leonnardo.rabello/.config/broot/launcher/bash/br
+
+eval "$(direnv hook zsh)"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/leonnardo.rabello/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/leonnardo.rabello/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/leonnardo.rabello/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/leonnardo.rabello/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
