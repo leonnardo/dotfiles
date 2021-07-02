@@ -1,3 +1,5 @@
+" TODO: refactor to lua config based on this site: https://alpha2phi.medium.com/neovim-init-lua-e80f4f136030
+
 " ============= Vim-Plug ============== "{{{
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 let g:vim_bootstrap_editor = "nvim"
@@ -37,7 +39,7 @@ Plug 'kdheepak/lazygit.vim'
 Plug 'mhinz/vim-startify'
 Plug 'uarun/vim-protobuf'
 Plug 'hashivim/vim-terraform'
-Plug 'preservim/nerdcommenter' 
+Plug 'preservim/nerdcommenter'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sebdah/vim-delve'
@@ -111,48 +113,10 @@ set pyx=3
 let g:python3_host_prog = expand('~/.asdf/shims/python')
 let g:loaded_python_provider = 0
 
-" Insert Key
-nnoremap u i
-nnoremap U I
-
-" end of word
-nmap j e
-nmap J E
-
-" Next and previous search
-nnoremap k n
-nnoremap K N
-
-" Undo
-nnoremap l u
-nnoremap L U
-
-" nei = jkl
-nnoremap N J
-nnoremap E K
-nnoremap I L
-
-" Cursor movement
-vnoremap <silent> e <Up>
-nnoremap <silent> e <Up>
-nnoremap <silent> n <Down>
-vnoremap <silent> n <Down>
-nnoremap <silent> i <Right>
-vnoremap <silent> i <Right>
-nnoremap <silent> ge gk
-nnoremap <silent> gn gj
-
-" Tab management
-"nnoremap <silent> <S-Tab> :bprev<CR>
-"nnoremap <silent> <Tab> :bnext<CR>
-
 " Save & quit
 noremap <leader>q :q<CR>
 noremap <silent> Q :bw<CR>
 noremap <C-q> :qa<CR>
-
-" kk to leave insert mode
-inoremap kk <Esc>
 
 " FZF
 set rtp+=/usr/local/opt/fzf
@@ -172,7 +136,6 @@ nnoremap <C-Down> <C-W><C-J>
 nnoremap <C-Up> <C-W><C-K>
 nnoremap <C-Right> <C-W><C-L>
 nnoremap <C-Left> <C-W><C-H>
-
 
 
 augroup go
@@ -218,10 +181,10 @@ nnoremap <silent> <C-Down> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-Up> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
 
-luafile ~/.config/nvim/lua/completion/init.lua
 luafile ~/.config/nvim/lua/lsp/init.lua
 luafile ~/.config/nvim/lua/config/treesitter.lua
 luafile ~/.config/nvim/lua/config/lualine.lua
+luafile ~/.config/nvim/lua/config/compe.lua
 
 " Telescope mappings
 source ~/.config/nvim/lua/config/telescope.vim

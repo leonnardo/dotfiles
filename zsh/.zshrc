@@ -122,15 +122,18 @@ export AWS_VAULT_FILE_PASSPHRASE="my_strong_password"
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-alias ls="lsd -Ah --group-dirs first"
-alias la="ls -l"
-alias lt="ls -1t"
+alias ls="exa --icons -a --group-directories-first"
+#alias ls="lsd -A --group-dirs first"
+alias lt="ls -T -L 2"
+alias lr="ll --reverse"
 alias cat="bat"
 alias vim="nvim"
 alias lg="lazygit"
 alias tmux="tmux -u"
 alias top="btm -T"
 alias tail="multitail"
+alias ping="gping"
+alias kst="less ~/.config/skhd/skhdrc"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -138,9 +141,6 @@ alias tail="multitail"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 
-source /Users/leonnardo.rabello/.config/broot/launcher/bash/br
-
-eval "$(direnv hook zsh)"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/leonnardo.rabello/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -155,3 +155,9 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+# 1Password completion cli 
+eval "$(op completion zsh)"; compdef _op op
+export OP_SESSION_MY=YJG0pdWQsoWAl5NoptsXEM0w_7bJSYXYJ_4VaUeKWpE
+
+eval "$(asdf exec direnv hook zsh)"
+direnv() { asdf exec direnv "$@"; }
