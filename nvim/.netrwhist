@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/Users/leonnardo.rabello/.aws'
+let g:netrw_dirhist_8='/Users/leonnardo.rabello/dev/work/dynamic-offers/gateway/web/controllers/recommendations'
+let g:netrw_dirhist_7='/Users/leonnardo.rabello/dev/work/dynamic-offers/gateway/web/controllers'
+let g:netrw_dirhist_6='/Users/leonnardo.rabello/dev/work/dynamic-offers/wild-ml'
+let g:netrw_dirhist_5='/Users/leonnardo.rabello/dev/work/infra/top-infrastructure'
+let g:netrw_dirhist_4='/Users/leonnardo.rabello/dev/work/dynamic-offers/gateway/remote/remoteactions'
+let g:netrw_dirhist_3='/Users/leonnardo.rabello/dev/work/dynamic-offers/gateway/remote'
+let g:netrw_dirhist_2='/Users/leonnardo.rabello/dev/work/dynamic-offers/gateway/remote/remoteconfig'
+let g:netrw_dirhist_1='/Users/leonnardo.rabello/dev/work/dynamic-offers/gateway/remote'
+let g:netrw_dirhist_0='/Users/leonnardo.rabello/dev/work/dynamic-offers/gateway'

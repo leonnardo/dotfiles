@@ -5,10 +5,11 @@ let g:which_key_map =  {}
 let g:which_key_sep = '→'
 
 " Some custom keys
-let g:which_key_map['.']  = [ ':e $MYVIMRC', 'Open vimrc' ]
+let g:which_key_map['.']  = [ ':e $MYVIMRC', 'Open init.vim' ]
+let g:which_key_map['r']  = [ ':so $MYVIMRC', 'Source init.vim' ]
 let g:which_key_map['/'] = [ "<Plug>NERDCommenterToggle"  , "Toggle comment" ]
 let g:which_key_map[';'] = [ ':Commands', 'commands' ]
-let g:which_key_map['<Tab>'] =  [':CocCommand explorer', "Toggle File Explorer"]
+let g:which_key_map['<Tab>'] =  ['<Plug>NERDTreeToggle', "Toggle File Explorer"]
 
 " Actions
 let g:which_key_map.a = {
@@ -23,7 +24,7 @@ let g:which_key_map.g = {
   \ 's': [':Git', 'Status'],
   \ 'p': [':Git pull', 'Pull'],
   \ 'P': [':Git push', 'Push'],
-  "\ 'd': [':Gdiff', 'Diff'],
+  \ 'd': [':Gdiff', 'Diff'],
   \ 'c': [':Git commit', 'Commit'],
   \ }
 
