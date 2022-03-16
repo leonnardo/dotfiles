@@ -120,6 +120,17 @@ _G.packer_plugins = {
     path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
+  ["go.nvim"] = {
+    config = { 'require("config/go-nvim")' },
+    loaded = true,
+    path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/start/go.nvim",
+    url = "https://github.com/ray-x/go.nvim"
+  },
+  ["gruvbox.nvim"] = {
+    loaded = true,
+    path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
+    url = "https://github.com/ellisonleao/gruvbox.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
@@ -133,11 +144,15 @@ _G.packer_plugins = {
     path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/opt/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
-  ["material.nvim"] = {
-    config = { 'require("config/colorscheme")' },
+  ["nightfox.nvim"] = {
     loaded = true,
-    path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/start/material.nvim",
-    url = "https://github.com/marko-cerovac/material.nvim"
+    path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
+    url = "https://github.com/EdenEast/nightfox.nvim"
+  },
+  ["nlua.nvim"] = {
+    loaded = true,
+    path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/start/nlua.nvim",
+    url = "https://github.com/tjdevries/nlua.nvim"
   },
   ["nvim-autopairs"] = {
     config = { 'require("config/autopairs")' },
@@ -211,11 +226,17 @@ _G.packer_plugins = {
   },
   ["telescope.nvim"] = {
     commands = { "Telescope" },
+    config = { 'require("config/telescope")' },
     loaded = false,
     needs_bufread = true,
     only_cond = false,
     path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/opt/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["vim-be-good"] = {
+    loaded = true,
+    path = "/Users/leonnardo.rabello/.local/share/nvim/site/pack/packer/start/vim-be-good",
+    url = "https://github.com/ThePrimeagen/vim-be-good"
   },
   ["vim-surround"] = {
     loaded = true,
@@ -259,14 +280,6 @@ if not vim.g.packer_custom_loader_enabled then
   vim.g.packer_custom_loader_enabled = true
 end
 
--- Config for: nvim-cmp
-time([[Config for nvim-cmp]], true)
-require("config/cmp")
-time([[Config for nvim-cmp]], false)
--- Config for: nvim-tree.lua
-time([[Config for nvim-tree.lua]], true)
-require("config/nvim-tree")
-time([[Config for nvim-tree.lua]], false)
 -- Config for: which-key.nvim
 time([[Config for which-key.nvim]], true)
 require("config/whichkey")
@@ -275,22 +288,30 @@ time([[Config for which-key.nvim]], false)
 time([[Config for Comment.nvim]], true)
 require("config/comment")
 time([[Config for Comment.nvim]], false)
--- Config for: nvim-autopairs
-time([[Config for nvim-autopairs]], true)
-require("config/autopairs")
-time([[Config for nvim-autopairs]], false)
--- Config for: material.nvim
-time([[Config for material.nvim]], true)
-require("config/colorscheme")
-time([[Config for material.nvim]], false)
--- Config for: nvim-lspconfig
-time([[Config for nvim-lspconfig]], true)
-require("config/lsp")
-time([[Config for nvim-lspconfig]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
 require("config/treesitter")
 time([[Config for nvim-treesitter]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+require("config/autopairs")
+time([[Config for nvim-autopairs]], false)
+-- Config for: nvim-lspconfig
+time([[Config for nvim-lspconfig]], true)
+require("config/lsp")
+time([[Config for nvim-lspconfig]], false)
+-- Config for: go.nvim
+time([[Config for go.nvim]], true)
+require("config/go-nvim")
+time([[Config for go.nvim]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+require("config/cmp")
+time([[Config for nvim-cmp]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+require("config/nvim-tree")
+time([[Config for nvim-tree.lua]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
@@ -309,5 +330,6 @@ if should_profile then save_profiles(1) end
 end)
 
 if not no_errors then
+  error_msg = error_msg:gsub('"', '\\"')
   vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end

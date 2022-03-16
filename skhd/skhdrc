@@ -33,13 +33,6 @@ cmd + ctrl - o : yabai -m window --toggle split
 # create space
 cmd + ctrl - c : yabai -m space --create
 
-# focus spaces
-ctrl - 1 : yabai -m space --focus dev
-ctrl - 2 : yabai -m space --focus web
-ctrl - 3 : yabai -m space --focus comms
-ctrl - 4 : yabai -m space --focus calendar
-ctrl - 5 : yabai -m space --focus docs
-
 cmd + ctrl - 1 : yabai -m space --focus 1
 cmd + ctrl - 2 : yabai -m space --focus 2
 cmd + ctrl - 3 : yabai -m space --focus 3
@@ -58,6 +51,7 @@ cmd + ctrl - m : yabai -m window --minimize
 # send space to other display
 cmd + ctrl + shift - 1 : yabai -m space --display 1
 cmd + ctrl + shift - 2 : yabai -m space --display 2
+cmd + ctrl + shift - 3 : yabai -m space --display 3
 
 # send window to other display
 cmd + ctrl + alt - 1 : yabai -m window --display 1

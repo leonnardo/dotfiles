@@ -4,6 +4,17 @@ if not ok then
   return
 end
 
+
+_G.toggle_langmap = function ()
+  if vim.g.colemak then
+    vim.opt.langmap = ""
+    vim.api.nvim_set_var('colemak', false)
+  else
+    vim.opt.langmap = "il,li,IL,LI,je,JE,ek,EK,kn,KN,nj,NJ"
+    vim.api.nvim_set_var('colemak', true)
+  end
+end
+
 local opts = {
   mode = "n", -- NORMAL mode
   prefix = "<leader>",
@@ -67,7 +78,14 @@ local mappings = {
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     c = { "<cmd>Telescope commands<cr>", "Commands" },
+    f = { "<cmd>lua require('config.telescope').find_in_local_file()<cr>" , "Find in Local File" },
   },
+
+  t = {
+    name = "Toggle",
+    t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" },
+    l = { "v:lua toggle_langmap()<cr>", "Toggle Langmap" }
+  }
 }
 
 whichkey.setup()

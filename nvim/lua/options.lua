@@ -4,10 +4,6 @@ vim.o.lazyredraw = true
 opt.mouse = "a"
 opt.hidden = true
 opt.encoding = "utf-8"
---opt.pumheight=10
---opt.cmdheight=2
---opt.iskeyword +=-
---opt.iskeyword+=_
 opt.splitbelow = true
 opt.splitright = true
 opt.number = true
@@ -22,7 +18,7 @@ opt.smartindent = true
 opt.incsearch =true
 opt.hlsearch = true
 opt.list = true
-opt.listchars = { tab = "→ ", trail = "▫" } --, eol = "⏎"  }
+opt.listchars = { tab = "→ ", trail = "▫" , eol = "⏎"  }
 opt.showcmd = true
 opt.signcolumn = "yes:1"
 opt.clipboard = "unnamedplus"

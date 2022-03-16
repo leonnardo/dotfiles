@@ -37,7 +37,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS=true
@@ -76,18 +76,20 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  fzf
   asdf
+  fzf
   zsh-z
   git
   golang
   colored-man-pages
   httpie
   tmux
-  zsh_reload
-  zsh-interactive-cd
-  zsh-navigation-tools
   colemak
+  gitignore
+  jsontools
+  kubectl
+  zsh-syntax-highlighting
+  zsh-interactive-cd
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -134,6 +136,8 @@ alias top="btm -T"
 alias tail="multitail"
 alias ping="gping"
 alias kst="less ~/.config/skhd/skhdrc"
+alias kba="kube-auth -a"
+alias htop="btop"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -159,5 +163,11 @@ unset __conda_setup
 eval "$(op completion zsh)"; compdef _op op
 export OP_SESSION_MY=YJG0pdWQsoWAl5NoptsXEM0w_7bJSYXYJ_4VaUeKWpE
 
+# aws-vault completion
+eval "$(aws-vault --completion-script-zsh)"
+
+. /usr/local/opt/asdf/libexec/asdf.sh
 eval "$(asdf exec direnv hook zsh)"
 direnv() { asdf exec direnv "$@"; }
+
+

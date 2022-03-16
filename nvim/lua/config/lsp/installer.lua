@@ -11,9 +11,16 @@ lsp_installer.on_server_ready(function(server)
   }
 
   local server_opts = {
-    ["sumneko_lua"] = function()
-      default_opts.settings = require("config.lsp.settings.sumneko_lua")
-    end
+      ["sumneko_lua"] = function ()
+        default_opts.settings = require("config.lsp.server_settings.sumneko_lua")
+      --   require('nlua.lsp.nvim').setup(require('lspconfig'), {
+      --     cmd = {},
+      --
+      --     globals = {
+      --       "Color", "c", "Group", "g", "s",
+      --     }
+      --   })
+      end
   }
 
   -- Use the server's custom settings, if they exist, otherwise default to the default options

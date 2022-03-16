@@ -16,7 +16,7 @@ end
 require("luasnip.loaders.from_vscode").lazy_load()
 
 local has_words_before = function()
-  local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
@@ -63,21 +63,25 @@ cmp.setup({
     ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
     ['<C-e>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<Tab>'] = cmp.mapping(tab, {'i', 's', 'c'}),
-    ['<S-Tab>'] = cmp.mapping(shtab, {'i', 's', 'c'}),
-    ['<cr>'] = cmp.mapping(enterit, {'i', 's'}),
+    ['<Tab>'] = cmp.mapping(tab, {'i', 's'}),
+    ['<S-Tab>'] = cmp.mapping(shtab, {'i', 's'}),
+    ['<CR>'] = cmp.mapping(enterit, { 'i', 's' }),
+    -- ['<cr>'] = cmp.mapping.confirm({ select = true }),
+  },
+
+  completion = {
+    keyword_length = 3
   },
 
   sources = {
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
-    { name = "luasnip" },
-    { name = "buffer" },
+    { name = "luasnip",},
+    { name = "buffer", keyword_length = 5 },
     { name = "path" },
   },
 
   formatting = {
-    fields = { "kind", "abbr", "menu" },
     format = lspkind.cmp_format({
       with_text = false,
       maxwidth = 50,
@@ -85,7 +89,7 @@ cmp.setup({
         buffer = "[Buffer]",
         luasnip = "[Snippet]",
         nvim_lsp = "[LSP]",
-        nvim_lua = "[API]",
+        nvim_lua = "[Vim API]",
         path = "[Path]",
       },
     }),
@@ -107,6 +111,5 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' },
     { name = 'path' },
     { name = 'nvim_lua' },
-    { name = 'nvim_lsp' },
   }
 })

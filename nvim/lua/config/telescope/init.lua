@@ -1,4 +1,3 @@
-require("telescope").setup({})
 local builtin = require('telescope.builtin')
 local themes = require('telescope.themes')
 
@@ -23,7 +22,7 @@ end
 M.find_files = function ()
   local opts = {
     previewer = false,
-    hidden = true,
+    hidden = false,
   }
   builtin.find_files(themes.get_dropdown(opts))
 end
