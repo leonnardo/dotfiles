@@ -22,7 +22,8 @@ end
 M.find_files = function ()
   local opts = {
     previewer = false,
-    hidden = false,
+    hidden = true,
+    file_ignore_patterns = { ".git/" }
   }
   builtin.find_files(themes.get_dropdown(opts))
 end

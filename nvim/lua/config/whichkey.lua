@@ -73,6 +73,7 @@ local mappings = {
 
   s = {
     name = "Search",
+    a = { "<cmd>Telescope live_grep<cr>", "Live grep" },
     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
@@ -84,7 +85,8 @@ local mappings = {
   t = {
     name = "Toggle",
     t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" },
-    l = { "v:lua toggle_langmap()<cr>", "Toggle Langmap" }
+    e = { "<cmd>ToggleTerm<cr>", "Toggle Term" },
+    g = { "<cmd>lua require('config.toggleterm_cfg').lazygit_toggle()<cr>", "Toggle Git" },
   }
 }
 

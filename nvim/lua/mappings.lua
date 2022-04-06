@@ -6,7 +6,6 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-vim.api.nvim_set_var('colemak', true)
 vim.opt.langmap = "il,li,IL,LI,je,JE,ek,EK,kn,KN,nj,NJ"
 
 -- Map leader to space
@@ -19,8 +18,10 @@ map("n", "<leader>q", ":q<CR>")
 map("n", "<leader>w", ":wa<CR>")
 map("v", "<", "<gv", { silent = true })
 map("v", ">", ">gv", { silent = true })
-map("n", "j", "v:count ? 'j' : 'gj'", { noremap = true, expr = true })
-map("n", "k", "v:count ? 'k' : 'gk'", { noremap = true, expr = true })
+map("", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+map("", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
+map("", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true })
+map("", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true })
 
 --  Comment.api
 map("n", "<C-_>", "<cmd>lua require('Comment.api').toggle_current_linewise()<cr>")
@@ -36,6 +37,5 @@ map("n", "<C-i>", "<C-w>l")
 map("n", "<C-l>", "<C-w>w")
 
 -- toggle langmap
-map("n", "<leader>z", ':set langmap=il,li,IL,LI,je,JE,ek,EK,kn,KN,nj,NJ<cr>')
-map("n", "<leader>c", ':set langmap=<cr>')
+map("n", "<leader>tl", "<cmd>lua require('autocommands').toggle_colemak()<cr>")
 

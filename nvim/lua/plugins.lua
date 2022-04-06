@@ -78,6 +78,7 @@ return require("packer").startup{
     use { "tpope/vim-surround" }
     use { "numToStr/Comment.nvim", config = get_setup("comment") }
     use { "folke/which-key.nvim", config = get_setup("whichkey") }
+    use {"akinsho/toggleterm.nvim", config = get_setup("toggleterm_cfg")}
 
     -- Fun
     use { "ThePrimeagen/vim-be-good" }
