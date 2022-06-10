@@ -29,13 +29,6 @@ map("n", "<C-\\>", "<cmd>lua require('Comment.api').toggle_current_blockwise()<c
 map("x", "<C-_>", "<esc><cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<cr>")
 map("x", "<C-\\>", "<esc><cmd>lua require('Comment.api').toggle_blockwise_op(vim.fn.visualmode())<cr>")
 
--- Easy split navigation
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-n>", "<C-w>j")
-map("n", "<C-e>", "<C-w>k")
-map("n", "<C-i>", "<C-w>l")
-map("n", "<C-l>", "<C-w>w")
-
 -- toggle langmap
 map("n", "<leader>tl", "<cmd>lua require('autocommands').toggle_colemak()<cr>")
 

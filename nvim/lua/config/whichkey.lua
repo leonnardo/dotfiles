@@ -5,16 +5,6 @@ if not ok then
 end
 
 
-_G.toggle_langmap = function ()
-  if vim.g.colemak then
-    vim.opt.langmap = ""
-    vim.api.nvim_set_var('colemak', false)
-  else
-    vim.opt.langmap = "il,li,IL,LI,je,JE,ek,EK,kn,KN,nj,NJ"
-    vim.api.nvim_set_var('colemak', true)
-  end
-end
-
 local opts = {
   mode = "n", -- NORMAL mode
   prefix = "<leader>",
@@ -87,6 +77,16 @@ local mappings = {
     t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" },
     e = { "<cmd>ToggleTerm<cr>", "Toggle Term" },
     g = { "<cmd>lua require('config.toggleterm_cfg').lazygit_toggle()<cr>", "Toggle Git" },
+  },
+
+  w = {
+    name = "Window",
+    q = { "<cmd>:q<cr>", "Close" },
+    s = { "<cmd>:split<cr>", "Horizontal split"},
+    v = { "<cmd>:vsplit<cr>", "Vertical split"},
+    ["="] = { "<c-w>=", "Equally size"},
+    p = { "<c-w>x", "Swap" },
+
   }
 }
 

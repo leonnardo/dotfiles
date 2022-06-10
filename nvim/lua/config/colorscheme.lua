@@ -1,2 +1,2 @@
 -- vim.cmd[[colorscheme material]]
-vim.cmd[[colorscheme nordfox]]
+vim.cmd[[colorscheme nvcode]]

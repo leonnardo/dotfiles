@@ -33,10 +33,18 @@ return require("packer").startup{
     -- Post-install/update hook with neovim command
 
     -- Appearence
+    -- Colorschemes
     use "EdenEast/nightfox.nvim"
-    --use "marko-cerovac/material.nvim"
+    use "christianchiarulli/nvcode-color-schemes.vim"
+    use 'Th3Whit3Wolf/one-nvim'
+    use "rebelot/kanagawa.nvim"
+    use "marko-cerovac/material.nvim"
     use "ellisonleao/gruvbox.nvim"
+    use 'tiagovla/tokyodark.nvim'
+    use ({'catppuccin/nvim', as = 'catppuccin'})
+    --
     use "kyazdani42/nvim-web-devicons"
+    -- Statusline
     use { "nvim-lualine/lualine.nvim", config = get_setup("lualine"), event = "VimEnter", requires = { "kyazdani42/nvim-web-devicons", opt = true }, }
     --use { "feline-nvim/feline.nvim", config = get_setup("feline") }
 
@@ -57,10 +65,17 @@ return require("packer").startup{
     }
     use { "onsails/lspkind-nvim", requires = { { "famiu/bufdelete.nvim" } } }
     use { "L3MON4D3/LuaSnip", requires = { "rafamadriz/friendly-snippets"} }
-    use { "nvim-treesitter/nvim-treesitter", config = get_setup("treesitter"), run = ":TSUpdate", }
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = get_setup("treesitter")}
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use { "ray-x/go.nvim", config = get_setup("go-nvim") }
+    use { "ray-x/guihua.lua" }
     use { "tjdevries/nlua.nvim"  } -- add fucking config
+
+    -- Debug Adapter Procotol
+    use "rcarriga/nvim-dap-ui"
+    use "theHamsta/nvim-dap-virtual-text"
+    use "leoluz/nvim-dap-go"
+    use {"mfussenegger/nvim-dap", config = function() require('config.dap').setup() end}
 
 
     -- Navigation
@@ -72,13 +87,15 @@ return require("packer").startup{
     }
     use { "kyazdani42/nvim-tree.lua", config = get_setup("nvim-tree") }
     use { "nvim-telescope/telescope-file-browser.nvim" }
+    use { "aserowy/tmux.nvim", config = get_setup("tmux") }
 
     -- Misc
     use {"windwp/nvim-autopairs", config = get_setup("autopairs") }
     use { "tpope/vim-surround" }
     use { "numToStr/Comment.nvim", config = get_setup("comment") }
     use { "folke/which-key.nvim", config = get_setup("whichkey") }
-    use {"akinsho/toggleterm.nvim", config = get_setup("toggleterm_cfg")}
+    use {"akinsho/toggleterm.nvim", tag = 'v1.*', config = get_setup("toggleterm_cfg")}
+    use { "Pocco81/AutoSave.nvim", config = get_setup("autosave") }
 
     -- Fun
     use { "ThePrimeagen/vim-be-good" }
