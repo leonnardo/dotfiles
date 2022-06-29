@@ -30,3 +30,4 @@ opt.termguicolors = true
 opt.swapfile = false
 opt.wrap = false
 opt.timeoutlen = 250
+opt.langmap = "il,li,IL,LI,je,JE,ek,EK,kn,KN,nj,NJ"

@@ -42,6 +42,9 @@ return require("packer").startup{
     use "ellisonleao/gruvbox.nvim"
     use 'tiagovla/tokyodark.nvim'
     use ({'catppuccin/nvim', as = 'catppuccin'})
+    use 'fenetikm/falcon'
+
+    use { "lukas-reineke/indent-blankline.nvim", config = get_setup("indent")}
     --
     use "kyazdani42/nvim-web-devicons"
     -- Statusline
@@ -65,11 +68,18 @@ return require("packer").startup{
     }
     use { "onsails/lspkind-nvim", requires = { { "famiu/bufdelete.nvim" } } }
     use { "L3MON4D3/LuaSnip", requires = { "rafamadriz/friendly-snippets"} }
+    use { "folke/trouble.nvim", config = function ()
+      require("trouble").setup()
+    end }
+    use { "glepnir/lspsaga.nvim" }
+
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = get_setup("treesitter")}
     use "nvim-treesitter/nvim-treesitter-textobjects"
+    use { "p00f/nvim-ts-rainbow"}
     use { "ray-x/go.nvim", config = get_setup("go-nvim") }
     use { "ray-x/guihua.lua" }
     use { "tjdevries/nlua.nvim"  } -- add fucking config
+    use { "hashivim/vim-terraform" }
 
     -- Debug Adapter Procotol
     use "rcarriga/nvim-dap-ui"
@@ -85,9 +95,11 @@ return require("packer").startup{
       },
       config = get_setup("telescope"),
     }
+    use "nvim-telescope/telescope-ui-select.nvim"
     use { "kyazdani42/nvim-tree.lua", config = get_setup("nvim-tree") }
     use { "nvim-telescope/telescope-file-browser.nvim" }
     use { "aserowy/tmux.nvim", config = get_setup("tmux") }
+    use { 'https://gitlab.com/yorickpeterse/nvim-pqf.git', config = require('pqf').setup()}
 
     -- Misc
     use {"windwp/nvim-autopairs", config = get_setup("autopairs") }

@@ -48,15 +48,16 @@ local mappings = {
 
   l = {
     name = "LSP",
-    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-    d = { "<cmd>Telescope diagnostics bufnr=0<cr>", "Document Diagnostics", },
-    w = { "<cmd>Telescope diagnostics<cr>", "Workspace Diagnostics", },
+    a = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
+    d = { "<cmd>Lspsaga show_line_diagnostics<cr>", "Document Diagnostics", },
+    D = { "<cmd>Telescope diagnostics bufnr=0<cr>", "Document Diagnostics", },
+    w = { "<cmd>TroubleToggle<cr>", "Workspace Diagnostics", },
     f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
     n = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "Next Diagnostic", },
     e = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", "Prev Diagnostic", },
     l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
-    r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+    r = { "<cmd>Lspsaga rename<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols", },
   },
@@ -77,6 +78,7 @@ local mappings = {
     t = { "<cmd>NvimTreeToggle<cr>", "Toggle Tree" },
     e = { "<cmd>ToggleTerm<cr>", "Toggle Term" },
     g = { "<cmd>lua require('config.toggleterm_cfg').lazygit_toggle()<cr>", "Toggle Git" },
+    r = { "<cmd>TroubleToggle<cr>", "Trouble" },
   },
 
   w = {
