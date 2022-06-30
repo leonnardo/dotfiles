@@ -99,7 +99,7 @@ return require("packer").startup{
     use { "kyazdani42/nvim-tree.lua", config = get_setup("nvim-tree") }
     use { "nvim-telescope/telescope-file-browser.nvim" }
     use { "aserowy/tmux.nvim", config = get_setup("tmux") }
-    use { 'https://gitlab.com/yorickpeterse/nvim-pqf.git', config = require('pqf').setup()}
+--    use { 'https://gitlab.com/yorickpeterse/nvim-pqf.git', config = require('pqf').setup()}
 
     -- Misc
     use {"windwp/nvim-autopairs", config = get_setup("autopairs") }
