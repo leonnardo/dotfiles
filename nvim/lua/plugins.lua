@@ -33,6 +33,9 @@ return require("packer").startup{
     -- Post-install/update hook with neovim command
 
     -- Appearence
+    use { "lukas-reineke/indent-blankline.nvim" }
+    use "kyazdani42/nvim-web-devicons"
+
     -- Colorschemes
     use "EdenEast/nightfox.nvim"
     use "christianchiarulli/nvcode-color-schemes.vim"
@@ -41,19 +44,15 @@ return require("packer").startup{
     use "marko-cerovac/material.nvim"
     use "ellisonleao/gruvbox.nvim"
     use 'tiagovla/tokyodark.nvim'
+    use 'folke/tokyonight.nvim'
     use ({'catppuccin/nvim', as = 'catppuccin'})
     use 'fenetikm/falcon'
 
-    use { "lukas-reineke/indent-blankline.nvim", config = get_setup("indent")}
-    --
-    use "kyazdani42/nvim-web-devicons"
     -- Statusline
-    use { "nvim-lualine/lualine.nvim", config = get_setup("lualine"), event = "VimEnter", requires = { "kyazdani42/nvim-web-devicons", opt = true }, }
-    --use { "feline-nvim/feline.nvim", config = get_setup("feline") }
-
+    use { "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true }, }
 
     -- LSP Plugins
-    use { "neovim/nvim-lspconfig", requires = { "williamboman/nvim-lsp-installer" }, config = get_setup("lsp") }
+    use { "neovim/nvim-lspconfig", requires = { "williamboman/nvim-lsp-installer" } }
     use {
       "hrsh7th/nvim-cmp",
       requires = {
@@ -64,19 +63,16 @@ return require("packer").startup{
         { "hrsh7th/cmp-cmdline" },
         { "saadparwaiz1/cmp_luasnip" },
       },
-      config = get_setup("cmp"),
     }
     use { "onsails/lspkind-nvim", requires = { { "famiu/bufdelete.nvim" } } }
     use { "L3MON4D3/LuaSnip", requires = { "rafamadriz/friendly-snippets"} }
-    use { "folke/trouble.nvim", config = function ()
-      require("trouble").setup()
-    end }
+    use { "folke/trouble.nvim" }
     use { "glepnir/lspsaga.nvim" }
 
-    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = get_setup("treesitter")}
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use { "p00f/nvim-ts-rainbow"}
-    use { "ray-x/go.nvim", config = get_setup("go-nvim") }
+    use { "ray-x/go.nvim" }
     use { "ray-x/guihua.lua" }
     use { "tjdevries/nlua.nvim"  } -- add fucking config
     use { "hashivim/vim-terraform" }
@@ -96,18 +92,21 @@ return require("packer").startup{
       config = get_setup("telescope"),
     }
     use "nvim-telescope/telescope-ui-select.nvim"
-    use { "kyazdani42/nvim-tree.lua", config = get_setup("nvim-tree") }
+    use { "kyazdani42/nvim-tree.lua" }
     use { "nvim-telescope/telescope-file-browser.nvim" }
-    use { "aserowy/tmux.nvim", config = get_setup("tmux") }
---    use { 'https://gitlab.com/yorickpeterse/nvim-pqf.git', config = require('pqf').setup()}
+    use { "aserowy/tmux.nvim" }
+    use { 'https://gitlab.com/yorickpeterse/nvim-pqf.git' }
+
+    -- Git
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
     -- Misc
-    use {"windwp/nvim-autopairs", config = get_setup("autopairs") }
+    use {"windwp/nvim-autopairs" }
     use { "tpope/vim-surround" }
-    use { "numToStr/Comment.nvim", config = get_setup("comment") }
-    use { "folke/which-key.nvim", config = get_setup("whichkey") }
-    use {"akinsho/toggleterm.nvim", tag = 'v1.*', config = get_setup("toggleterm_cfg")}
-    use { "Pocco81/AutoSave.nvim", config = get_setup("autosave") }
+    use { "numToStr/Comment.nvim" }
+    use { "folke/which-key.nvim" }
+    use {"akinsho/toggleterm.nvim", tag = 'v1.*' }
+    use { "Pocco81/AutoSave.nvim" }
 
     -- Fun
     use { "ThePrimeagen/vim-be-good" }

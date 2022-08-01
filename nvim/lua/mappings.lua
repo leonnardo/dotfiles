@@ -30,4 +30,3 @@ map("x", "<C-\\>", "<esc><cmd>lua require('Comment.api').toggle_blockwise_op(vim
 
 -- toggle langmap
 map("n", "<leader>tl", "<cmd>lua require('autocommands').toggle_colemak()<cr>")
-

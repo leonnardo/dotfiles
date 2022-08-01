@@ -66,7 +66,6 @@ cmp.setup({
     ['<Tab>'] = cmp.mapping(tab, {'i', 's'}),
     ['<S-Tab>'] = cmp.mapping(shtab, {'i', 's'}),
     ['<CR>'] = cmp.mapping(enterit, { 'i', 's' }),
-    -- ['<cr>'] = cmp.mapping.confirm({ select = true }),
   },
 
   completion = {
