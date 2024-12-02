@@ -1,4 +1,3 @@
 nvim/lazy-lock.json
 configstore
-!tmux/tmux.conf
-tmux/*/
+zsh/.history
