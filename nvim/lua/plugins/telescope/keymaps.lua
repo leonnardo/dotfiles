@@ -7,6 +7,14 @@ local find_files_config = function()
 	return builtin.find_files(opts)
 end
 
+local find_dotfiles = function()
+	opts = {
+		cwd = "~/src/dotfiles",
+		results_title = "Dotfiles",
+	}
+	return builtin.git_files(opts)
+end
+
 local function project_files()
 	local opts = {}
 	local ok = pcall(require("telescope.builtin").git_files, opts)
@@ -40,6 +48,11 @@ return {
 		"<leader>fc",
 		find_files_config,
 		desc = "Neovim config",
+	},
+	{
+		"<leader>fd",
+		find_dotfiles,
+		desc = "Dotfiles",
 	},
 	{
 		"<leader>fs",
