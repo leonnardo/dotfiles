@@ -1,5 +1,6 @@
-coc/
-nvim/plugged
+nvim/lazy-lock.json
 configstore
 zsh/.zsh_history
 zsh/.zcompdump-*
+tmux/*
+!tmux/tmux.conf
