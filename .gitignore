@@ -1,4 +1,4 @@
 nvim/lazy-lock.json
 configstore
 !tmux/tmux.conf
-tmux/*
+tmux/*/
