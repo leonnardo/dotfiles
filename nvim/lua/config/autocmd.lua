@@ -1,0 +1,84 @@
+local function augroup(name)
+	return vim.api.nvim_create_augroup("personal_" .. name, { clear = true })
+end
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = augroup("hightligh_yank"),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = { "*" },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "TelescopeResults",
+	callback = function(ctx)
+		vim.api.nvim_buf_call(ctx.buf, function()
+			vim.fn.matchadd("TelescopeParent", "\t\t.*$")
+			vim.api.nvim_set_hl(0, "TelescopeParent", { link = "Comment" })
+		end)
+	end,
+})
+
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+	group = augroup("resize_splits"),
+	callback = function()
+		local current_tab = vim.fn.tabpagenr()
+		vim.cmd("tabdo wincmd =")
+		vim.cmd("tabnext " .. current_tab)
+	end,
+})
+
+-- go to last loc when opening a buffer
+vim.api.nvim_create_autocmd("BufReadPost", {
+	group = augroup("last_loc"),
+	callback = function(event)
+		local exclude = { "gitcommit" }
+		local buf = event.buf
+		if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
+			return
+		end
+		vim.b[buf].lazyvim_last_loc = true
+		local mark = vim.api.nvim_buf_get_mark(buf, '"')
+		local lcount = vim.api.nvim_buf_line_count(buf)
+		if mark[1] > 0 and mark[1] <= lcount then
+			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+		end
+	end,
+})
+
+-- Fix conceallevel for json files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	group = augroup("json_conceal"),
+	pattern = { "json", "jsonc", "json5" },
+	callback = function()
+		vim.opt_local.conceallevel = 0
+	end,
+})
+
+-- Fix conceallevel for json files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	group = augroup("json_conceal"),
+	pattern = { "json", "jsonc", "json5" },
+	callback = function()
+		vim.opt_local.conceallevel = 0
+	end,
+})
+
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+	group = augroup("auto_create_dir"),
+	callback = function(event)
+		if event.match:match("^%w%w+:[\\/][\\/]") then
+			return
+		end
+		local file = vim.uv.fs_realpath(event.match) or event.match
+		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+	end,
+})
