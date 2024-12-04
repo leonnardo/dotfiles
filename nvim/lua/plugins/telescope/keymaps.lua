@@ -1,6 +1,6 @@
 local builtin = require("telescope.builtin")
 local find_files_config = function()
-	opts = {
+	local opts = {
 		cwd = vim.fn.stdpath("config"),
 		results_title = "Neovim Config",
 	}
