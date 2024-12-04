@@ -13,6 +13,13 @@ fi
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
+autoload -U compinit
+compinit
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Override zoxide command
 ZOXIDE_CMD_OVERRIDE="cd"
@@ -30,10 +37,8 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 # zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 # zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-autoload -U compinit
-compinit
-
-source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
+# source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
+zinit light Aloxaf/fzf-tab
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support
