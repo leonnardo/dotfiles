@@ -16,6 +16,8 @@ map("v", "<", "<gv", { silent = true })
 -- map("v", "<S-Tab>", "<gv", { silent = true })
 map({ "n", "v" }, "<Up>", "g<Up>", opts)
 map({ "n", "v" }, "<Down>", "g<Down>", opts)
+map({ "n", "v" }, "1", "_", opts)
+map({ "n", "v" }, "0", "g_", opts)
 
 -- pane management (move, open, close)
 map("n", "<C-Left>", "<C-w>h", { desc = "Move to the left pane", silent = true })
