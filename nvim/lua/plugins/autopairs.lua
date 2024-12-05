@@ -14,7 +14,8 @@ return {
 		enabled = not vim.g.use_mini_autopairs,
 	},
 	{
-		"echasnovski/mini.nvim",
+		"echasnovski/mini.pairs",
+		version = "*",
 		config = function()
 			require("mini.pairs").setup()
 		end,
