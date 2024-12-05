@@ -33,3 +33,6 @@ map("n", "<BS>", "<cmd>e #<cr>", { desc = "Open last buffer", silent = true })
 map("n", "<leader>tl", " <cmd>Lazy<cr>", { desc = "Toggle Lazy", silent = true })
 map("n", "<leader>tm", " <cmd>Mason<cr>", { desc = "Toggle Mason", silent = true })
 map("n", "<leader>ts", " <cmd>ASToggle<cr>", { desc = "Toggle Auto Save", silent = true })
+
+map("n", "<leader>r", "<cmd>source %<CR>", { desc = "Source config" })
+map("v", "<leader>r", "<cmd>.lua %<CR>", { desc = "Execute selected code" })
