@@ -11,7 +11,6 @@ end
 
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.8",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{
@@ -71,6 +70,10 @@ return {
 				current_buffer_fuzzy_find = {
 					theme = "dropdown",
 					windblend = 10,
+					previewer = false,
+				},
+				help_tags = {
+					theme = "dropdown",
 					previewer = false,
 				},
 			},
