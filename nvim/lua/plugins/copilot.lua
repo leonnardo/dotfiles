@@ -89,6 +89,11 @@ return {
 				end,
 				desc = "Inline chat",
 			},
+			{
+				"<leader>tcc",
+				"<cmd>CopilotChatCommit<CR>",
+				desc = "Create commit message",
+			},
 		},
 	},
 }
