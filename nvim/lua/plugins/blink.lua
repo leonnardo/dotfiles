@@ -20,32 +20,42 @@ return {
 		-- see the "default configuration" section below for full documentation on how to define
 		-- your own keymap.
 		keymap = {
-			preset = "super-tab",
-			["<Esc>"] = { "hide", "fallback" },
+			preset = "enter",
 		},
+
 		completion = {
+			keyword = {
+				range = "full",
+			},
+
+			trigger = {
+				show_in_snippet = false,
+			},
+
 			list = {
+				max_items = 50,
 				selection = "auto_insert",
 			},
+
 			accept = {
 				-- experimental auto-brackets support
 				auto_brackets = {
 					enabled = true,
 				},
 			},
+
+			documentation = {
+				auto_show = true,
+				auto_show_delay = 200,
+			},
+
 			-- experimental signature help support
 			signature = {
 				enabled = true,
 			},
-		},
 
-		windows = {
-			autocomplete = {
-				border = "single",
-			},
-			documentation = {
-				auto_show = true,
-				border = "single",
+			fuzzy = {
+				use_typo_resistance = true,
 			},
 		},
 
