@@ -3,13 +3,7 @@ return { -- Useful plugin to show you pending keybinds.
 	event = "VimEnter", -- Sets the loading event to 'VimEnter'
 	opts = {
 		preset = "helix",
-		delay = 100,
-		win = {
-			col = 6,
-			row = 1,
-			width = { min = 30, max = 70 },
-			height = { min = 0.01, max = 0.1 },
-		},
+		delay = 200,
 		icons = {
 			-- set icon mappings to true if you have a Nerd Font
 			mappings = vim.g.have_nerd_font,
@@ -49,11 +43,10 @@ return { -- Useful plugin to show you pending keybinds.
 
 		-- Document existing key chains
 		spec = {
-			{ "<leader>c", group = "[C]ode", mode = { "n", "x" } },
-			{ "<leader>s", group = "[S]earch" },
-			{ "<leader>w", group = "[W]indow" },
-			{ "<leader>t", group = "[T]oggle" },
-			{ "<leader>tc", group = "[C]opilot Chat" },
+			{ "<leader>c", group = "Code", mode = { "n", "x" } },
+			{ "<leader>s", group = "Search" },
+			{ "<leader>t", group = "Toggle" },
+			{ "<leader>a", group = "Copilot Chat" },
 			-- I still don't know what this does, got from :h which-key
 			{
 				"<leader>b",
@@ -62,8 +55,8 @@ return { -- Useful plugin to show you pending keybinds.
 					return require("which-key.extras").expand.buf()
 				end,
 			},
-			{ "<leader>w", proxy = "<c-w>", group = "windows" },
-			{ "<leader>e", group = "[E]xplorer" },
+			{ "<leader>w", proxy = "<c-w>", group = "Windows" },
+			{ "<leader>e", group = "Explorer" },
 		},
 	},
 }

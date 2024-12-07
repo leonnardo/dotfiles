@@ -25,7 +25,9 @@ return {
 			suggestion = {
 				auto_trigger = true,
 				keymap = {
-					accept = "<Tab>",
+					accept = "<C-i>",
+					accept_word = false,
+					accept_line = false,
 				},
 			},
 		},
@@ -52,6 +54,9 @@ return {
 				return select.visual(source) or select.buffer(source)
 			end,
 			mappings = {
+				close = {
+					normal = "<Esc>",
+				},
 				submit_prompt = {
 					normal = "<CR>",
 					insert = "<C-CR>",
@@ -60,7 +65,7 @@ return {
 		},
 		keys = {
 			{
-				"<leader>tct",
+				"<leader>aa",
 				function()
 					local chat = require("CopilotChat")
 					chat.toggle({
@@ -72,7 +77,7 @@ return {
 				desc = "Toggle vertical split",
 			},
 			{
-				"<leader>tci",
+				"<leader>ai",
 				function()
 					local chat = require("CopilotChat")
 					chat.open({
@@ -89,7 +94,7 @@ return {
 				desc = "Inline chat",
 			},
 			{
-				"<leader>tcc",
+				"<leader>ac",
 				"<cmd>CopilotChatCommit<CR>",
 				desc = "Create commit message",
 			},

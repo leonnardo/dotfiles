@@ -88,7 +88,7 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>th", "<cmd>Telescope help_tags<cr>", { noremap = true })
+		vim.keymap.set("n", "<leader>sh", "<cmd>Telescope help_tags<cr>", { noremap = true })
 
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")

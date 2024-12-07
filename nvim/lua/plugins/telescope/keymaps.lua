@@ -35,22 +35,22 @@ return {
 		desc = "Find files",
 	},
 	{
+		"<leader>ss",
+		project_files,
+		desc = "Find files",
+	},
+	{
 		"<C-f>",
 		builtin.live_grep,
 		desc = "Live grep",
 	},
 	{
-		"<leader>/",
-		builtin.current_buffer_fuzzy_find,
-		desc = "Find in current buffer",
-	},
-	{
-		"<leader>fc",
+		"<leader>sn",
 		find_files_config,
 		desc = "Neovim config",
 	},
 	{
-		"<leader>fd",
+		"<leader>sd",
 		find_dotfiles,
 		desc = "Dotfiles",
 	},

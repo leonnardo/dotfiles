@@ -22,8 +22,10 @@ return {
 		lazy = false,
 		opts = {
 			mappings = {
-				go_in_plus = "<Right>",
+				go_in = "<Right>",
+				go_in_plus = "<Enter>",
 				go_out_plus = "<Left>",
+				close = "<Esc>",
 			},
 		},
 		keys = {
