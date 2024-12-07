@@ -15,7 +15,13 @@ return { -- Collection of various small independent plugins/modules
 		require("mini.surround").setup()
 
 		-- Better comments
-		require("mini.comment").setup()
+		require("mini.comment").setup({
+			mappings = {
+				comment = "g/",
+				comment_visual = "g/",
+				comment_line = "g//",
+			},
+		})
 
 		-- Simple and easy statusline.
 		--  You could remove this setup call if you don't like it,
