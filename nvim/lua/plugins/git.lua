@@ -15,10 +15,15 @@ return {
 			end,
 		},
 	},
-	"NeogitOrg/neogit",
-	dependencies = {
-		"nvim-lua/plenary.nvim", -- required
-		"sindrets/diffview.nvim",
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim",
+		},
+		config = function()
+			require("neogit").setup()
+			vim.keymap.set("n", "<leader>gs", "<cmd>Neogit<CR>", { noremap = true, silent = true, desc = "Neogit" })
+		end,
 	},
-	config = true,
 }

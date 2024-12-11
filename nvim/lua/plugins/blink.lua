@@ -21,6 +21,8 @@ return {
 		-- your own keymap.
 		keymap = {
 			preset = "enter",
+			["<Tab>"] = { "snippet_forward", "fallback" },
+			["<S-Tab>"] = { "snippet_backward", "fallback" },
 		},
 
 		completion = {
@@ -74,8 +76,8 @@ return {
 				require("luasnip").lsp_expand(snippet)
 			end,
 			active = function(filter)
-				if filter and filter.dierction then
-					require("luasnip").jumpable(filter.dierction)
+				if filter and filter.direction then
+					require("luasnip").jumpable(filter.direction)
 				end
 				return require("luasnip").in_snippet()
 			end,
@@ -88,7 +90,7 @@ return {
 		-- elsewhere in your config, without redefining it, via `opts_extend`
 		sources = {
 			completion = {
-				enabled_providers = { "luasnip", "snippets", "lsp", "path", "buffer" },
+				enabled_providers = { "lsp", "path", "luasnip", "buffer" },
 			},
 			providers = {
 				luasnip = {

@@ -16,6 +16,10 @@ return {
 			{ "williamboman/mason-lspconfig.nvim" },
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 			{ "j-hui/fidget.nvim", opts = {} },
+			{ "jinzhongjia/LspUI.nvim", enabled = false, opts = {} }, -- TODO: test it later
+			{ "soulis-1256/eagle.nvim", enabled = false, opts = {} }, -- TODO: test it later
+			{ "ray-x/navigator.lua", enabled = false, opts = {} }, -- TODO: test it later
+			{ "SmiteshP/nvim-navic", enabled = false, opts = {} }, -- TODO: test it later
 			-- { "VonHeikemen/lsp-zero.nvim", branch = "v4.x" },
 		},
 		config = function()
@@ -26,10 +30,10 @@ return {
 						mode = mode or "n"
 						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-					map("gt", require("telescope.builtin").lsp_type_definitions, " [G]oto [T]ype definition")
+					map("gd", "<cmd>Glance definitions<CR>", "[G]oto [D]efinition")
+					map("gr", "<cmd>Glance references<CR>", "[G]oto [R]eferences")
+					map("gi", "<cmd>Glance implementations<CR>", "[G]oto [I]mplementation")
+					map("gt", "<cmd>Glance implementations<CR>", " [G]oto [T]ype definition")
 					map("<leader>csd", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 					map(
 						"<leader>csw",
@@ -74,27 +78,20 @@ return {
 						})
 					end
 
+					vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false })
 					vim.diagnostic.config({
 						virtual_text = false,
 						update_in_insert = false,
 						severity_sort = true,
 						float = {
-							source = "if_many",
+							scope = "cursor",
 						},
 						signs = {
 							text = {
-								[vim.diagnostic.severity.ERROR] = "",
+								[vim.diagnostic.severity.ERROR] = "",
 								[vim.diagnostic.severity.WARN] = "",
 								[vim.diagnostic.severity.HINT] = "",
 								[vim.diagnostic.severity.INFO] = "",
-							},
-							linehl = {
-								[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-								[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-							},
-							numhl = {
-								[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-								[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
 							},
 						},
 					})

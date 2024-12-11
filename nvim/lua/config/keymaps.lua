@@ -9,7 +9,8 @@ local function map(mode, lhs, rhs, opts)
 end
 
 local opts = { silent = true }
-map("n", "QQ", "<cmd>wqa!<cr>", { desc = "Quit" })
+map("n", "Qa", "<cmd>wqa!<cr>", { desc = "Quit" })
+map("n", "Qq", "<cmd>q<cr>", { desc = "Quit" })
 map("v", ">", ">gv", { silent = true })
 map("v", "<", "<gv", { silent = true })
 -- map("v", "<Tab>", ">gv", { silent = true })
@@ -27,7 +28,7 @@ map("n", "<leader>wv", "<cmd>vsplit<cr>", { desc = "Split pane vertically", sile
 
 -- buffer management (close, delete, last)
 map("n", "<leader>xx", "<cmd>clo<cr>", { desc = "Close window", silent = true })
-map("n", "<BS>", "<cmd>e #<cr>", { desc = "Open last buffer", silent = true })
+map("n", "<leader><leader>", "<cmd>e #<cr>", { desc = "Open last buffer", silent = true })
 
 map("n", "<leader>tl", " <cmd>Lazy<cr>", { desc = "Toggle Lazy", silent = true })
 map("n", "<leader>tm", " <cmd>Mason<cr>", { desc = "Toggle Mason", silent = true })

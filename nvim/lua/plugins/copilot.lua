@@ -34,6 +34,7 @@ return {
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
+		enabled = false,
 		branch = "main",
 		lazy = false,
 		dependencies = {
@@ -45,7 +46,7 @@ return {
 			window = {
 				layout = "float",
 			},
-			question_header = "  " .. vim.env.USER or "User" .. " ",
+			question_header = "  Me ",
 			answer_header = "  Copilot ",
 			auto_follow_cursor = true, -- Don't follow the cursor after getting response
 			auto_insert_mode = true,

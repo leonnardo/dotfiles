@@ -14,7 +14,7 @@ return {
 				-- -- I'm disabling this, as it's autosaving when I leave the buffer and
 				-- -- that's autoformatting stuff if on insert mode and following a tutorial
 				immediate_save = { nil },
-				defer_save = { "InsertLeave", "TextChanged" }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
+				defer_save = { "InsertLeave" }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
 				cancel_deferred_save = { "InsertEnter" }, -- vim events that cancel a pending deferred save
 			},
 			-- function that takes the buffer handle and determines whether to save the current buffer or not
@@ -39,10 +39,10 @@ return {
 			-- https://github.com/okuuva/auto-save.nvim/issues/55
 			-- Issue in original plugin
 			-- https://github.com/pocco81/auto-save.nvim/issues/70
-			noautocmd = false,
+			noautocmd = true,
 			lockmarks = false, -- lock marks when saving, see `:h lockmarks` for more details
 			-- delay after which a pending save is executed (default 1000)
-			debounce_delay = 750,
+			debounce_delay = 500,
 			-- log debug messages to 'auto-save.log' file in neovim cache directory, set to `true` to enable
 			debug = false,
 		},
