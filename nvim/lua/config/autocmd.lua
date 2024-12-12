@@ -82,3 +82,13 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
 	end,
 })
+
+-- Augroup for copilot chat
+vim.api.nvim_create_autocmd("BufEnter", {
+	group = augroup("copilot_chat"),
+	pattern = "copilot-*",
+	callback = function()
+		vim.opt_local.relativenumber = false
+		vim.opt_local.number = false
+	end,
+})

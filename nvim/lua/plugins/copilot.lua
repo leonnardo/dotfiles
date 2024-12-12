@@ -34,7 +34,7 @@ return {
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
-		enabled = false,
+		cond = true,
 		branch = "main",
 		lazy = false,
 		dependencies = {
@@ -48,8 +48,8 @@ return {
 			},
 			question_header = "  Me ",
 			answer_header = "  Copilot ",
-			auto_follow_cursor = true, -- Don't follow the cursor after getting response
-			auto_insert_mode = true,
+			auto_follow_cursor = false, -- Don't follow the cursor after getting response
+			auto_insert_mode = false,
 			selection = function(source)
 				local select = require("CopilotChat.select")
 				return select.visual(source) or select.buffer(source)
@@ -60,7 +60,7 @@ return {
 				},
 				submit_prompt = {
 					normal = "<CR>",
-					insert = "<C-CR>",
+					insert = "<S-CR>",
 				},
 			},
 		},
@@ -72,6 +72,7 @@ return {
 					chat.toggle({
 						window = {
 							layout = "vertical",
+							width = 0.3,
 						},
 					})
 				end,

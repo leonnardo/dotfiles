@@ -1,4 +1,5 @@
 local builtin = require("telescope.builtin")
+local sorters = require("telescope.sorters")
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
@@ -84,6 +85,7 @@ return {
 		function()
 			local opts = {
 				path_display = "shorten",
+				sorter = sorters.get_substr_matcher(),
 				find_command = { "fd", "--type", "d" },
 				attach_mappings = function(prompt_bufnr, map)
 					actions.select_default:replace(function()

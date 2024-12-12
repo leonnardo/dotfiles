@@ -16,10 +16,10 @@ return {
 			{ "williamboman/mason-lspconfig.nvim" },
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 			{ "j-hui/fidget.nvim", opts = {} },
-			{ "jinzhongjia/LspUI.nvim", enabled = false, opts = {} }, -- TODO: test it later
-			{ "soulis-1256/eagle.nvim", enabled = false, opts = {} }, -- TODO: test it later
-			{ "ray-x/navigator.lua", enabled = false, opts = {} }, -- TODO: test it later
-			{ "SmiteshP/nvim-navic", enabled = false, opts = {} }, -- TODO: test it later
+			{ "jinzhongjia/LspUI.nvim", cond = false, opts = {} }, -- TODO: test it later
+			{ "soulis-1256/eagle.nvim", cond = false, opts = {} }, -- TODO: test it later
+			{ "ray-x/navigator.lua", cond = false, opts = {} }, -- TODO: test it later
+			{ "SmiteshP/nvim-navic", cond = false, opts = {} }, -- TODO: test it later
 			-- { "VonHeikemen/lsp-zero.nvim", branch = "v4.x" },
 		},
 		config = function()
@@ -81,12 +81,12 @@ return {
 					vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underline = false })
 					vim.diagnostic.config({
 						virtual_text = false,
-						update_in_insert = false,
 						severity_sort = true,
 						float = {
 							scope = "cursor",
 						},
 						signs = {
+							severity = { min = vim.diagnostic.severity.WARN },
 							text = {
 								[vim.diagnostic.severity.ERROR] = "",
 								[vim.diagnostic.severity.WARN] = "",
