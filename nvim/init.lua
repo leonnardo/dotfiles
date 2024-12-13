@@ -40,4 +40,4 @@ require("lazy").setup({
 	},
 })
 
-vim.cmd.colorscheme("kanagawa")
+vim.cmd.colorscheme("tokyobones")

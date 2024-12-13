@@ -3,7 +3,7 @@ return { -- Useful plugin to show you pending keybinds.
 	event = "VimEnter", -- Sets the loading event to 'VimEnter'
 	opts = {
 		preset = "helix",
-		delay = 200,
+		delay = 300,
 		icons = {
 			-- set icon mappings to true if you have a Nerd Font
 			mappings = vim.g.have_nerd_font,
@@ -47,14 +47,6 @@ return { -- Useful plugin to show you pending keybinds.
 			{ "<leader>s", group = "Search" },
 			{ "<leader>t", group = "Toggle" },
 			{ "<leader>a", group = "Copilot Chat" },
-			-- I still don't know what this does, got from :h which-key
-			{
-				"<leader>b",
-				group = "buffers",
-				expand = function()
-					return require("which-key.extras").expand.buf()
-				end,
-			},
 			{ "<leader>w", proxy = "<c-w>", group = "Windows" },
 			{ "<leader>e", group = "Explorer" },
 		},

@@ -13,10 +13,11 @@ map("n", "Qa", "<cmd>wqa!<cr>", { desc = "Quit" })
 map("n", "Qq", "<cmd>q<cr>", { desc = "Quit" })
 map("v", ">", ">gv", { silent = true })
 map("v", "<", "<gv", { silent = true })
--- map("v", "<Tab>", ">gv", { silent = true })
--- map("v", "<S-Tab>", "<gv", { silent = true })
 map({ "n", "v" }, "<Up>", "g<Up>", opts)
 map({ "n", "v" }, "<Down>", "g<Down>", opts)
+
+map({ "n", "i" }, "<C-e>", "<C-d>zz", { desc = "Scroll downwards" })
+map({ "n", "i" }, "<C-u>", "<C-u>zz", { desc = "Scroll upwards" })
 
 -- pane management (move, open, close)
 map("n", "<C-Left>", "<C-w>h", { desc = "Move to the left pane", silent = true })
@@ -29,6 +30,7 @@ map("n", "<leader>wv", "<cmd>vsplit<cr>", { desc = "Split pane vertically", sile
 -- buffer management (close, delete, last)
 map("n", "<leader>xx", "<cmd>clo<cr>", { desc = "Close window", silent = true })
 map("n", "<leader><leader>", "<cmd>e #<cr>", { desc = "Open last buffer", silent = true })
+map("n", "<leader>b", "<cmd>Telescope buffers<cr>", { desc = "Find buffer", silent = true })
 
 map("n", "<leader>tl", " <cmd>Lazy<cr>", { desc = "Toggle Lazy", silent = true })
 map("n", "<leader>tm", " <cmd>Mason<cr>", { desc = "Toggle Mason", silent = true })
