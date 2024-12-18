@@ -101,3 +101,22 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.opt_local.relativenumber = false
 	end,
 })
+
+-- Reload kitty config
+vim.api.nvim_create_autocmd("BufWritePost", {
+	group = augroup("kitty_conf_reload"),
+	pattern = "kitty.conf",
+	callback = function()
+		vim.cmd("silent! !kill -SIGUSR1 $(pgrep kitty)")
+		-- vim.fn.system("kill -SIGUSR1 $(pgrep kitty)")
+	end,
+})
+
+-- Reload aerospace config
+vim.api.nvim_create_autocmd("BufWritePost", {
+	group = augroup("aerospace_toml_reload"),
+	pattern = "aerospace.toml",
+	callback = function()
+		vim.cmd("silent! !aerospace reload-config")
+	end,
+})
