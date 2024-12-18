@@ -31,6 +31,9 @@ return {
 					commit_editor = {
 						["<Enter>"] = "Submit",
 					},
+					status = {
+						["<Esc>"] = "Close",
+					},
 				},
 			}
 			require("neogit").setup(opts)
