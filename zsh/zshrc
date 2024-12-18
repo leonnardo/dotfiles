@@ -1,13 +1,19 @@
-if [ ! -x "$(command -v yay)" ]; then
+if [ ! -x "$(command -v yay)" ] && grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
     git clone https://aur.archlinux.org/yay-bin.git
-    makepkg -iD yay-bin
+    cd yay-bin
+    makepkg -si
+    cd ..
     rm -rf yay-bin
     yay -Y --gendb
     yay -Y --devel --save
 fi
 
 if [ ! -x "$(command -v oh-my-posh)" ]; then
-    yay -S oh-my-posh
+    if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+        yay -S oh-my-posh
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        brew install oh-my-posh
+    fi
 fi
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
