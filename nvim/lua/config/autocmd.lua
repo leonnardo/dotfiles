@@ -101,11 +101,3 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.opt_local.relativenumber = false
 	end,
 })
-
-vim.keymap.set("n", "<leader>tt", function()
-	vim.cmd.new()
-	vim.cmd.term()
-	vim.api.nvim_win_set_height(0, 15)
-	vim.cmd("startinsert")
-end)
-
