@@ -92,3 +92,20 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.opt_local.number = false
 	end,
 })
+
+-- Terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
+	callback = function()
+		vim.opt_local.number = false
+		vim.opt_local.relativenumber = false
+	end,
+})
+
+vim.keymap.set("n", "<leader>tt", function()
+	vim.cmd.new()
+	vim.cmd.term()
+	vim.api.nvim_win_set_height(0, 15)
+	vim.cmd("startinsert")
+end)
+
