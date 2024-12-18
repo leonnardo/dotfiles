@@ -64,7 +64,7 @@ return {
 		desc = "Live grep from project root",
 	},
 	{
-		"<leader>sg",
+		"<leader>sf",
 		live_grep_from_project_git_root,
 		desc = "Live grep from project root",
 	},
@@ -110,5 +110,10 @@ return {
 		"<leader>fs",
 		builtin.lsp_workspace_symbols,
 		desc = "Workspace symbols",
+	},
+	{
+		"<leader>sk",
+		builtin.keymaps,
+		desc = "Keymaps",
 	},
 }
