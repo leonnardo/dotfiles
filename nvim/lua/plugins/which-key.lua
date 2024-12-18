@@ -47,7 +47,6 @@ return { -- Useful plugin to show you pending keybinds.
 			{ "<leader>s", group = "Search" },
 			{ "<leader>t", group = "Toggle" },
 			{ "<leader>a", group = "Copilot Chat" },
-			{ "<leader>w", proxy = "<c-w>", group = "Windows" },
 			{ "<leader>e", group = "Explorer" },
 		},
 	},
