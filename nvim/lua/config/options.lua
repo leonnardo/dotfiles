@@ -50,24 +50,32 @@ vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
 end)
 
--- WSL2 Clipboard Sync
-vim.g.clipboard = {
-	name = "WslClipboard",
-	copy = {
-		["+"] = { "clip.exe" },
-		["*"] = { "clip.exe" },
-	},
-	paste = {
-		["+"] = {
-			"/mnt/c/Windows/System32/WindowsPowerShell/v1.0///powershell.exe",
-			"-c",
-			'[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+-- Check if running in WSL2
+local function is_wsl()
+	local output = vim.fn.systemlist("uname -r")
+	return output[1] and output[1]:find("WSL2") ~= nil
+end
+
+if is_wsl() then
+	print("hello")
+	vim.g.clipboard = {
+		name = "WslClipboard",
+		copy = {
+			["+"] = { "clip.exe" },
+			["*"] = { "clip.exe" },
 		},
-		["*"] = {
-			"/mnt/c/Windows/System32/WindowsPowerShell/v1.0///powershell.exe",
-			"-c",
-			'[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+		paste = {
+			["+"] = {
+				"/mnt/c/Windows/System32/WindowsPowerShell/v1.0//powershell.exe",
+				"-c",
+				'[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+			},
+			["*"] = {
+				"/mnt/c/Windows/System32/WindowsPowerShell/v1.0//powershell.exe",
+				"-c",
+				'[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+			},
 		},
-	},
-	cache_enabled = false,
-}
+		cache_enabled = false,
+	}
+end
