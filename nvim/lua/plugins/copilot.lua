@@ -80,6 +80,7 @@ return {
 			},
 			{
 				"<leader>ai",
+				mode = { "n", "v" },
 				function()
 					local chat = require("CopilotChat")
 					chat.open({
