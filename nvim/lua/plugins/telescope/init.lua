@@ -53,6 +53,14 @@ return {
 					previewer = false,
 					sort_mru = true,
 					ignore_current_buffer = true,
+					mappings = {
+						i = {
+							["<c-d>"] = require("telescope.actions").delete_buffer,
+						},
+						n = {
+							["<c-d>"] = require("telescope.actions").delete_buffer,
+						},
+					},
 				},
 				git_files = {
 					previewer = false,
