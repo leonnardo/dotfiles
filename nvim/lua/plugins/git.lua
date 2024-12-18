@@ -22,7 +22,18 @@ return {
 			"sindrets/diffview.nvim",
 		},
 		config = function()
-			require("neogit").setup()
+			local opts = {
+				kind = "floating",
+				commit_editor = {
+					kind = "floating",
+				},
+				mappings = {
+					commit_editor = {
+						["<Enter>"] = "Submit",
+					},
+				},
+			}
+			require("neogit").setup(opts)
 			vim.keymap.set("n", "<leader>gs", "<cmd>Neogit<CR>", { noremap = true, silent = true, desc = "Neogit" })
 		end,
 	},
