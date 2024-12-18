@@ -45,7 +45,7 @@ default-root-container-orientation = 'auto'
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
-automatically-unhide-macos-hidden-apps = false
+automatically-unhide-macos-hidden-apps = true
 
 on-focus-changed = "move-mouse window-lazy-center"
 
@@ -65,8 +65,8 @@ preset = 'qwerty'
 inner.horizontal = 5
 inner.vertical =   5
 outer.left =       5
-outer.bottom =     4
-outer.top =        35
+outer.bottom =     5
+outer.top =        34
 outer.right =      5
 
 # 'main' binding mode declaration
@@ -188,10 +188,10 @@ alt-right = ['join-with right', 'mode main']
 2 = 'main'
 3 = 'main'
 4 = 'main'
-5 = 'secondary'
-6 = 'secondary'
-7 = 'secondary'
-8 = 'secondary'
+5 = ['secondary', 'main']
+6 = ['secondary', 'main']
+7 = ['secondary', 'main']
+8 = ['secondary', 'main']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
@@ -212,5 +212,3 @@ run = ['layout floating']
 [[on-window-detected]]
 if.window-title-regex-substring = "Picture-in-Picture"
 run = ['layout floating']
-
-word
