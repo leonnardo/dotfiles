@@ -1,4 +1,4 @@
-if [ ! -x "$(command -v yay)" ] && grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+if [ ! -x "$(command -v yay)" ] && grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null && grep -qi "arch" /etc/os-release; then
     git clone https://aur.archlinux.org/yay-bin.git
     cd yay-bin
     makepkg -si
@@ -9,7 +9,7 @@ if [ ! -x "$(command -v yay)" ] && grep -qEi "(Microsoft|WSL)" /proc/version &> 
 fi
 
 if [ ! -x "$(command -v oh-my-posh)" ]; then
-    if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+    if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null && grep -qi "arch" /etc/os-release; then
         yay -S oh-my-posh
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         brew install oh-my-posh
