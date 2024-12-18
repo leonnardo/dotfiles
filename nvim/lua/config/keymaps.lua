@@ -9,8 +9,10 @@ local function map(mode, lhs, rhs, opts)
 end
 
 local opts = { silent = true }
-map("n", "Qa", "<cmd>wqa!<cr>", { desc = "Quit" })
-map("n", "Qq", "<cmd>q<cr>", { desc = "Quit" })
+
+map({ "n", "v" }, ";", ":", { desc = "Command" })
+map("n", "<leader>qa", "<cmd>wqa!<cr>", { desc = "Quit" })
+map("n", "<leader>qq", "<cmd>q<cr>", { desc = "Quit" })
 map("v", ">", ">gv", { silent = true })
 map("v", "<", "<gv", { silent = true })
 map({ "n", "v" }, "<Up>", "g<Up>", opts)
@@ -18,6 +20,15 @@ map({ "n", "v" }, "<Down>", "g<Down>", opts)
 
 map({ "n", "i" }, "<C-e>", "<C-d>zz", { desc = "Scroll downwards" })
 map({ "n", "i" }, "<C-u>", "<C-u>zz", { desc = "Scroll upwards" })
+
+-- improve delettion moves
+map({ "n", "v" }, "x", "d")
+map("n", "xx", "dd")
+map("n", "X", "D")
+map({ "n", "v" }, "<leader>p", '"0p')
+map({ "n", "v" }, "<leader>P", '"0P')
+map({ "n", "v" }, "d", '"_d')
+map({ "n", "v" }, "c", '"_c')
 
 -- pane management (move, open, close)
 map("n", "<C-Left>", "<C-w>h", { desc = "Move to the left pane", silent = true })
