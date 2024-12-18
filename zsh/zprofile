@@ -20,7 +20,7 @@ alias ls="eza"
 alias cat="bat"
 alias lg="lazygit"
 alias ld="lazydocker"
-alias v="nvim"
+alias nv="nvim"
 
 # Install packages using yay (change to pacman/AUR helper of your choice)
 function in() {
