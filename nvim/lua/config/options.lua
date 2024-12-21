@@ -5,6 +5,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.use_mini_autopairs = true
 vim.g.use_blink_cmp = true
+vim.g.use_colemak_bindings = false
 
 vim.o.lazyredraw = true
 vim.o.autoread = true
@@ -56,8 +57,43 @@ local function is_wsl()
 	return output[1] and output[1]:find("WSL2") ~= nil
 end
 
+-- idea from https://github.com/drewherron/colemak-vim
+local function toggle_colemak_mappings()
+	if vim.g.use_colemak_bindings then
+		vim.g.use_colemak_bindings = not vim.g.use_colemak_bindings
+		vim.keymap.set({ "n", "v" }, "n", "j")
+		vim.keymap.set({ "n", "v" }, "N", "n")
+		vim.keymap.set({ "n", "v" }, "e", "k")
+		vim.keymap.set({ "n", "v" }, "E", "N")
+		vim.keymap.set({ "n", "v" }, "N", "n")
+		vim.keymap.set({ "n", "v" }, "i", "l")
+		vim.keymap.set({ "n", "v" }, "I", "L")
+		vim.keymap.set({ "n", "v" }, "j", "K")
+		vim.keymap.set({ "n", "v" }, "k", "e")
+		vim.keymap.set({ "n", "v" }, "K", "E")
+		vim.keymap.set({ "n", "v" }, "l", "i")
+		vim.keymap.set({ "n", "v" }, "L", "I")
+	else
+		vim.g.use_colemak_bindings = not vim.g.use_colemak_bindings
+		vim.keymap.set({ "n", "v" }, "n", "n")
+		vim.keymap.set({ "n", "v" }, "N", "N")
+		vim.keymap.set({ "n", "v" }, "e", "e")
+		vim.keymap.set({ "n", "v" }, "E", "E")
+		vim.keymap.set({ "n", "v" }, "N", "N")
+		vim.keymap.set({ "n", "v" }, "i", "i")
+		vim.keymap.set({ "n", "v" }, "I", "I")
+		vim.keymap.set({ "n", "v" }, "j", "j")
+		vim.keymap.set({ "n", "v" }, "k", "k")
+		vim.keymap.set({ "n", "v" }, "K", "K")
+		vim.keymap.set({ "n", "v" }, "l", "l")
+		vim.keymap.set({ "n", "v" }, "L", "L")
+	end
+end
+
+toggle_colemak_mappings()
+vim.keymap.set("n", "<leader>tc", toggle_colemak_mappings)
+
 if is_wsl() then
-	print("hello")
 	vim.g.clipboard = {
 		name = "WslClipboard",
 		copy = {
