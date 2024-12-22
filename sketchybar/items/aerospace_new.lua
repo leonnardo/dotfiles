@@ -92,7 +92,6 @@ local function updateWindows(workspace_index)
 							label = {
 								string = icon_line,
 								drawing = true,
-								-- padding_right = 20,
 								font = "sketchybar-app-font:Regular:16.0",
 								y_offset = -1,
 							},
@@ -129,7 +128,6 @@ local function updateWorkspaceMonitor(workspace_index)
 end
 
 for workspace_index = 1, max_workspaces do
-	print("I'm here!")
 	local workspace = sbar.add("item", {
 		icon = {
 			color = colors.white,

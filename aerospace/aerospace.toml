@@ -103,9 +103,10 @@ cmd-alt-ctrl-t = 'layout tiles horizontal vertical'
 cmd-alt-ctrl-s = 'layout v_accordion'
 cmd-alt-ctrl-r = 'layout h_accordion'
 
-
 cmd-alt-enter = 'exec-and-forget open -a kitty'
 cmd-alt-space = 'exec-and-forget open -a /Applications/Zen\ Browser.app'
+cmd-alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
+cmd-alt-m = 'exec-and-forget open -a /Applications/Texts.app'
 
 # see: https://nikitabobko.github.io/aerospace/commands#focus
 cmd-alt-n = 'focus left'
@@ -114,19 +115,19 @@ cmd-alt-u = 'focus up'
 cmd-alt-i = 'focus right'
 
 # see: https://nikitabobko.github.io/aerospace/commands#move
-cmd-alt-ctrl-n = 'move left'
-cmd-alt-ctrl-e = 'move down'
-cmd-alt-ctrl-u = 'move up'
-cmd-alt-ctrl-i = 'move right'
+cmd-ctrl-shift-n = 'move left'
+cmd-ctrl-shift-e = 'move down'
+cmd-ctrl-shift-u = 'move up'
+cmd-ctrl-shift-i = 'move right'
 
-cmd-ctrl-shift-n = ['join-with left']
-cmd-ctrl-shift-e = ['join-with down']
-cmd-ctrl-shift-u = ['join-with up']
-cmd-ctrl-shift-i = ['join-with right']
+cmd-ctrl-alt-n = ['join-with left']
+cmd-ctrl-alt-e = ['join-with down']
+cmd-ctrl-alt-u = ['join-with up']
+cmd-ctrl-alt-i = ['join-with right']
 
 # see: https://nikitabobko.github.io/aerospace/commands#resize
-cmd-alt-minus = 'resize smart -20'
-cmd-alt-equal = 'resize smart +20'
+cmd-alt-minus = 'resize smart -50'
+cmd-alt-equal = 'resize smart +50'
 
 # see: https://nikitabobko.github.io/aerospace/commands#workspace
 # alt-leftsquarebracket = 'workspace --wrap-around prev'
@@ -153,10 +154,10 @@ cmd-alt-ctrl-7 = ['move-node-to-workspace 7', 'workspace 7']
 cmd-alt-ctrl-8 = ['move-node-to-workspace 8', 'workspace 8']
 
 # see: https://nikitabobko.github.io/aerospace/commands#workspace-back-and-forth
-cmd-alt-ctrl-l = 'workspace-back-and-forth'
+cmd-alt-tab = 'workspace-back-and-forth'
 
 # see: https://nikitabobko.github.io/aerospace/commands#move-workspace-to-monitor
-cmd-alt-ctrl-m = 'move-workspace-to-monitor --wrap-around next'
+cmd-alt-ctrl-tab = 'move-workspace-to-monitor --wrap-around next'
 
 cmd-alt-z = 'fullscreen'
 

@@ -16,7 +16,7 @@ bindkey '^o' cdi
 
 
 # Aliases and functions
-alias ls="eza"
+alias ls="eza --icons"
 alias cat="bat"
 alias lg="lazygit"
 alias ld="lazydocker"
