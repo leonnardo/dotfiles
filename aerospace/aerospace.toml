@@ -109,21 +109,21 @@ cmd-alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 cmd-alt-m = 'exec-and-forget open -a /Applications/Texts.app'
 
 # see: https://nikitabobko.github.io/aerospace/commands#focus
-cmd-alt-n = 'focus left'
-cmd-alt-e = 'focus down'
-cmd-alt-u = 'focus up'
-cmd-alt-i = 'focus right'
+cmd-alt-left = 'focus left --boundaries all-monitors-outer-frame'
+cmd-alt-down = 'focus down --boundaries all-monitors-outer-frame'
+cmd-alt-up = 'focus up --boundaries all-monitors-outer-frame'
+cmd-alt-right = 'focus right --boundaries all-monitors-outer-frame'
 
 # see: https://nikitabobko.github.io/aerospace/commands#move
-cmd-ctrl-shift-n = 'move left'
-cmd-ctrl-shift-e = 'move down'
-cmd-ctrl-shift-u = 'move up'
-cmd-ctrl-shift-i = 'move right'
+cmd-ctrl-shift-left = 'move left'
+cmd-ctrl-shift-down = 'move down'
+cmd-ctrl-shift-up = 'move up'
+cmd-ctrl-shift-right = 'move right'
 
-cmd-ctrl-alt-n = ['join-with left']
-cmd-ctrl-alt-e = ['join-with down']
-cmd-ctrl-alt-u = ['join-with up']
-cmd-ctrl-alt-i = ['join-with right']
+cmd-ctrl-alt-left = ['join-with left']
+cmd-ctrl-alt-down = ['join-with down']
+cmd-ctrl-alt-up = ['join-with up']
+cmd-ctrl-alt-right = ['join-with right']
 
 # see: https://nikitabobko.github.io/aerospace/commands#resize
 cmd-alt-minus = 'resize smart -50'
@@ -162,9 +162,10 @@ cmd-alt-ctrl-tab = 'move-workspace-to-monitor --wrap-around next'
 cmd-alt-z = 'fullscreen'
 
 # see: https://nikitabobko.github.io/aerospace/commands#mode
-cmd-alt-c = 'mode service'
+cmd-alt-s = 'mode service'
 
 # 'service' binding mode declaration.
+# TODO: Think more carefully about this mode
 # see: https://nikitabobko.github.io/aerospace/guide#binding-modes
 [mode.service.binding]
 enter = ['reload-config', 'mode main']
