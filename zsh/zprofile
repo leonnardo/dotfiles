@@ -11,9 +11,13 @@ ZOXIDE_CMD_OVERRIDE="cd"
 eval "$(zoxide init --cmd ${ZOXIDE_CMD_OVERRIDE:-z} zsh)"
 bindkey '^o' cdi
 
-. /opt/asdf-vm/asdf.sh
-. ~/.asdf/plugins/dotnet/set-dotnet-env.zsh
+if [[ "$(uname)" == "Darwin" ]]; then
+  . /usr/local/opt/asdf/libexec/asdf.sh
+elif [[ -f /etc/arch-release ]]; then
+  . /opt/asdf-vm/asdf.sh
+fi
 
+. ~/.asdf/plugins/dotnet/set-dotnet-env.zsh
 
 # Aliases and functions
 alias ls="eza --icons"
@@ -41,6 +45,30 @@ function tm() {
     tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
   fi
   session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+}
+
+function vmpa() {
+  plugins=$(asdf plugin list-all | fzf -m | awk '{print $1}')
+
+  if [[ $plugins ]]; then
+    for plugin in $(echo $plugins);
+    do;
+      echo "Adding $plugin plugin";
+      asdf plugin add $plugin;
+    done;
+  fi
+}
+
+function vmpr() {
+  plugins=$(asdf plugin list | fzf -m)
+
+  if [[ $plugins ]]; then
+    for plugin in $(echo $plugins);
+    do;
+      echo "Removing $plugin plugin";
+      asdf plugin remove $plugin;
+    done;
+  fi
 }
 
 # Install one or more versions of specified language
@@ -83,4 +111,37 @@ function vmc() {
   fi
 }
 
+function vmsg() {
+  local lang=${1}
 
+  if [[ ! $lang ]]; then
+    lang=$(asdf plugin-list | fzf)
+  fi
+
+
+  if [[ $lang ]]; then
+    local version=$(asdf list $lang | sed 's/[ *]//g' | fzf)
+    if [[ $version ]]; then
+      asdf global $lang $version;
+      echo "$lang global version set to $version"
+    fi
+  fi
+}
+
+
+function vmsl() {
+  local lang=${1}
+
+  if [[ ! $lang ]]; then
+    lang=$(asdf plugin-list | fzf)
+  fi
+
+
+  if [[ $lang ]]; then
+    local version=$(asdf list $lang | sed 's/[ *]//g' | fzf)
+    if [[ $version ]]; then
+      asdf local $lang $version;
+      echo "$lang local version set to $version"
+    fi
+  fi
+}
