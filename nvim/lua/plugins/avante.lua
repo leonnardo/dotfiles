@@ -3,10 +3,13 @@ return {
 	event = "VeryLazy",
 	lazy = false,
 	version = false, -- set this if you want to always pull the latest change
-	cond = false,
+	cond = true,
 	opts = {
-		provider = "copilot",
-		-- add any opts here
+		provider = "claude",
+		auto_suggestion_provider = "copilot",
+		claude = {
+			api_key_name = { "op", "read", "op://Personal/Anthropic API Key/password", "--no-newline" },
+		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 	build = "make",

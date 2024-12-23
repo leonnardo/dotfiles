@@ -34,7 +34,7 @@ return {
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
-		cond = true,
+		cond = false,
 		branch = "main",
 		lazy = false,
 		dependencies = {

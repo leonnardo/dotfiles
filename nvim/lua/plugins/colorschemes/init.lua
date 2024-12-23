@@ -2,6 +2,8 @@ return {
 	{ "folke/tokyonight.nvim", priority = 1000 },
 	{ "ellisonleao/gruvbox.nvim", priority = 1000 },
 	{ "rebelot/kanagawa.nvim", priority = 1000 },
+	{ "andreasvc/vim-256noir", priority = 1000 },
+	{ "ntk148v/komau.vim", priority = 1000 },
 	{
 		"zenbones-theme/zenbones.nvim",
 		-- Optionally install Lush. Allows for more configuration or extending the colorscheme
@@ -10,7 +12,6 @@ return {
 		dependencies = "rktjmp/lush.nvim",
 		lazy = false,
 		priority = 1000,
-		-- you can set set configuration options here
 	},
 	{
 		"catppuccin/nvim",

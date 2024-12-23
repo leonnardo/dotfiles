@@ -8,6 +8,7 @@ return {
 	},
 	{
 		"epwalsh/obsidian.nvim",
+		cond = false,
 		opts = {
 			ui = {
 				enable = false,

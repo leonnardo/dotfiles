@@ -40,4 +40,5 @@ require("lazy").setup({
 	},
 })
 
+vim.g.tokyobones_transparent_background = true
 vim.cmd.colorscheme("tokyobones")

@@ -160,6 +160,29 @@ return {
 						},
 					},
 				},
+				pyright = {
+					settings = {
+						pyright = {
+							disableOrganizeImports = true,
+						},
+						python = {
+							analysis = {
+								reportGeneralTypeIssues = "warning",
+								typeCheckingMode = "basic",
+								ignore = { '*' },
+							}
+						}
+					}
+				},
+				ruff = {
+					trace = 'messages',
+					init_options = {
+						settings = {
+							lineLength = 100,
+							logLevel = 'debug',
+						},
+					}
+				},
 				yamlls = {
 					settings = {
 						yaml = {

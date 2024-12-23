@@ -48,17 +48,17 @@ return {
 
 			documentation = {
 				auto_show = true,
-				auto_show_delay = 200,
+				-- auto_show_delay = 200,
 			},
 
 			-- experimental signature help support
-			signature = {
-				enabled = true,
-			},
+			-- signature = {
+			-- 	enabled = true,
+			-- },
 
-			fuzzy = {
-				use_typo_resistance = true,
-			},
+			-- fuzzy = {
+			-- 	use_typo_resistance = true,
+			-- },
 		},
 
 		appearance = {
@@ -89,9 +89,7 @@ return {
 		-- default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, via `opts_extend`
 		sources = {
-			completion = {
-				enabled_providers = { "lsp", "path", "luasnip", "buffer" },
-			},
+			default = { "lsp", "path", "luasnip", "buffer" },
 			providers = {
 				luasnip = {
 					name = "luasnip",
@@ -107,5 +105,5 @@ return {
 	},
 	-- allows extending the enabled_providers array elsewhere in your config
 	-- without having to redefine it
-	opts_extend = { "sources.completion.enabled_providers" },
+	opts_extend = { "sources.default" },
 }
