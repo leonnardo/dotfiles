@@ -18,6 +18,8 @@ fi
 
 # Aliases and functions
 alias ls="eza --icons"
+alias ll="eza --icons -lah"
+alias lt="eza --icons -TL 2"
 alias cat="bat"
 alias lg="lazygit"
 alias ld="lazydocker"
