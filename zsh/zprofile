@@ -3,9 +3,6 @@ export PAGER="most"
 export EDITOR='nvim'
 PATH=$PATH:~/.local/bin
 
-eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/themes/lrabello.toml)"
-eval "$(fzf --zsh)"
-
 # Override zoxide command
 ZOXIDE_CMD_OVERRIDE="cd"
 eval "$(zoxide init --cmd ${ZOXIDE_CMD_OVERRIDE:-z} zsh)"
