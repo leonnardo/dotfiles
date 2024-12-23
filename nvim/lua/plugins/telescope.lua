@@ -1,14 +1,3 @@
-local utils = require("plugins.telescope.utils")
-
-local function filenameFirst(_, path)
-	local tail = vim.fs.basename(path)
-	local parent = vim.fs.dirname(path)
-	if parent == "." then
-		return tail
-	end
-	return string.format("%s\t\t%s", tail, parent)
-end
-
 return {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
@@ -27,7 +16,6 @@ return {
 	config = function()
 		require("telescope").setup({
 			defaults = {
-				path_display = "truncate",
 				vimgrep_arguments = {
 					"rg",
 					"--color=never",
@@ -64,7 +52,6 @@ return {
 				},
 				git_files = {
 					previewer = false,
-					path_display = filenameFirst,
 					theme = "dropdown",
 				},
 				find_files = {
@@ -73,7 +60,6 @@ return {
 					theme = "dropdown",
 					windblend = 10,
 					previewer = false,
-					path_display = utils.filename_first,
 				},
 				current_buffer_fuzzy_find = {
 					theme = "dropdown",
@@ -96,11 +82,8 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>sh", "<cmd>Telescope help_tags<cr>", { noremap = true })
-
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")
 		pcall(require("telescope").load_extension, "frecency")
 	end,
-	keys = require("plugins.telescope.keymaps"),
 }
