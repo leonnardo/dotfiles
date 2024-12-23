@@ -24,7 +24,7 @@ return {
 		-- { mods = "SUPER", key = "", action = },
 		{ mods = "SUPER", key = "t", action = tmux_prefix("t") },
 		{ mods = "SUPER", key = "w", action = tmux_prefix("w") },
-		{ mods = "SUPER", key = "k", action = tmux_prefix("s") },
+		{ mods = "SUPER", key = "m", action = tmux_prefix("s") },
 		{ mods = "SUPER", key = "s", action = tmux_prefix("%") },
 		{ mods = "SUPER", key = "S", action = tmux_prefix("-") },
 		{ mods = "SUPER", key = "Z", action = tmux_prefix("z") },
