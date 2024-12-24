@@ -10,25 +10,10 @@ local workspace_monitor = {}
 
 -- Add padding to the left
 sbar.add("item", {
-	icon = {
-		color = colors.white,
-		highlight_color = colors.red,
-		drawing = false,
-	},
-	label = {
-		color = colors.grey,
-		highlight_color = colors.white,
-		drawing = false,
-	},
-	background = {
-		color = colors.with_alpha(colors.bg1, colors.transparency),
-		border_width = 1,
-		height = 28,
-		border_color = colors.black,
-		corner_radius = 9,
-		drawing = false,
-	},
-	padding_left = 6,
+	icon = { drawing = false },
+	label = { drawing = false },
+	background = { drawing = false },
+	padding_left = 5,
 	padding_right = 0,
 })
 
@@ -131,7 +116,6 @@ for workspace_index = 1, max_workspaces do
 	local workspace = sbar.add("item", {
 		icon = {
 			color = colors.white,
-			-- highlight_color = colors.red,
 			highlight_color = colors.aerospace_icon_highlight_color,
 			drawing = false,
 			font = { family = settings.font.numbers },
@@ -141,9 +125,10 @@ for workspace_index = 1, max_workspaces do
 		},
 		label = {
 			padding_right = 10,
-			-- color = colors.grey,
-			color = colors.aerospace_label_color,
-			highlight_color = colors.aerospace_label_highlight_color,
+			-- color = colors.aerospace_label_color,
+			color = colors.with_alpha(colors.grey, colors.transparency),
+			-- highlight_color = colors.aerospace_label_highlight_color,
+			highlight_color = colors.with_alpha(colors.white, colors.transparency),
 			font = "sketchybar-app-font:Regular:16.0",
 			y_offset = -1,
 		},
@@ -151,9 +136,10 @@ for workspace_index = 1, max_workspaces do
 		padding_left = 2,
 		background = {
 			color = colors.bg3,
-			border_width = 1,
+			border_width = 2,
 			height = 28,
-			border_color = colors.bg2,
+			-- border_color = colors.bg2,
+			border_color = colors.border,
 		},
 		click_script = "aerospace workspace " .. workspace_index,
 	})
@@ -171,7 +157,7 @@ for workspace_index = 1, max_workspaces do
 				background = {
 					border_width = is_focused and 2 or 1,
 				},
-				blur_radius = 30,
+				blur_radius = 20,
 			})
 		end)
 	end)

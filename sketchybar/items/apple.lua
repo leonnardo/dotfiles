@@ -28,7 +28,18 @@ local apple_prefs = sbar.add("item", {
 	label = "Preferences",
 })
 
+local apple_activity = sbar.add("item", {
+	position = "popup." .. apple_logo.name,
+	icon = icons.activity,
+	label = "Activity Monitor",
+})
+
 apple_prefs:subscribe("mouse.clicked", function(_)
 	sbar.exec("open -a 'System Preferences'")
+	apple_logo:set({ popup = { drawing = false } })
+end)
+
+apple_activity:subscribe("mouse.clicked", function(_)
+	sbar.exec("open -a 'Activity Monitor'")
 	apple_logo:set({ popup = { drawing = false } })
 end)
