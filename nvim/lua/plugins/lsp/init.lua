@@ -169,19 +169,19 @@ return {
 							analysis = {
 								reportGeneralTypeIssues = "warning",
 								typeCheckingMode = "basic",
-								ignore = { '*' },
-							}
-						}
-					}
+								ignore = { "*" },
+							},
+						},
+					},
 				},
 				ruff = {
-					trace = 'messages',
+					trace = "messages",
 					init_options = {
 						settings = {
 							lineLength = 100,
-							logLevel = 'debug',
+							logLevel = "debug",
 						},
-					}
+					},
 				},
 				yamlls = {
 					settings = {
@@ -229,18 +229,6 @@ return {
 					end,
 				},
 			})
-
-			-- local lspconfig = require("lspconfig")
-			-- local configs = require("lspconfig.configs")
-			-- configs.roslyn = {
-			-- 	default_config = {
-			-- 		cmd = { "roslyn" },
-			-- 		root_dir = require("lspconfig").util.root_pattern(".git"),
-			-- 		filetypes = { "cs" },
-			-- 	},
-			-- }
-			--
-			-- lspconfig.roslyn.setup({})
 		end,
 	},
 }

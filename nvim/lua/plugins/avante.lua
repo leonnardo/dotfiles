@@ -1,14 +1,16 @@
 return {
 	"yetone/avante.nvim",
-	event = "VeryLazy",
-	lazy = false,
+	cmd = { "AvanteAsk", "AvanteToggle", "AvanteChat" },
+	keys = {
+		{ "<leader>aa", "<cmd>AvanteToggle<cr>", desc = "Toggle Avante" },
+	},
 	version = false, -- set this if you want to always pull the latest change
 	cond = true,
 	opts = {
 		provider = "claude",
 		auto_suggestion_provider = "copilot",
 		claude = {
-			api_key_name = { "op", "read", "op://Personal/Anthropic API Key/password", "--no-newline" },
+			api_key_name = { "op", "read", "op://Personal/Anthropic/credential", "--no-newline" },
 		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
