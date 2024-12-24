@@ -109,10 +109,10 @@ cmd-alt-o = 'exec-and-forget open -b md.obsidian'
 cmd-alt-m = 'exec-and-forget open -b com.kishanbagaria.jack'
 
 # see: https://nikitabobko.github.io/aerospace/commands#focus
-cmd-alt-left = 'focus left --boundaries all-monitors-outer-frame'
-cmd-alt-down = 'focus down --boundaries all-monitors-outer-frame'
-cmd-alt-up = 'focus up --boundaries all-monitors-outer-frame'
-cmd-alt-right = 'focus right --boundaries all-monitors-outer-frame'
+cmd-alt-left = 'focus left --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
+cmd-alt-down = 'focus down --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
+cmd-alt-up = 'focus up --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
+cmd-alt-right = 'focus right --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
 
 # see: https://nikitabobko.github.io/aerospace/commands#move
 cmd-ctrl-shift-left = 'move left'
@@ -156,7 +156,6 @@ cmd-alt-ctrl-8 = ['move-node-to-workspace 8', 'workspace 8']
 # see: https://nikitabobko.github.io/aerospace/commands#workspace-back-and-forth
 cmd-alt-tab = 'workspace-back-and-forth'
 
-
 cmd-alt-z = 'fullscreen'
 
 # see: https://nikitabobko.github.io/aerospace/commands#mode
@@ -181,7 +180,7 @@ up = 'resize height +10'
 right = 'resize width +10'
 equal = ['balance-sizes', 'mode main']
 # see: https://nikitabobko.github.io/aerospace/commands#move-workspace-to-monitor
-tab = ['move-workspace-to-monitor --wrap-around next', 'mode main' ]
+tab = ['move-workspace-to-monitor --wrap-around next', 'mode main']
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
@@ -192,13 +191,13 @@ alt-right = ['join-with right', 'mode main']
 
 [workspace-to-monitor-force-assignment]
 1 = 'main'
-2 = 'main'
-3 = 'main'
-4 = 'main'
-5 = ['secondary', 'main']
-6 = ['secondary', 'main']
-7 = ['secondary', 'main']
-8 = ['secondary', 'main']
+# 2 = 'main'
+# 3 = 'main'
+# 4 = 'main'
+# 5 = ['secondary', 'main']
+# 6 = ['secondary', 'main']
+# 7 = ['secondary', 'main']
+# 8 = ['secondary', 'main']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'

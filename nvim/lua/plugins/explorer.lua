@@ -26,6 +26,7 @@ return {
 				go_in_plus = "<Enter>",
 				go_out_plus = "<Left>",
 				close = "<Esc>",
+				synchronize = "s",
 			},
 		},
 		keys = {

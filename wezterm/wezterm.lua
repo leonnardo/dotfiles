@@ -48,6 +48,8 @@ return {
 		{ mods = "SUPER", key = "5", action = tmux_prefix("5") },
 		{ mods = "SUPER", key = "e", action = tmux_prefix("n") },
 		{ mods = "SUPER", key = "n", action = tmux_prefix("p") },
+		{ mods = "SUPER", key = "l", action = tmux_prefix("l") },
+		{ mods = "SUPER", key = "H", action = tmux_prefix("S") },
 		{ mods = "SUPER", key = "LeftArrow", action = ctrl_prefix("LeftArrow") },
 		{ mods = "SUPER", key = "DownArrow", action = ctrl_prefix("DownArrow") },
 		{ mods = "SUPER", key = "UpArrow", action = ctrl_prefix("UpArrow") },

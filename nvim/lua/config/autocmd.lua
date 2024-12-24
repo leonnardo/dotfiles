@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = augroup("hightligh_yank"),
 	callback = function()
-		vim.highlight.on_yank()
+		vim.highlight.on_yank({ timeout = 300 })
 	end,
 })
 
@@ -90,16 +90,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
 	callback = function()
 		vim.opt_local.number = false
 		vim.opt_local.relativenumber = false
-	end,
-})
-
--- Reload kitty config
-vim.api.nvim_create_autocmd("BufWritePost", {
-	group = augroup("kitty_conf_reload"),
-	pattern = "kitty.conf",
-	callback = function()
-		vim.cmd("silent! !kill -SIGUSR1 $(pgrep kitty)")
-		-- vim.fn.system("kill -SIGUSR1 $(pgrep kitty)")
 	end,
 })
 
