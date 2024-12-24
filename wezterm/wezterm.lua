@@ -13,6 +13,7 @@ end
 
 return {
 	-- default_prog = { "tmux", "new", "-A" },
+	max_fps = 120,
 	font = wezterm.font("JetBrainsMono Nerd Font", { weight = "DemiBold" }),
 	font_size = 15.0,
 	enable_tab_bar = false,
@@ -20,6 +21,17 @@ return {
 	window_background_opacity = 0.97,
 	window_close_confirmation = "NeverPrompt",
 	native_macos_fullscreen_mode = false,
+	cursor_blink_rate = 400,
+	cursor_blink_ease_in = "Constant",
+	cursor_blink_ease_out = "Constant",
+
+	window_padding = {
+		left = 2,
+		right = 2,
+		top = 5,
+		bottom = 0,
+	},
+
 	keys = {
 		-- { mods = "SUPER", key = "", action = },
 		{ mods = "SUPER", key = "t", action = tmux_prefix("t") },
