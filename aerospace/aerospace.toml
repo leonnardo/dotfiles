@@ -19,8 +19,8 @@ exec-on-workspace-change = [
 start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
-enable-normalization-flatten-containers = false
-enable-normalization-opposite-orientation-for-nested-containers = false
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
@@ -66,7 +66,7 @@ inner.horizontal = 5
 inner.vertical = 5
 outer.left = 5
 outer.bottom = 5
-outer.top = 34
+outer.top = 35
 outer.right = 5
 
 # 'main' binding mode declaration
@@ -156,8 +156,6 @@ cmd-alt-ctrl-8 = ['move-node-to-workspace 8', 'workspace 8']
 # see: https://nikitabobko.github.io/aerospace/commands#workspace-back-and-forth
 cmd-alt-tab = 'workspace-back-and-forth'
 
-# see: https://nikitabobko.github.io/aerospace/commands#move-workspace-to-monitor
-cmd-alt-ctrl-tab = 'move-workspace-to-monitor --wrap-around next'
 
 cmd-alt-z = 'fullscreen'
 
@@ -182,6 +180,8 @@ down = 'resize height -10'
 up = 'resize height +10'
 right = 'resize width +10'
 equal = ['balance-sizes', 'mode main']
+# see: https://nikitabobko.github.io/aerospace/commands#move-workspace-to-monitor
+tab = ['move-workspace-to-monitor --wrap-around next', 'mode main' ]
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
