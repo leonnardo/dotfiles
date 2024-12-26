@@ -103,10 +103,10 @@ cmd-alt-ctrl-t = 'layout tiles horizontal vertical'
 cmd-alt-ctrl-s = 'layout v_accordion'
 cmd-alt-ctrl-r = 'layout h_accordion'
 
-cmd-alt-enter = 'exec-and-forget open -a wezterm'
-cmd-alt-space = 'exec-and-forget open -b org.mozilla.com.zen.browser'
+cmd-alt-n = 'exec-and-forget open -a ghostty'
+cmd-alt-e = 'exec-and-forget open -b org.mozilla.com.zen.browser'
 cmd-alt-o = 'exec-and-forget open -b md.obsidian'
-cmd-alt-m = 'exec-and-forget open -b com.kishanbagaria.jack'
+cmd-alt-i = 'exec-and-forget open -b com.kishanbagaria.jack'
 
 # see: https://nikitabobko.github.io/aerospace/commands#focus
 cmd-alt-left = 'focus left --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
@@ -154,7 +154,7 @@ cmd-alt-ctrl-7 = ['move-node-to-workspace 7', 'workspace 7']
 cmd-alt-ctrl-8 = ['move-node-to-workspace 8', 'workspace 8']
 
 # see: https://nikitabobko.github.io/aerospace/commands#workspace-back-and-forth
-cmd-alt-tab = 'workspace-back-and-forth'
+alt-tab = 'workspace-back-and-forth'
 
 cmd-alt-z = 'fullscreen'
 

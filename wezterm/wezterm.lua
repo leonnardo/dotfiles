@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local commands = require("commands")
 
 local tmux_prefix = function(key)
 	return wezterm.action.Multiple({
@@ -11,24 +12,32 @@ local ctrl_prefix = function(key)
 	return wezterm.action.SendKey({ mods = "CTRL", key = key })
 end
 
+wezterm.on("augment-command-palette", function()
+	return commands
+end)
+
 return {
 	-- default_prog = { "tmux", "new", "-A" },
 	max_fps = 120,
+	prefer_egl = true, -- macOS specific
 	font = wezterm.font("JetBrainsMono Nerd Font", { weight = "DemiBold" }),
 	font_size = 15.0,
+	line_height = 1.2,
 	enable_tab_bar = false,
 	window_decorations = "RESIZE",
-	window_background_opacity = 0.97,
+
+	window_background_opacity = 0.85,
 	window_close_confirmation = "NeverPrompt",
 	native_macos_fullscreen_mode = false,
+	macos_window_background_blur = 40,
 	cursor_blink_rate = 400,
 	cursor_blink_ease_in = "Constant",
 	cursor_blink_ease_out = "Constant",
 
 	window_padding = {
-		left = 2,
-		right = 2,
-		top = 5,
+		left = 0,
+		right = 0,
+		top = 0,
 		bottom = 0,
 	},
 
@@ -54,5 +63,6 @@ return {
 		{ mods = "SUPER", key = "DownArrow", action = ctrl_prefix("DownArrow") },
 		{ mods = "SUPER", key = "UpArrow", action = ctrl_prefix("UpArrow") },
 		{ mods = "SUPER", key = "RightArrow", action = ctrl_prefix("RightArrow") },
+		{ mods = "SUPER", key = "P", action = wezterm.action.ActivateCommandPalette },
 	},
 }

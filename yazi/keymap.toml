@@ -1,0 +1,10 @@
+### I'm gonna try to make colemak keybindings without coliding with default ones
+### Major issues are neio keybindings
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+[manager]
+prepend_keymap = [
+  { on = "e", run = "arrow -1", desc = "Move cursor up" },
+  { on = "n", run = "arrow 1", desc = "Move cursor down" },
+  { on = "i", run = "enter", desc = "Enter the child directory" },
+]
