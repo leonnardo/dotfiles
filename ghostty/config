@@ -1,0 +1,40 @@
+font-family = "JetBrainsMono NFM SemiBold"
+font-size = 15
+adjust-cell-height = 5
+
+background-opacity = 0.85
+background-blur-radius = 40
+background = "#000000"
+mouse-hide-while-typing = true
+window-decoration = true
+
+macos-titlebar-style = "hidden"
+bold-is-bright = true
+
+# Keybinds
+# \x02 is ctrl+b (default tmux prefix)
+# \x01 is ctrl+a (common alternative tmux prefix)
+# \x00 is ctrl+space (common alternative tmux prefix)
+keybind = cmd+t=text:\x01t
+keybind = cmd+w=text:\x01w
+keybind = cmd+k=text:\x01s
+keybind = cmd+d=text:\x01%
+keybind = cmd+shift+d=text:\x01-
+keybind = cmd+shift+z=text:\x01z
+
+keybind = cmd+one=text:\x011
+keybind = cmd+two=text:\x012
+keybind = cmd+two=text:\x012
+keybind = cmd+three=text:\x013
+keybind = cmd+four=text:\x014
+keybind = cmd+five=text:\x015
+
+keybind = cmd+n=text:\x1b[1;5D
+keybind = cmd+i=text:\x1b[1;5C
+keybind = cmd+u=text:\x1b[1;5A
+keybind = cmd+e=text:\x1b[1;5B
+
+keybind = cmd+r=reload_config
+keybind = cmd+shift+n=text:\x01p
+keybind = cmd+shift+i=text:\x01n
+keybind = cmd+shift+r=reload_config
