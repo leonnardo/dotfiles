@@ -97,8 +97,6 @@ command -v fzf >/dev/null 2>&1 && {
 	source <(kubectl completion zsh | sed 's#${requestComp} 2>/dev/null#${requestComp} 2>/dev/null | head -n -1 | fzf  --multi=0 #g')
 }
 
-eval "$(op completion zsh)"; compdef _op op
-
 # zsh parameter completion for the dotnet CLI
 _dotnet_zsh_complete() {
     local completions=("$(dotnet complete "$words")")
