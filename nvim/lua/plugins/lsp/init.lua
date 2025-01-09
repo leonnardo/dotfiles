@@ -183,15 +183,24 @@ return {
 						},
 					},
 				},
-				yamlls = {
-					settings = {
-						yaml = {
-							schemas = {
-								kubernetes = "*.yaml",
-							},
-						},
-					},
-				},
+				yamlls = require("yaml-companion").setup({
+					lspconfig = {
+						settings = {
+							yaml = {
+								printWidth = 120,
+							}
+						}
+					}
+				}),
+				-- yamlls = {
+				-- 	settings = {
+				-- 		yaml = {
+				-- 			schemas = {
+				-- 				kubernetes = "*.yaml",
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
 			}
 
 			require("mason").setup()

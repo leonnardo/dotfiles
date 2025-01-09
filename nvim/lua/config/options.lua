@@ -47,7 +47,6 @@ opt.undofile = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.laststatus = 3
-opt.shell = "/bin/zsh -l"
 
 vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"

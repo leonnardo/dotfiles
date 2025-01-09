@@ -3,5 +3,5 @@ return {
 	config = function()
 		require("telescope").load_extension("yaml_schema")
 	end,
-	enabled = false,
+	-- enabled = false,
 }
