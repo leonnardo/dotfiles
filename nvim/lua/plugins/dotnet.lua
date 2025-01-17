@@ -46,8 +46,8 @@ return {
 	},
 	{
 		"seblj/roslyn.nvim",
-		ft = "cs",
-		enabled = use_roslyn_nvim,
+		ft = { "cs", "sln", "csproj", "props", "targets" },
+		cond = use_roslyn_nvim,
 		init = function()
 			vim.keymap.set("n", "<leader>ds", function()
 				if not vim.g.roslyn_nvim_selected_solution then

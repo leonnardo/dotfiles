@@ -18,8 +18,6 @@ return {
 			{ "j-hui/fidget.nvim", opts = {} },
 			{ "jinzhongjia/LspUI.nvim", cond = false, opts = {} }, -- TODO: test it later
 			{ "soulis-1256/eagle.nvim", cond = false, opts = {} }, -- TODO: test it later
-			{ "ray-x/navigator.lua", cond = false, opts = {} }, -- TODO: test it later
-			{ "SmiteshP/nvim-navic", cond = false, opts = {} }, -- TODO: test it later
 			-- { "VonHeikemen/lsp-zero.nvim", branch = "v4.x" },
 		},
 		config = function()
@@ -188,19 +186,23 @@ return {
 						settings = {
 							yaml = {
 								printWidth = 120,
-							}
-						}
-					}
+							},
+						},
+					},
 				}),
-				-- yamlls = {
-				-- 	settings = {
-				-- 		yaml = {
-				-- 			schemas = {
-				-- 				kubernetes = "*.yaml",
-				-- 			},
-				-- 		},
-				-- 	},
-				-- },
+				omnisharp = {
+					filetypes = { "cs", "sln", "csproj", "props", "targets" },
+					settings = {
+						FormattingOptions = {
+							OrganizeImports = true,
+						},
+						RoslynExtensionsOptions = {
+							EnableImportCompletion = true,
+							EnableAnalysersSupport = true,
+							EnableDecompilationSupport = true,
+						},
+					},
+				},
 			}
 
 			require("mason").setup()

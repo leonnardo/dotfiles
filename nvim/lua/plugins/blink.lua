@@ -2,9 +2,10 @@ return {
 	"saghen/blink.cmp",
 	lazy = false,
 	event = "InsertEnter",
+	version = "*",
 	opts_extend = { "sources.default" },
 	dependencies = {
-		"L3MON4D3/LuaSnip",
+		{ "L3MON4D3/LuaSnip", version = "v2.*" },
 		"rafamadriz/friendly-snippets",
 		"saadparwaiz1/cmp_luasnip",
 		{ "saghen/blink.compat", version = "*", opts = { impersonate_nvim_cmp = true } },
@@ -30,10 +31,14 @@ return {
 				show_in_snippet = false,
 			},
 			list = {
-				selection = function(ctx)
-					return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-				end,
-				max_items = 25,
+				selection = {
+					preselect = function(ctx)
+						return ctx.mode ~= "cmdline" and not require("blink.cmp").snippet_active({ direction = 1 })
+					end,
+					auto_insert = function(ctx)
+						return ctx.mode ~= "cmdline"
+					end,
+				},
 			},
 			documentation = {
 				auto_show = true,
@@ -44,18 +49,7 @@ return {
 			},
 		},
 		snippets = {
-			expand = function(snippet)
-				require("luasnip").lsp_expand(snippet)
-			end,
-			active = function(filter)
-				if filter and filter.direction then
-					require("luasnip").jumpable(filter.direction)
-				end
-				return require("luasnip").in_snippet()
-			end,
-			jump = function(direction)
-				require("luasnip").jump(direction)
-			end,
+			preset = "luasnip",
 		},
 		signature = {
 			enabled = true,
@@ -64,18 +58,7 @@ return {
 			},
 		},
 		sources = {
-			default = { "lsp", "path", "snippets" },
-			providers = {
-				luasnip = {
-					name = "luasnip",
-					module = "blink.compat.source",
-					score_offset = -3,
-					opts = {
-						use_show_condition = false,
-						show_autosnippets = true,
-					},
-				},
-			},
+			default = { "lsp", "snippets", "path", "codecompanion" },
 		},
 	},
 }

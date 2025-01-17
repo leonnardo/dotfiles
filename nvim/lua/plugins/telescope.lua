@@ -52,12 +52,14 @@ return {
 				},
 				git_files = {
 					previewer = false,
-					theme = "dropdown",
+					theme = "ivy",
+				},
+				live_grep = {
+					theme = "ivy",
 				},
 				find_files = {
 					find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
-					hidden = true,
-					theme = "dropdown",
+					theme = "ivy",
 					windblend = 10,
 					previewer = false,
 				},

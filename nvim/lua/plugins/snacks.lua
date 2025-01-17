@@ -4,6 +4,15 @@ return {
 	lazy = false,
 	---@type snacks.Config
 	opts = {
+		gitbrowse = {
+			url_patterns = {
+				["dev%.azure%.com"] = {
+					branch = "?version=GB{branch}",
+					file = "?path={file}&version=GB{branch}&line={line_start}&lineEnd={line_end}",
+					commit = "/commit/{commit}",
+				},
+			},
+		},
 		bigfile = { enabled = true },
 		dashboard = { enabled = true },
 		notifier = {
@@ -56,9 +65,9 @@ return {
 			desc = "Rename File",
 		},
 		{
-			"<leader>gB",
+			"<leader>go",
 			function()
-				Snacks.gitbrowse()
+				Snacks.gitbrowse.open()
 			end,
 			desc = "Git Browse",
 		},

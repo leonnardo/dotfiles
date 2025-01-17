@@ -31,6 +31,24 @@ return {
 		},
 	},
 	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = true,
+		opts = {
+			display = {
+				chat = {
+					start_in_insert_mode = true,
+					window = {
+						width = 0.35,
+					},
+				},
+			},
+		},
+	},
+	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		cond = false,
 		branch = "main",

@@ -5,7 +5,7 @@ return {
 		{ "<leader>aa", "<cmd>AvanteToggle<cr>", desc = "Toggle Avante" },
 	},
 	version = false, -- set this if you want to always pull the latest change
-	cond = true,
+	enabled = false,
 	opts = {
 		provider = "claude",
 		auto_suggestion_provider = "copilot",

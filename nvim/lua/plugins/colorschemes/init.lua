@@ -4,6 +4,7 @@ return {
 	{ "rebelot/kanagawa.nvim", priority = 1000 },
 	{ "andreasvc/vim-256noir", priority = 1000 },
 	{ "ntk148v/komau.vim", priority = 1000 },
+	{ "p00f/alabaster.nvim", priority = 1000, cond = false },
 	{
 		"zenbones-theme/zenbones.nvim",
 		-- Optionally install Lush. Allows for more configuration or extending the colorscheme

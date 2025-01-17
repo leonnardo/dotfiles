@@ -53,6 +53,8 @@ map("n", "<leader>tt", function()
 	vim.cmd("startinsert")
 end)
 
+map("n", "<leader>th", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Code Companion", silent = true })
+
 map("n", "<leader>rr", "<cmd>source %<CR>", { desc = "Sourceconfig", silent = true })
 map("n", "<leader>rl", "<cmd>.lua<CR>", { desc = "Execute current line", silent = true })
 map("v", "<leader>rl", "<cmd>'<,'>lua<CR>", { desc = "Execute selected lines", silent = true })

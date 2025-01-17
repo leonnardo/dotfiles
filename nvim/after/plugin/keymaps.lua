@@ -37,12 +37,12 @@ map("n", "<leader>wa", "<cmd>upa<cr>", { desc = "Save all opened buffers", silen
 
 -- buffer management (close, delete, last)
 map("n", "<leader>xx", "<cmd>clo<cr>", { desc = "Close window", silent = true })
-map("n", "<leader><leader>", "<cmd>e #<cr>", { desc = "Open last buffer", silent = true })
+map("n", "<leader><leader>", ":", { desc = "Command mode" })
 map("n", "<leader>se", "<cmd>Telescope buffers<cr>", { desc = "Find buffer", silent = true })
 
-map("n", "<leader>tl", " <cmd>Lazy<cr>", { desc = "Toggle Lazy", silent = true })
-map("n", "<leader>tm", " <cmd>Mason<cr>", { desc = "Toggle Mason", silent = true })
-map("n", "<leader>ts", " <cmd>ASToggle<cr>", { desc = "Toggle Auto Save", silent = true })
+map("n", "<leader>tl", "<cmd>Lazy<cr>", { desc = "Toggle Lazy", silent = true })
+map("n", "<leader>tm", "<cmd>Mason<cr>", { desc = "Toggle Mason", silent = true })
+map("n", "<leader>ts", "<cmd>ASToggle<cr>", { desc = "Toggle Auto Save", silent = true })
 
 map("n", "<leader>tt", function()
 	vim.cmd.new()
