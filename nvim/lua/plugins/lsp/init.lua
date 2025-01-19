@@ -3,8 +3,8 @@ return {
 		"folke/lazydev.nvim",
 		ft = "lua",
 		opts = {
-			library = {
-				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+			libray = {
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 			},
 		},
 	},
@@ -18,7 +18,6 @@ return {
 			{ "j-hui/fidget.nvim", opts = {} },
 			{ "jinzhongjia/LspUI.nvim", cond = false, opts = {} }, -- TODO: test it later
 			{ "soulis-1256/eagle.nvim", cond = false, opts = {} }, -- TODO: test it later
-			-- { "VonHeikemen/lsp-zero.nvim", branch = "v4.x" },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
