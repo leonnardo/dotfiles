@@ -101,3 +101,29 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 		vim.cmd("silent! !aerospace reload-config")
 	end,
 })
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	group = augroup("auto-project-root"),
+	callback = function(args)
+		if vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= "" then
+			return
+		end
+
+		local root = vim.fs.root(args.buf, function(name, path)
+			local pattern = { ".git", "*.csproj", "*.sln" }
+			local abspath = { vim.fn.stdpath("config") }
+			local parentpath = { "~/.config" }
+
+			return vim.iter(pattern):any(function(filepat)
+				return filepat == name
+			end) or vim.iter(abspath):any(function(dirpath)
+				return vim.fs.normalize(dirpath) == path
+			end) or vim.iter(parentpath):any(function(ppath)
+				return vim.fs.normalize(ppath) == vim.fs.dirname(path)
+			end)
+		end)
+		if root then
+			vim.cmd.lcd(root)
+		end
+	end,
+})
