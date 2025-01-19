@@ -43,6 +43,7 @@ map("n", "<leader>se", "<cmd>Telescope buffers<cr>", { desc = "Find buffer", sil
 map("n", "<leader>tl", "<cmd>Lazy<cr>", { desc = "Toggle Lazy", silent = true })
 map("n", "<leader>tm", "<cmd>Mason<cr>", { desc = "Toggle Mason", silent = true })
 map("n", "<leader>ts", "<cmd>ASToggle<cr>", { desc = "Toggle Auto Save", silent = true })
+map("n", "<leader>tf", "<cmd>ToggleAutoformat!<cr>", { desc = "Toggle Autoformat", silent = true })
 
 map("n", "<leader>tt", function()
 	vim.cmd.new()
