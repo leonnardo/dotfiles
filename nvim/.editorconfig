@@ -1,0 +1,22 @@
+# top-most EditorConfig file
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+max_line_length = 80
+
+[lua]
+indent_size = 2
+max_line_length = 120
+
+[gitcommit]
+max_line_length = 72
+
+[csharp]
+end_of_line = crlf
+
+[json]
+indent_size = 2
