@@ -13,14 +13,17 @@ vim.o.autoread = true
 opt.mouse = "a"
 opt.hidden = true
 opt.encoding = "utf-8"
+
 opt.splitbelow = true
 opt.splitright = true
 opt.number = true
 opt.relativenumber = true
+
 opt.cursorline = true
 opt.tabstop = 4
-opt.softtabstop = 4
-opt.shiftwidth = 4
+opt.softtabstop = -1
+opt.shiftwidth = 0
+opt.shiftround = true
 opt.expandtab = true
 opt.smarttab = true
 opt.autoindent = true
@@ -38,7 +41,7 @@ opt.shortmess:append("c")
 opt.backspace = { "indent", "eol", "start" }
 opt.termguicolors = true
 opt.swapfile = false
-opt.wrap = true
+opt.wrap = false
 opt.linebreak = true
 opt.updatetime = 250
 opt.timeoutlen = 600

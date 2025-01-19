@@ -21,12 +21,21 @@ return {
 		-- your own keymap.
 		keymap = {
 			preset = "enter",
+			cmdline = {
+				preset = "default",
+			},
 		},
 		completion = {
 			keyword = {
 				range = "full",
 			},
-			menu = { border = "rounded", scrollbar = false },
+			menu = {
+				auto_show = function(ctx)
+					return ctx.mode ~= "cmdline"
+				end,
+				border = "rounded",
+				scrollbar = false,
+			},
 			trigger = {
 				show_in_snippet = false,
 			},

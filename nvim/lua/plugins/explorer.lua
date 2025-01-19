@@ -5,19 +5,6 @@ local toggle = function()
 end
 return {
 	{
-		"nvim-tree/nvim-tree.lua",
-		enabled = false,
-		version = "*",
-		lazy = false,
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		opts = {},
-		keys = {
-			-- { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle explorer" },
-		},
-	},
-	{
 		"echasnovski/mini.files",
 		lazy = false,
 		opts = {
@@ -30,7 +17,7 @@ return {
 			},
 		},
 		keys = {
-			{ "<leader>e", toggle, desc = "Toggle explorer" },
+			{ "<leader>te", toggle, desc = "Toggle explorer" },
 		},
 	},
 }
