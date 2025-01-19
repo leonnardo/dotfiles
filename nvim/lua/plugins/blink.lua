@@ -20,10 +20,27 @@ return {
 		-- see the "default configuration" section below for full documentation on how to define
 		-- your own keymap.
 		keymap = {
-			preset = "enter",
-			cmdline = {
-				preset = "default",
+			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-e>"] = { "hide", "fallback" },
+			["<CR>"] = { "accept", "fallback" },
+			["<Tab>"] = {
+				function(cmp)
+					return cmp.select_next()
+				end,
+				"snippet_forward",
+				"fallback",
 			},
+			["<S-Tab>"] = {
+				function(cmp)
+					return cmp.select_prev()
+				end,
+				"snippet_backward",
+				"fallback",
+			},
+			["<Up>"] = { "select_prev", "fallback" },
+			["<Down>"] = { "select_next", "fallback" },
+			["<C-Up>"] = { "scroll_documentation_up", "fallback" },
+			["<C-Down>"] = { "scroll_documentation_down", "fallback" },
 		},
 		completion = {
 			keyword = {
@@ -45,7 +62,7 @@ return {
 						return ctx.mode ~= "cmdline" and not require("blink.cmp").snippet_active({ direction = 1 })
 					end,
 					auto_insert = function(ctx)
-						return ctx.mode ~= "cmdline"
+						return ctx.mode == "cmdline"
 					end,
 				},
 			},
@@ -68,6 +85,16 @@ return {
 		},
 		sources = {
 			default = { "lsp", "snippets", "path", "codecompanion" },
+			cmdline = function()
+				local type = vim.fn.getcmdtype()
+				if type == "/" or type == "?" then
+					return { "buffer" }
+				end
+				if type == ":" then
+					return { "cmdline" }
+				end
+				return {}
+			end,
 		},
 	},
 }
