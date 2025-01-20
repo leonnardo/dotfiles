@@ -1,47 +1,49 @@
 return { -- Highlight, edit, and navigate code
-	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate",
-	main = "nvim-treesitter.configs", -- Sets main module to use for opts
-	opts = {
-		ensure_installed = {
-			"bash",
-			"c_sharp",
-			"diff",
-			"dockerfile",
-			"go",
-			"gomod",
-			"gosum",
-			"json",
-			"jsonc",
-			"lua",
-			"luadoc",
-			"markdown",
-			"markdown_inline",
-			"powershell",
-			"python",
-			"query",
-			"vim",
-			"vimdoc",
-			"yaml",
-		},
-		-- Autoinstall languages that are not installed
-		auto_install = true,
-		highlight = {
-			enable = true,
-		},
-		indent = { enable = true },
-		incremental_selection = {
-			enable = true,
-			keymaps = {
-				node_incremental = "v",
-				node_decremental = "V",
-			},
-		},
-	},
-	-- There are additional nvim-treesitter modules that you can use to interact
-	-- with nvim-treesitter. You should go explore a few and see what interests you:
-	--
-	--    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-	--    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-	--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  version = false,
+  dependencies = "nvim-treesitter/nvim-treesitter-context",
+  event = { "BufReadPost", "BufNewFile" },
+  main = "nvim-treesitter.configs", -- Sets main module to use for opts
+  opts = {
+    sync_install = false,
+    auto_install = true,
+    autotag = { enable = true },
+    highlight = { enable = true },
+    indent = { enable = true },
+    incremental_selection = {
+      enable = true,
+      -- keymaps = {
+      -- 	node_incremental = "v",
+      -- 	node_decremental = "V",
+      -- },
+    },
+
+    ensure_installed = {
+      "bash",
+      "c_sharp",
+      "comment",
+      "diff",
+      "dockerfile",
+      "git_config",
+      "git_rebase",
+      "go",
+      "gomod",
+      "gosum",
+      "json",
+      "jsonc",
+      "lua",
+      "luadoc",
+      "markdown",
+      "markdown_inline",
+      "powershell",
+      "python",
+      "query",
+      "regex",
+      "toml",
+      "vim",
+      "vimdoc",
+      "yaml",
+    },
+  },
 }
