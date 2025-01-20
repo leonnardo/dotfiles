@@ -1,11 +1,11 @@
 vim.g.mapleader = " "
 
 local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.keymap.set(mode, lhs, rhs, options)
+  local options = { noremap = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
 local opts = { silent = true }
@@ -39,18 +39,16 @@ map("n", "<leader>wa", "<cmd>wa<cr>", { desc = "Save all opened buffers", silent
 
 -- buffer management (close, delete, last)
 map("n", "<leader>xx", "<cmd>clo<cr>", { desc = "Close window", silent = true })
-map("n", "<leader><leader>", "<cmd>e #<cr>", { desc = "Open last buffer", silent = true })
-map("n", "<leader>se", "<cmd>Telescope buffers<cr>", { desc = "Find buffer", silent = true })
 
 map("n", "<leader>tl", " <cmd>Lazy<cr>", { desc = "Toggle Lazy", silent = true })
 map("n", "<leader>tm", " <cmd>Mason<cr>", { desc = "Toggle Mason", silent = true })
 map("n", "<leader>ts", " <cmd>ASToggle<cr>", { desc = "Toggle Auto Save", silent = true })
 
 map("n", "<leader>tt", function()
-	vim.cmd.new()
-	vim.cmd.term()
-	vim.api.nvim_win_set_height(0, 15)
-	vim.cmd("startinsert")
+  vim.cmd.new()
+  vim.cmd.term()
+  vim.api.nvim_win_set_height(0, 15)
+  vim.cmd("startinsert")
 end)
 
 map("n", "<leader>th", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Code Companion", silent = true })

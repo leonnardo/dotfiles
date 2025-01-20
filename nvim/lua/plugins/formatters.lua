@@ -1,15 +1,15 @@
 return {
   "stevearc/conform.nvim",
-  event = { "BufReadPre", "BufNewFile" },
+  event = { "BufReadPre" },
   cmd = { "ConformInfo" },
   keys = {
     {
       "<leader>cf",
       function()
-        require("conform").format()
+        require("conform").format({ async = true })
       end,
-      mode = "",
-      desc = "[F]ormat buffer",
+      mode = { "n", "v" },
+      desc = "Format buffer",
     },
   },
   opts = function()
