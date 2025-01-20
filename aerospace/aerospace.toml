@@ -189,8 +189,8 @@ alt-down = ['join-with down', 'mode main']
 alt-up = ['join-with up', 'mode main']
 alt-right = ['join-with right', 'mode main']
 
-[workspace-to-monitor-force-assignment]
-1 = 'main'
+# [workspace-to-monitor-force-assignment]
+# 1 = 'main'
 # 2 = 'main'
 # 3 = 'main'
 # 4 = 'main'
