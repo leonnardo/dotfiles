@@ -38,6 +38,7 @@ return {
         enabled = true,
       },
       notify = {
+        background_colour = "#000000",
         enabled = true,
         view = "notify",
       },
