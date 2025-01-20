@@ -15,9 +15,6 @@ return {
       -- cs = { "csharpier" },
     }
 
-    local yamllint = lint.linters.yamllint
-    yamllint.args = { "-c", "$HOME/src/dotfiles/yamllint/config.yaml" }
-
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
       group = lint_augroup,
