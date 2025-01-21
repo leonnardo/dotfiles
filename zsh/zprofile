@@ -1,5 +1,6 @@
 # Env variables
 export PAGER="most"
+export MANPAGER="nvim +Man!"
 export EDITOR='nvim'
 PATH=$PATH:~/.local/bin
 
@@ -24,6 +25,10 @@ alias cat="bat"
 alias lg="lazygit"
 alias ld="lazydocker"
 alias nv="nvim"
+alias mkdir="mkdir -pv"
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="rm -Iv"
 
 # Install packages using yay (change to pacman/AUR helper of your choice)
 function in() {
