@@ -29,6 +29,9 @@ alias mkdir="mkdir -pv"
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -Iv"
+(( $+commands[rg] )) && alias grep=rg
+(( $+commands[fd] )) && alias find=fd
+(( $+commands[btop] )) && alias top=btop
 
 # Install packages using yay (change to pacman/AUR helper of your choice)
 function in() {
