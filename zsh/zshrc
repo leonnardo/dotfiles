@@ -27,11 +27,11 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
-zinit light jeffreytse/zsh-vi-mode
-
+ZVM_INIT_MODE=sourcing
 ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BEAM
 ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BLOCK
 ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_BLINKING_UNDERLINE
+zinit light jeffreytse/zsh-vi-mode
 
 autoload -Uz compinit && compinit
 zinit cdreplay -q
@@ -102,7 +102,7 @@ bindkey -v
 bindkey "^[[A" history-beginning-search-backward  # search history with up key
 bindkey "^[[B" history-beginning-search-forward   # search history with down key
 
-source <(fzf --zsh)
+eval "$(fzf --zsh)"
 
 # ZSH
 # Make all kubectl completion fzf
