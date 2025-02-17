@@ -22,10 +22,18 @@ return {
     "slugbyte/lackluster.nvim",
     lazy = false,
     priority = 1000,
+    -- init = function()
+    --   vim.cmd.colorscheme("lackluster")
+    -- vim.cmd.colorscheme("lackluster-hack") -- my favorite
+    -- vim.cmd.colorscheme("lackluster-mint")
+    -- end,
+  },
+  {
+    "RRethy/base16-nvim",
+    lazy = false,
+    priority = 1000,
     init = function()
-      vim.cmd.colorscheme("lackluster")
-      -- vim.cmd.colorscheme("lackluster-hack") -- my favorite
-      -- vim.cmd.colorscheme("lackluster-mint")
+      vim.cmd.colorscheme("base16-black-metal-dark-funeral")
     end,
   },
   {
