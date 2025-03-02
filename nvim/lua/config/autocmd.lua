@@ -102,32 +102,32 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = augroup("auto-project-root"),
-  callback = function(args)
-    if vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= "" then
-      return
-    end
-
-    local root = vim.fs.root(args.buf, function(name, path)
-      local project_patterns = { ".git" }
-      local nvim_config = { vim.fn.stdpath("config"), "~/code/dotfiles/nvim", "~/src/dotfiles/nvim" }
-      local config_dir = { "~/.config" }
-
-      local is_config = vim.iter(config_dir):any(function(ppath)
-        return vim.fs.normalize(ppath) == vim.fs.dirname(path)
-      end)
-      local is_nvim_config = vim.iter(nvim_config):any(function(ppath)
-        return vim.fs.normalize(ppath) == path
-      end)
-      local is_in_project_patterns = vim.iter(project_patterns):any(function(ppath)
-        return ppath == name
-      end)
-      return is_config or is_nvim_config or is_in_project_patterns
-    end)
-
-    if root then
-      vim.cmd.lcd(root)
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufWinEnter", {
+--   group = augroup("auto-project-root"),
+--   callback = function(args)
+--     if vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= "" then
+--       return
+--     end
+--
+--     local root = vim.fs.root(args.buf, function(name, path)
+--       local project_patterns = { ".git" }
+--       local nvim_config = { vim.fn.stdpath("config"), "~/code/dotfiles/nvim", "~/src/dotfiles/nvim" }
+--       local config_dir = { "~/.config" }
+--
+--       local is_config = vim.iter(config_dir):any(function(ppath)
+--         return vim.fs.normalize(ppath) == vim.fs.dirname(path)
+--       end)
+--       local is_nvim_config = vim.iter(nvim_config):any(function(ppath)
+--         return vim.fs.normalize(ppath) == path
+--       end)
+--       local is_in_project_patterns = vim.iter(project_patterns):any(function(ppath)
+--         return ppath == name
+--       end)
+--       return is_config or is_nvim_config or is_in_project_patterns
+--     end)
+--
+--     if root then
+--       vim.cmd.lcd(root)
+--     end
+--   end,
+-- })

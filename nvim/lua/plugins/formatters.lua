@@ -40,10 +40,23 @@ return {
         end
         return { timeout_ms = 500, lsp_format = "fallback" }
       end,
+      formatters = {
+        prettier = function(bufnr)
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          local config = vim.fs.find(".prettierrc", { path = vim.fn.stdpath("config") })[1]
+          local default = require("conform.formatters.prettier")
+          if config then
+            return vim.tbl_deep_extend("force", default, {
+              args = { "--stdin-filepath", "$FILENAME", "--config", config },
+            })
+          end
+        end,
+      },
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
         html = { "prettier" },
+        yaml = { "prettier" },
       },
     }
   end,

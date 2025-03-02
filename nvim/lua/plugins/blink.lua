@@ -43,15 +43,16 @@ return {
       },
       menu = {
         auto_show = function(ctx)
-          return ctx.mode ~= "cmdline"
+          return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
         end,
-        border = "rounded",
         scrollbar = false,
       },
       trigger = {
+        prefetch_on_insert = true,
         show_in_snippet = false,
       },
       list = {
+        max_items = 50,
         selection = {
           preselect = function(ctx)
             return ctx.mode ~= "cmdline" and not require("blink.cmp").snippet_active({ direction = 1 })
@@ -62,13 +63,8 @@ return {
         },
       },
       documentation = {
-        auto_show = true,
-        auto_show_delay_ms = 250,
+        auto_show = false,
         update_delay_ms = 50,
-        treesitter_highlighting = true,
-        window = {
-          border = "rounded",
-        },
       },
     },
     snippets = {
@@ -80,9 +76,8 @@ return {
         border = "rounded",
       },
     },
-    sources = {
-      default = { "lazydev", "lsp", "snippets", "path", "codecompanion", "buffer" },
-      cmdline = function()
+    cmdline = {
+      sources = function()
         local type = vim.fn.getcmdtype()
         if type == "/" or type == "?" then
           return { "buffer" }
@@ -92,7 +87,16 @@ return {
         end
         return {}
       end,
+    },
+    sources = {
+      default = { "lazydev", "lsp", "snippets", "path", "codecompanion", "buffer" },
       providers = {
+        cmdline = {
+          -- ignores cmdline completions when executing shell commands
+          enabled = function()
+            return vim.fn.getcmdtype() ~= ":" or not vim.fn.getcmdline():match("^[%%0-9,'<>%-]*!")
+          end,
+        },
         lsp = {
           min_keyword_length = 2,
           score_offset = 0,

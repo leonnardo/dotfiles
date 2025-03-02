@@ -32,6 +32,7 @@ return {
   },
   {
     "olimorris/codecompanion.nvim",
+    event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -47,7 +48,7 @@ return {
           return require("codecompanion.adapters").extend("copilot", {
             schema = {
               model = {
-                default = "claude-3.5-sonnet",
+                default = "claude-3.7-sonnet",
               },
             },
           })
@@ -60,7 +61,18 @@ return {
       },
       display = {
         chat = {
+          show_settings = true,
           window = {
+            opts = {
+              breakindent = true,
+              cursorcolumn = false,
+              cursorline = false,
+              foldcolumn = "0",
+              linebreak = true,
+              list = false,
+              numberwidth = 1,
+              signcolumn = "no",
+            },
             layout = "float",
             width = 0.7,
           },
