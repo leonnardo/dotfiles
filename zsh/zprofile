@@ -9,11 +9,13 @@ ZOXIDE_CMD_OVERRIDE="cd"
 eval "$(zoxide init --cmd ${ZOXIDE_CMD_OVERRIDE:-z} zsh)"
 bindkey '^o' cdi
 
-if [[ "$(uname)" == "Darwin" ]]; then
-  . /usr/local/opt/asdf/libexec/asdf.sh
-elif [[ -f /etc/arch-release ]]; then
-  . /opt/asdf-vm/asdf.sh
-fi
+# if [[ "$(uname)" == "Darwin" ]]; then
+#   . /usr/local/opt/asdf/libexec/asdf.sh
+# elif [[ -f /etc/arch-release ]]; then
+#   . /opt/asdf-vm/asdf.sh
+# fi
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
 
 . ~/.asdf/plugins/dotnet/set-dotnet-env.zsh
 
