@@ -102,8 +102,8 @@ bindkey -v
 # bindkey -M vicmd v edit-command-line
 # bindkey -M viins '^n' up-line-or-search
 # bindkey -M viins '^e' down-line-or-search
-bindkey "$key[Up]" history-beginning-search-backward  # search history with up key
-bindkey "$key[Down]" history-beginning-search-forward   # search history with down key
+bindkey "^[[A" history-beginning-search-backward  # search history with up key
+bindkey "^[[B" history-beginning-search-forward   # search history with down key
 
 eval "$(fzf --zsh)"
 
