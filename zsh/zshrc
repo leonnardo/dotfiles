@@ -102,8 +102,16 @@ bindkey -v
 # bindkey -M vicmd v edit-command-line
 # bindkey -M viins '^n' up-line-or-search
 # bindkey -M viins '^e' down-line-or-search
-bindkey "^[[A" history-beginning-search-backward  # search history with up key
-bindkey "^[[B" history-beginning-search-forward   # search history with down key
+key_up="^[[A"
+key_down="^[[B"
+
+# Bind keys for history search
+if [[ -n "$key_up" && -n "$key_down" ]]; then
+    bindkey "$key_up" history-beginning-search-backward  # Search history with Up key
+    bindkey "$key_down" history-beginning-search-forward  # Search history with Down key
+else
+    echo "Error: Key sequences for Up/Down are not defined."
+fi
 
 eval "$(fzf --zsh)"
 
@@ -130,13 +138,3 @@ _dotnet_zsh_complete() {
 
 compdef _dotnet_zsh_complete dotnet
 . <(flux completion zsh)
-
-_fzf_comprun() {
-  local command=$1
-  shift
-
-  case "$command" in
-    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
-    *)            fzf "$@" ;;
-  esac
-}
