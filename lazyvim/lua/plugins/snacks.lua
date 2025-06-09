@@ -15,6 +15,14 @@ return {
               params["line"] = tostring(fields.line_start)
               params["lineEnd"] = tostring(fields.line_end)
             end
+            -- Check if in visual mode and get selection columns
+            local mode = vim.api.nvim_get_mode().mode
+            if mode == "v" or mode == "V" or mode == "\22" then
+              local pos_start = vim.api.nvim_buf_get_mark(0, "<")[1]
+              local pos_end = vim.api.nvim_buf_get_mark(0, ">")[1]
+              params["lineStartColumn"] = tostring(pos_start)
+              params["lineEndColumn"] = tostring(pos_end)
+            end
             local url = "?"
               .. table.concat(
                 vim.tbl_map(function(k)
