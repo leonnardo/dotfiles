@@ -35,3 +35,5 @@ map("n", "<leader>/", LazyVim.pick("live_grep", { root = false }), { desc = "Gre
 map("n", "<leader>e", function()
   Snacks.explorer()
 end, { desc = "Explorer (cwd)" })
+
+map("n", "<leader>gr", "<cmd>DiffviewOpen master...HEAD<CR>", { desc = "Diffview master...HEAD" })

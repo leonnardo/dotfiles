@@ -8,11 +8,12 @@ return {
         },
       },
       virtual_text = false,
-      virtualwlines = false,
+      virtual_lines = false,
       -- virtual_lines = {
       --   current_line = true,
       -- },
     },
+    log_level = vim.log.levels.OFF,
     servers = {
       omnisharp = {
         settings = {
