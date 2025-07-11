@@ -1,3 +1,27 @@
+# Early exit for VS Code with minimal config
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+    . "$(code-insiders --locate-shell-integration-script zsh)"
+
+    export TERM=xterm-256color
+    export PAGER=cat
+    # Disable fancy prompts for VSCode
+    PS1="%n@%m %1~ %# "
+
+    # Minimal VS Code configuration
+    HISTSIZE=10000
+    HISTFILE=~/.zsh_history
+    SAVEHIST=$HISTSIZE
+    setopt appendhistory sharehistory hist_ignore_dups
+
+    # autoload -Uz compinit && compinit
+    #
+    # PROMPT='%F{blue}%~%f %# '
+    #
+    # bindkey -v
+
+    return
+fi
+
 if [ ! -x "$(command -v yay)" ] && grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null && grep -qi "arch" /etc/os-release; then
     git clone https://aur.archlinux.org/yay-bin.git
     cd yay-bin
@@ -145,3 +169,5 @@ _dotnet_zsh_complete() {
 
 compdef _dotnet_zsh_complete dotnet
 . <(flux completion zsh)
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "/home/lrabello/.vscode-server/bin/2901c5ac6db8a986a5666c3af51ff804d05af0d4/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-rc.zsh"
