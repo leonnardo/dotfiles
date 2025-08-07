@@ -21,28 +21,26 @@ alignment = 'left'
 newline = true
 
 [[blocks.segments]]
-type = 'text'
-template = '╭──(<white>{{.UserName}}</>@<white>{{.HostName}}</>)-'
-foreground = '238'
-background = 'transparent'
-style = 'plain'
-
-[blocks.segments.properties]
-cache_duration = 'none'
-
-[[blocks.segments]]
 type = 'path'
-# style = 'folder'
-foreground = '238'
-background = 'transparent'
-template = '[<white>{{.Path}}</>]'
+foreground = 'white'
+background = 'darkGray'
+template = ' 󰉋 {{.Path}} '
+
 [blocks.segments.properties]
 style = 'full'
 
+
 [[blocks.segments]]
-template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <245>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
-foreground = 'p:grey'
-background = 'transparent'
+template = '.'
+background = 'black'
+foreground = 'black'
+type = 'text'
+style = 'plain'
+
+[[blocks.segments]]
+template = '  {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} {{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
+background = 'yellow'
+foreground = 'white'
 type = 'git'
 style = 'plain'
 
@@ -56,16 +54,17 @@ fetch_status = true
 type = 'rprompt'
 overflow = 'hidden'
 
-[[blocks.segments]]
-template = '{{ .FormattedMs }}'
-foreground = 'yellow'
-background = 'transparent'
-type = 'executiontime'
-style = 'plain'
 
-[blocks.segments.properties]
-cache_duration = 'none'
-threshold = 5000
+# [[blocks.segments]]
+# template = '{{ .FormattedMs }}'
+# foreground = 'yellow'
+# background = 'transparent'
+# type = 'executiontime'
+# style = 'plain'
+#
+# [blocks.segments.properties]
+# cache_duration = 'none'
+# threshold = 5000
 
 [[blocks.segments]]
 type = 'python'
@@ -78,7 +77,7 @@ alignment = 'left'
 newline = true
 
 [[blocks.segments]]
-template = '╰─❯'
+template = '❯'
 background = 'transparent'
 foreground = '238'
 type = 'text'

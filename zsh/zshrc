@@ -1,6 +1,6 @@
 # Early exit for VS Code with minimal config
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-    . "$(code-insiders --locate-shell-integration-script zsh)"
+    . "$(code-insiders --locate-shell-integration-path zsh)"
 
     export TERM=xterm-256color
     export PAGER=cat
