@@ -23,24 +23,16 @@ newline = true
 [[blocks.segments]]
 type = 'path'
 foreground = 'white'
-background = 'darkGray'
-template = ' 󰉋 {{.Path}} '
+background = 'transpparent'
+template = '  {{.Path}} '
 
 [blocks.segments.properties]
 style = 'full'
 
-
 [[blocks.segments]]
-template = '.'
-background = 'black'
-foreground = 'black'
-type = 'text'
-style = 'plain'
-
-[[blocks.segments]]
-template = '  {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} {{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
-background = 'yellow'
-foreground = 'white'
+template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} {{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
+background = 'transparent'
+foreground = 'yellow'
 type = 'git'
 style = 'plain'
 
@@ -79,7 +71,7 @@ newline = true
 [[blocks.segments]]
 template = '❯'
 background = 'transparent'
-foreground = '238'
+foreground = '240'
 type = 'text'
 style = 'plain'
 
