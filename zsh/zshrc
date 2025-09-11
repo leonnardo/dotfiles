@@ -108,6 +108,7 @@ zstyle ':completion:*:git-checkout:*' sort false
 # source "${ZINIT_HOME}/zinit.zsh"
 # zi snippet OMZP::fzf
 
+FZF_DEFAULT_OPTS="--walker-skip=bin,obj"
 HISTSIZE=100000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE

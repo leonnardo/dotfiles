@@ -46,27 +46,27 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 
 local handles = {}
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "RoslynRestoreProgress",
-  callback = function(ev)
-    local token = ev.data.params[1]
-    local handle = handles[token]
-    if handle then
-      handle:report({
-        title = ev.data.params[2].state,
-        message = ev.data.params[2].message,
-      })
-    else
-      handles[token] = require("fidget.progress").handle.create({
-        title = ev.data.params[2].state,
-        message = ev.data.params[2].message,
-        lsp_client = {
-          name = "roslyn",
-        },
-      })
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("User", {
+--   pattern = "RoslynRestoreProgress",
+--   callback = function(ev)
+--     local token = ev.data.params[1]
+--     local handle = handles[token]
+--     if handle then
+--       handle:report({
+--         title = ev.data.params[2].state,
+--         message = ev.data.params[2].message,
+--       })
+--     else
+--       handles[token] = require("fidget.progress").handle.create({
+--         title = ev.data.params[2].state,
+--         message = ev.data.params[2].message,
+--         lsp_client = {
+--           name = "roslyn",
+--         },
+--       })
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "RoslynRestoreResult",

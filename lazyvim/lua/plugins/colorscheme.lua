@@ -11,10 +11,18 @@ return {
     },
   },
   {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    opts = {
+      style = "night",
+      transparent = true,
+    },
+  },
+  {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "base16-black-metal-dark-funeral",
-      colorscheme = "rose-pine",
+      colorscheme = "tokyonight-night",
     },
   },
 }
