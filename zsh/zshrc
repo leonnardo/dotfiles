@@ -22,25 +22,10 @@
 #     return
 # fi
 
-if [ ! -x "$(command -v yay)" ] && grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null && grep -qi "arch" /etc/os-release; then
-    git clone https://aur.archlinux.org/yay-bin.git
-    cd yay-bin
-    makepkg -si
-    cd ..
-    rm -rf yay-bin
-    yay -Y --gendb
-    yay -Y --devel --save
-fi
-
-if [ ! -x "$(command -v oh-my-posh)" ]; then
-    if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null && grep -qi "arch" /etc/os-release; then
-        yay -S oh-my-posh
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        brew install oh-my-posh
-    fi
-fi
-
-eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/themes/lrabello.toml)"
+# TODO mudra pra ZDOTDIR
+for FILE in $(fd --glob '*.zsh' $ZDOTDIR); do
+  source $FILE
+done
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -64,109 +49,10 @@ if command -v brew >/dev/null 2>&1; then
     export fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 fi
 
-autoload -Uz compinit && compinit
 zinit cdreplay -q
 
-setopt correct
-setopt interactivecomments
-setopt magicequalsubst
-setopt nonomatch
-setopt notify
-setopt numericglobsort
-setopt promptsubst
 
 
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-# zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
-# zstyle ':completion:*' completer _expand _complete _ignored _approximate
-# zstyle ':completion:*' glob unset
-# zstyle ':completion:*' max-errors 2
-# zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-
-# set descriptions format to enable group support
-# NOTE: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
-# zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-# preview directory's content with eza when completing cd
-# custom fzf flags
-# NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
-# zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
-# To make fzf-tab follow FZF_DEFAULT_OPTS.
-# NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
-# zstyle ':fzf-tab:*' use-fzf-default-opts yes
-# switch group using `<` and `>`
-# zstyle ':fzf-tab:*' switch-group '<' '>'
-
-# source "${ZINIT_HOME}/zinit.zsh"
-# zi snippet OMZP::fzf
-
-FZF_DEFAULT_OPTS="--walker-skip=bin,obj"
-HISTSIZE=100000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
-
-# vi mode
-bindkey -v
-# export KEYTIMEOUT=1
-# autoload edit-command-line
-# zle -N edit-command-line
-# bindkey -M vicmd v edit-command-line
-# bindkey -M viins '^n' up-line-or-search
-# bindkey -M viins '^e' down-line-or-search
-
-# Define key names and their corresponding key sequences
-declare -A keys=(
-    [key_up]="^[[A"   # Up key
-    [key_down]="^[[B" # Down key
-)
-
-# Bind keys for history search
-if [[ -n "${keys[key_up]}" && -n "${keys[key_down]}" ]]; then
-    bindkey "${keys[key_up]}" history-beginning-search-backward  # Search history with Up key
-    bindkey "${keys[key_down]}" history-beginning-search-forward  # Search history with Down key
-else
-    echo "Error: Key sequences for Up/Down are not defined."
-fi
 
 
-eval "$(fzf --zsh)"
 
-# ZSH
-# Make all kubectl completion fzf
-command -v fzf >/dev/null 2>&1 && { 
-	source <(kubectl completion zsh | sed 's#${requestComp} 2>/dev/null#${requestComp} 2>/dev/null | head -n -1 | fzf  --multi=0 #g')
-}
-
-# zsh parameter completion for the dotnet CLI
-_dotnet_zsh_complete() {
-    local completions=("$(dotnet complete "$words")")
-
-  # If the completion list is empty, just continue with filename selection
-  if [ -z "$completions" ]
-  then
-      _arguments '*::arguments: _normal'
-      return
-  fi
-
-  # This is not a variable assignment, don't remove spaces!
-  _values = "${(ps:\n:)completions}"
-}
-
-compdef _dotnet_zsh_complete dotnet
-. <(flux completion zsh)
