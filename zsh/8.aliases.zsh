@@ -19,4 +19,4 @@ alias mv="mv -iv"
 alias rm="rm -Iv"
 
 
-alias recent-prs="$SCRIPT_DIR/get-recent-prs.sh"
+alias prs="$SCRIPT_DIR/prs.sh"
