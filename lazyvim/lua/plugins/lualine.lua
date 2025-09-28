@@ -5,14 +5,6 @@ return {
   event = "VeryLazy",
   opts = {
     sections = {
-      lualine_a = {
-        {
-          "mode",
-          fmt = function(str)
-            return str:sub(1, 1):upper()
-          end,
-        },
-      },
       lualine_c = {
         {
           "diagnostics",
@@ -23,6 +15,21 @@ return {
             hint = icons.diagnostics.Hint,
           },
         },
+      },
+      lualine_x = { "encoding", "fileformat" },
+      lualine_y = {
+        "fileformat",
+        icons_enabled = true,
+        symbols = {
+          unix = "LF",
+          dos = "CRLF",
+          mac = "CR",
+        },
+      },
+      lualine_z = { "location" },
+    },
+    winbar = {
+      lualine_c = {
         { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
         {
           "filename",
@@ -31,10 +38,17 @@ return {
           symbols = { modified = "[+]", readonly = "", unnamed = "[No name]" },
         },
       },
-      lualine_y = {
-        { "location", padding = { left = 0, right = 1 } },
+    },
+    inactive_winbar = {
+      lualine_c = {
+        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+        {
+          "filename",
+          path = 1,
+          shorting_target = 40,
+          symbols = { modified = "[+]", readonly = "", unnamed = "[No name]" },
+        },
       },
-      lualine_z = {},
     },
   },
 }

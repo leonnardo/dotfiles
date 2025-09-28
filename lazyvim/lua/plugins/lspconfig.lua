@@ -1,6 +1,9 @@
 return {
   "neovim/nvim-lspconfig",
   opts = {
+    inlay_hints = {
+      enabled = false,  -- Disable inlay hints by default
+    },
     diagnostics = {
       underline = {
         severity = {

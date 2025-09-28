@@ -1,6 +1,15 @@
 return {
   "folke/snacks.nvim",
   opts = {
+    indent = {
+      enabled = false,
+      char = "┆",
+      only_scope = true, -- only show indent guides for current scope
+      only_current = true, -- only show indent guides for current line
+    },
+    scroll = {
+      enabled = false,  -- Disable smooth scrolling
+    },
     gitbrowse = {
       url_patterns = {
         ["dev%.azure%.com"] = {
