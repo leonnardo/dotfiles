@@ -1,5 +1,6 @@
 (( $+commands[fzf] )) && eval "$(fzf --zsh)"
 (( $+commands[zoxide] )) && eval "$(zoxide init --cmd ${ZOXIDE_CMD_OVERRIDE:-z} zsh)"
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
 (( $+commands[oh-my-posh] )) && eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/themes/lrabello.toml)"
 (( $+commands[flux] )) && eval "$(flux completion zsh)"
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
