@@ -9,8 +9,8 @@ declare -A keys=(
 
 # Bind keys for history search
 if [[ -n "${keys[key_up]}" && -n "${keys[key_down]}" ]]; then
-    bindkey "${keys[key_up]}" history-beginning-search-backward  # Search history with Up key
-    bindkey "${keys[key_down]}" history-beginning-search-forward  # Search history with Down key
+    bindkey "${keys[key_up]}" history-incremental-search-backward  # Search history with Up key
+    bindkey "${keys[key_down]}" history-incremental-search-forward  # Search history with Down key
 else
     echo "Error: Key sequences for Up/Down are not defined."
 fi
