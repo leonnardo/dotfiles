@@ -24,15 +24,16 @@ newline = true
 type = 'path'
 foreground = 'white'
 background = 'transpparent'
-template = '  {{.Path}} '
+# template = '  {{.Path}} '
+template = '󰆧 {{.Path}} '
 
 [blocks.segments.properties]
 style = 'full'
 
 [[blocks.segments]]
-template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} {{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
+template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} {{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
 background = 'transparent'
-foreground = 'yellow'
+foreground = 'cyan'
 type = 'git'
 style = 'plain'
 
