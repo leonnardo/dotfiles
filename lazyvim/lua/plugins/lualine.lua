@@ -1,4 +1,5 @@
 local icons = LazyVim.config.icons
+local job_indicator = { require("easy-dotnet.ui-modules.jobs").lualine }
 
 return {
   "nvim-lualine/lualine.nvim",

@@ -1,20 +1,14 @@
 return {
   root_markers = { ".csproj", ".sln", ".slnf", "Directory.Build.props" },
-  filetypes = { "cs", "csharp", "c_sharp" },
-  cmd = {
-    "dotnet",
-    "~/.local/lib/roslyn/Microsoft.CodeAnalysis.LanguageServer.dll",
-    "--logLevel=Information",
-    "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
-    "--stdio",
-  },
+  filetypes = { "cs" },
   settings = {
     ["csharp|code_lens"] = {
       dotnet_enable_references_code_lens = false,
+      dontnet_enable_tests_code_lens = false,
     },
     ["csharp|background_analysis"] = {
-      dotnet_analyzer_diagnostics_scope = "openFiles",
-      dotnet_compiler_diagnostics_scope = "openFiles",
+      dotnet_analyzer_diagnostics_scope = "fullSolution",
+      dotnet_compiler_diagnostics_scope = "fullSolution",
     },
     ["csharp|completion"] = {
       dotnet_show_completion_items_from_unimported_namespaces = true,
