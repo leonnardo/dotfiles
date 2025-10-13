@@ -1,6 +1,6 @@
 FZF_DEFAULT_OPTS="--walker-skip=bin,obj"
 
-HISTSIZE=100000
+HISTSIZE=15000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 
