@@ -1,11 +1,11 @@
 FZF_DEFAULT_OPTS="--walker-skip=bin,obj"
+
 HISTSIZE=100000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 
 ZOXIDE_CMD_OVERRIDE="cd"
 
-DOTNET_ROOT="/usr/share/dotnet"
-DOTNET_VERSION="$(dotnet --version)"
-MSBuildSDKsPATH="$DOTNET_ROOT/sdk/$DOTNET_VERSION/Sdks"
 DOTNET_CLI_TELEMETRY_OPTOUT=1
+DOTNET_VERSION="$(mise current dotnet)"
+MSBuildSDKsPATH="$DOTNET_ROOT/sdk/$DOTNET_VERSION/Sdks"

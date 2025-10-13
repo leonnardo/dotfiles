@@ -16,16 +16,8 @@ return {
           },
         },
       },
-      lualine_x = { "encoding", "fileformat" },
-      lualine_y = {
-        "fileformat",
-        icons_enabled = true,
-        symbols = {
-          unix = "LF",
-          dos = "CRLF",
-          mac = "CR",
-        },
-      },
+      lualine_x = { "encoding" },
+      lualine_y = { "fileformat" },
       lualine_z = { "location" },
     },
     winbar = {
