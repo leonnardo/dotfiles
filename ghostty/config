@@ -31,14 +31,16 @@ keybind = cmd+up=text:\x1b[1;5A
 keybind = cmd+right=text:\x1b[1;5C
 
 # Tmux new window shortcut
-keybind = cmd+t=text:\x1b\x74
+keybind = cmd+t=text:\x00t
 
 # Tmux split window shortcuts
-keybind = cmd+d=text:\x00\x25
-keybind = cmd+shift+d=text:\x00\x2d
+#keybind = cmd+d=text:\x00\x25
+#keybind = cmd+shift+d=text:\x00\x2d
+keybind = cmd+d=text:\x00%
+keybind = cmd+shift+d=text:\x00-
 
 # Close pane/window shortcuts
-keybind = cmd+w=text:\x1b\x77
+keybind = cmd+w=text:\x00w
 
 # Search in pane
 keybind = cmd+f=text:\x00\x06
@@ -61,4 +63,4 @@ keybind = cmd+8=text:\x00\x38
 keybind = cmd+9=text:\x00\x39
 
 # Open opencode in right pane
-keybind = cmd+a>l=text:\x00\x4C
+keybind = cmd+a>l=text:\x00L
