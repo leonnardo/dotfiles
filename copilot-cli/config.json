@@ -1,0 +1,12 @@
+{
+  "banner": "always",
+  "render_markdown": true,
+  "screen_reader": false,
+  "theme": "auto",
+  "trusted_folders": [
+    "/home/lrabello/src/mp",
+    "/home/lrabello/src/dotfiles",
+    "/home/lrabello/src/lab",
+    "/home/lrabello/.config/.copilot"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "type": "local",
+      "command": "docker",
+      "tools": [
+        "*"
+      ],
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "mcp/sequentialthinking"
+      ]
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {},
+      "tools": [
+        "*"
+      ]
+    },
+    "serena": {
+      "type": "local",
+      "command": "uvx",
+      "tools": [
+        "*"
+      ],
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant"
+      ]
+    }
+  }
+}
