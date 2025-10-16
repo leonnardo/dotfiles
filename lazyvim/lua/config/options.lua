@@ -4,3 +4,4 @@
 vim.g.ai_cmp = false
 vim.opt.cursorline = false -- Disable cursor line highlighting
 vim.g.snacks_animate = false
+vim.opt.fillchars:append({ diff = " " })
