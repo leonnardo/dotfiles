@@ -1,0 +1,27 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "researcher": {
+      "description": "Deep research agent for gathering information and storing in a knowledge base.",
+      "mode": "subagent",
+      "prompt": "{file:./prompts/researcher.txt}",
+      "tools": {
+        "write": true,
+        "edit": true
+      }
+    }
+  },
+  "mcp": {
+    "sequential-thinking": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-i",
+        "mcp/sequentialthinking"
+      ]
+    }
+  }
+}
