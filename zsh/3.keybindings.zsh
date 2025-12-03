@@ -1,21 +1,26 @@
-# vim mode
-bindkey -v
+# =============================================================================
+# KEYBINDINGS
+# =============================================================================
+# zsh-vi-mode handles vim mode setup. This file defines the callback
+# to restore fzf keybindings after vi-mode initializes.
 
-# Define key names and their corresponding key sequences
-declare -A keys=(
-    [key_up]="^[[A"   # Up key
-    [key_down]="^[[B" # Down key
-)
+# -----------------------------------------------------------------------------
+# zsh-vi-mode callback - restores fzf bindings after vi-mode init
+# -----------------------------------------------------------------------------
+function zvm_after_init() {
+    # Restore fzf keybindings (fzf --zsh sets these, but vi-mode overrides them)
+    if (( $+commands[fzf] )); then
+        # These bindings match fzf's default zsh integration
+        bindkey '^R' fzf-history-widget      # Ctrl+R: history search
+        bindkey '^T' fzf-file-widget         # Ctrl+T: file search
+        bindkey '\ec' fzf-cd-widget          # Alt+C: cd to directory
+    fi
+    # Note: Ctrl+O (cdi) is bound in zoxide's atload, after zoxide initializes
+}
 
-# Bind keys for history search
-if [[ -n "${keys[key_up]}" && -n "${keys[key_down]}" ]]; then
-    # bindkey "${keys[key_up]}" history-incremental-search-backward  # Search history with Up key
-    # bindkey "${keys[key_down]}" history-incremental-search-forward  # Search history with Down key
-    # bindkey -M vicmd "${keys[key_up]}" history-incremental-search-backward  # Search history with Up key
-    # bindkey -M vicmd "${keys[key_down]}" history-incremental-search-forward  # Search history with Down key
-else
-    echo "Error: Key sequences for Up/Down are not defined."
-fi
-
-# Other keybindings
-bindkey '^o' cdi
+# -----------------------------------------------------------------------------
+# zsh-vi-mode configuration
+# -----------------------------------------------------------------------------
+# Reduce escape key delay for faster mode switching
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+ZVM_KEYTIMEOUT=0.1

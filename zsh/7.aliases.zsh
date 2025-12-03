@@ -1,6 +1,3 @@
-SCRIPT_DIR="$HOME/src/dotfiles/zsh/scripts"
-
-
 if (( $+commands[eza] )); then
   alias ls="eza --icons"
   alias ll="eza --icons --git -lahb"

@@ -13,4 +13,4 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export GOPATH="$XDG_DATA_HOME/go"
 
 # Create directory if it doesn't exist
-[[ -d "$XDG_CACHE_HOME/zsh" ]] || mkdir -p "$XDG_CACHE_HOME/zsh}"
+[[ -d "$XDG_CACHE_HOME/zsh" ]] || mkdir -p "$XDG_CACHE_HOME/zsh"

@@ -21,4 +21,4 @@ _dotnet_zsh_complete() {
   _values = "${(ps:\n:)completions}"
 }
 
-compdef _dotnet_zsh_complete dotnet
+# Note: compdef is called in .zshrc after compinit runs (via zicdreplay)

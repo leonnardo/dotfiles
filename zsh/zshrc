@@ -1,63 +1,100 @@
-# Early exit for VS Code with minimal config
-# if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-#     . "$(code-insiders --locate-shell-integration-path zsh)"
-#
-#     export TERM=xterm-256color
-#     export PAGER=cat
-#     # Disable fancy prompts for VSCode
-#     PS1="%n@%m %1~ %# "
-#
-#     # Minimal VS Code configuration
-#     HISTSIZE=10000
-#     HISTFILE=~/.zsh_history
-#     SAVEHIST=$HISTSIZE
-#     setopt appendhistory sharehistory hist_ignore_dups
-#
-#     # autoload -Uz compinit && compinit
-#     #
-#     # PROMPT='%F{blue}%~%f %# '
-#     #
-#     # bindkey -v
-#
-#     return
-# fi
-# fpath modifications FIRST
+# =============================================================================
+# EARLY SETUP
+# =============================================================================
+
+# fpath modifications FIRST (before compinit)
 export fpath=($ZDOTDIR/func $fpath)
-if command -v brew >/dev/null 2>&1; then
+if [[ "$OSTYPE" == darwin* ]] && command -v brew >/dev/null 2>&1; then
     export fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 fi
 
+# Ensure cache directory exists
+[[ ! -d "$XDG_CACHE_HOME/zsh" ]] && mkdir -p "$XDG_CACHE_HOME/zsh"
+
+# =============================================================================
+# ZINIT INITIALIZATION
+# =============================================================================
+
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
+
+# Zinit optimization settings (must be set before sourcing zinit.zsh)
+declare -A ZINIT
+ZINIT[COMPINIT_OPTS]=-C
+ZINIT[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/.zcompdump"
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-[[ ! -d "$XDG_CACHE_HOME/zsh" ]] && mkdir -p "$XDG_CACHE_HOME/zsh"
+# =============================================================================
+# PROMPT (immediate load)
+# =============================================================================
 
-# Load completions WITHOUT turbo mode (removes 'wait')
-zinit light-mode for \
-  atinit"zicompinit -d '$XDG_CACHE_HOME/zsh/.zcompdump'; zicdreplay" \
-    zdharma-continuum/fast-syntax-highlighting \
-  blockf atpull'zinit creinstall -q .' \
-    zsh-users/zsh-completions
+# oh-my-posh - load immediately for correct prompt from start
+if (( $+commands[oh-my-posh] )); then
+    eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/themes/lrabello.toml)"
+fi
 
-# Now compinit is available, source your config files
-for FILE in $(fd --glob '*.zsh' $ZDOTDIR); do
-  source $FILE
-done
+# =============================================================================
+# ESSENTIAL PLUGINS (immediate load)
+# =============================================================================
 
-# Load zsh-vi-mode with proper integration callback
-function zvm_after_init() {
-  zinit light Aloxaf/fzf-tab
-  zinit light zsh-users/zsh-autosuggestions
-}
-
-ZVM_INIT_MODE=sourcing
-ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BEAM
-ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BLOCK
-ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_BLINKING_UNDERLINE
-
+# zsh-vi-mode must load immediately for input to work
 zinit light jeffreytse/zsh-vi-mode
+
+# =============================================================================
+# SOURCE CONFIGURATION FILES (before turbo plugins)
+# =============================================================================
+# Source numbered config files in order using zinit snippets
+
+zinit is-snippet for \
+    "$ZDOTDIR"/[0-9]*.zsh
+
+# =============================================================================
+# TURBO-LOADED PLUGINS
+# =============================================================================
+
+# Batch A: Completions infrastructure (loads first)
+zinit wait"0a" lucid for \
+    blockf atpull'zinit creinstall -q .' \
+        zsh-users/zsh-completions
+
+# Batch B: fzf ecosystem + zoxide (needs completions available)
+zinit wait"0b" lucid for \
+    atload'source <(fzf --zsh)' \
+        junegunn/fzf \
+    Aloxaf/fzf-tab
+
+# zoxide - load after fzf-tab for proper completion integration
+# Create a ZLE widget for interactive zoxide, then bind it
+zinit wait"0b" lucid has"zoxide" for \
+    atload'
+      eval "$(zoxide init --cmd cd zsh)"
+      function _zoxide_cdi_widget() { __zoxide_zi; zle reset-prompt }
+      zle -N _zoxide_cdi_widget
+      bindkey "^o" _zoxide_cdi_widget
+    ' \
+        zdharma-continuum/null
+
+# Batch C: Syntax highlighting + autosuggestions (load last, trigger compinit)
+zinit wait"0c" lucid for \
+    atinit"zicompinit; zicdreplay; compdef _dotnet_zsh_complete dotnet" \
+        zdharma-continuum/fast-syntax-highlighting \
+    atload"_zsh_autosuggest_start" \
+        zsh-users/zsh-autosuggestions
+
+# =============================================================================
+# LAZY-LOADED TOOLS (defer until needed)
+# =============================================================================
+
+# mise - lazy load, activates ~1s after prompt
+zinit wait"1" lucid has"mise" for \
+    atload'eval "$(mise activate zsh)"' \
+        zdharma-continuum/null
+
+# flux completion - lazy load ~2s after prompt
+zinit wait"2" lucid has"flux" for \
+    atload'eval "$(flux completion zsh)"' \
+        zdharma-continuum/null
