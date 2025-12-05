@@ -1,6 +1,12 @@
 # =============================================================================
 # EARLY SETUP
 # =============================================================================
+if [[ "$PATH" == *"github.copilot-chat"* ]]; then
+    PS1='$ '
+    local si_script="$HOME/.vscode-server-insiders/bin/$(ls -t ~/.vscode-server-insiders/bin 2>/dev/null | head -1)/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-rc.zsh"
+    [[ -f "$si_script" ]] && . "$si_script"
+    return
+fi
 
 # fpath modifications FIRST (before compinit)
 export fpath=($ZDOTDIR/func $fpath)
