@@ -5,12 +5,15 @@ window-save-state = "always"
 
 window-width = 140
 window-height = 40
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
 
 theme = "tokyonight_night"
 background = #000000
 
 adjust-cell-height = 2
-background-opacity = 0.9
+background-opacity = 0.8
 background-blur-radius = 40
 mouse-hide-while-typing = true
 window-decoration = true
