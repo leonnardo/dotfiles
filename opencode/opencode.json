@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "autoupdate": false,
   "agent": {
     "researcher": {
       "description": "Deep research agent for gathering information and storing in a knowledge base.",
@@ -27,6 +28,11 @@
       "enabled": true,
       "type": "remote",
       "url": "https://mcp.context7.com/mcp"
+    },
+    "exa": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.exa.ai/mcp?tools=web_search_exa,get_code_context_exa,deep_researcher_start,deep_researcher_check,crawling_exa"
     },
     "perplexity": {
       "enabled": true,
