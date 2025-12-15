@@ -1,14 +1,16 @@
 return {
-  root_markers = { ".csproj", ".sln", ".slnf", "Directory.Build.props" },
+  -- Prefer .slnf (solution filter) over full .sln for faster loading
+  root_markers = { ".slnf", ".sln", ".csproj", "Directory.Build.props" },
   filetypes = { "cs" },
   settings = {
     ["csharp|code_lens"] = {
       dotnet_enable_references_code_lens = false,
-      dontnet_enable_tests_code_lens = false,
+      dotnet_enable_tests_code_lens = false,
     },
     ["csharp|background_analysis"] = {
-      dotnet_analyzer_diagnostics_scope = "fullSolution",
-      dotnet_compiler_diagnostics_scope = "fullSolution",
+      -- Use "openFiles" for faster startup; change to "fullSolution" when needed
+      dotnet_analyzer_diagnostics_scope = "openFiles",
+      dotnet_compiler_diagnostics_scope = "openFiles",
     },
     ["csharp|completion"] = {
       dotnet_show_completion_items_from_unimported_namespaces = true,
