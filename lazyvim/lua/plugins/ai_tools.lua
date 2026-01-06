@@ -10,7 +10,7 @@ return {
         auto_trigger = false,
       },
       nes = {
-        enabled = true,
+        enabled = false,
         auto_trigger = true,
       },
     },
