@@ -1,11 +1,11 @@
 export COPILOT_ALLOW_ALL=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_ENV_HINTS=1
-export PAGER=moor
 export MANPAGER="nvim +Man!"
 export EDITOR=nvim
 export PATH=$PATH:~/.local/bin
 export PATH="~/.dotnet/tools:$PATH"
+export ENABLE_EXPERIMENTAL_MCP_CLI=true
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"

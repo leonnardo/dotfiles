@@ -1,26 +1,22 @@
 # =============================================================================
 # KEYBINDINGS
 # =============================================================================
-# zsh-vi-mode handles vim mode setup. This file defines the callback
-# to restore fzf keybindings after vi-mode initializes.
+# Native zsh vi-mode is enabled in zshrc. This file defines additional bindings.
 
 # -----------------------------------------------------------------------------
-# zsh-vi-mode callback - restores fzf bindings after vi-mode init
+# Vi-mode configuration
 # -----------------------------------------------------------------------------
-function zvm_after_init() {
-    # Restore fzf keybindings (fzf --zsh sets these, but vi-mode overrides them)
-    if (( $+commands[fzf] )); then
-        # These bindings match fzf's default zsh integration
-        bindkey '^R' fzf-history-widget      # Ctrl+R: history search
-        bindkey '^T' fzf-file-widget         # Ctrl+T: file search
-        bindkey '\ec' fzf-cd-widget          # Alt+C: cd to directory
-    fi
-    # Note: Ctrl+O (cdi) is bound in zoxide's atload, after zoxide initializes
-}
+# Use jk to exit insert mode (like ZVM_VI_INSERT_ESCAPE_BINDKEY=jk)
+bindkey -M viins 'jk' vi-cmd-mode
 
 # -----------------------------------------------------------------------------
-# zsh-vi-mode configuration
+# fzf keybindings (set after fzf loads in turbo mode)
 # -----------------------------------------------------------------------------
-# Reduce escape key delay for faster mode switching
-ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-ZVM_KEYTIMEOUT=0.1
+# Note: fzf bindings are set up in the turbo-loaded fzf section of zshrc
+# via `source <(fzf --zsh)`. The following ensures they work in vi-mode.
+
+# These will be available after fzf-tab loads (wait"0b"):
+# Ctrl+R: fzf-history-widget (history search)
+# Ctrl+T: fzf-file-widget (file search)  
+# Alt+C:  fzf-cd-widget (cd to directory)
+# Ctrl+O: zoxide interactive (bound in zoxide's atload)

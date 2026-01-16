@@ -8,7 +8,7 @@ return {
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
     opts = {
-      filewatching = "roslyn",
+      filewatching = "off",
       -- Prefer .Dev.sln files when available for faster load times
       choose_target = function(targets)
         -- Prioritize .Dev.sln > .slnf > .sln for fastest loading

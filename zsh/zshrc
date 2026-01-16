@@ -1,3 +1,4 @@
+#
 # =============================================================================
 # EARLY SETUP
 # =============================================================================
@@ -8,10 +9,15 @@ if [[ "$PATH" == *"github.copilot-chat"* ]]; then
     return
 fi
 
-# fpath modifications FIRST (before compinit)
+# fpath modifications FIRST (beforeO compinit)
 export fpath=($ZDOTDIR/func $fpath)
 if [[ "$OSTYPE" == darwin* ]] && command -v brew >/dev/null 2>&1; then
     export fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+fi
+
+# WSL: Add selective Windows binaries to PATH
+if [[ -d /mnt/c/Windows ]]; then
+    export PATH="$PATH:/mnt/c/Windows:/mnt/c/Windows/System32:/mnt/c/Program Files/PowerShell/7:/mnt/c/Users/lrabello/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/lrabello/AppData/Local/Programs/Microsoft VS Code Insiders/bin"
 fi
 
 # Ensure cache directory exists
@@ -35,20 +41,40 @@ ZINIT[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/.zcompdump"
 source "${ZINIT_HOME}/zinit.zsh"
 
 # =============================================================================
+# VI MODE (native zsh - fast alternative to zsh-vi-mode plugin)
+# =============================================================================
+bindkey -v
+export KEYTIMEOUT=1
+
+# Cursor shape changes for different vi modes
+function zle-keymap-select {
+    case $KEYMAP in
+        vicmd) echo -ne '\e[2 q';;      # block cursor for normal mode
+        viins|main) echo -ne '\e[6 q';; # beam cursor for insert mode
+    esac
+}
+zle -N zle-keymap-select
+
+# Ensure beam cursor on new prompts
+function zle-line-init {
+    echo -ne '\e[6 q'
+}
+zle -N zle-line-init
+
+# =============================================================================
 # PROMPT (immediate load)
 # =============================================================================
 
-# oh-my-posh - load immediately for correct prompt from start
+# oh-my-posh - cached for fast startup (regenerates when theme file changes)
 if (( $+commands[oh-my-posh] )); then
-    eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/themes/lrabello.toml)"
+    _omp_config=~/.config/oh-my-posh/themes/lrabello.toml
+    _omp_cache="$XDG_CACHE_HOME/zsh/oh-my-posh-init.zsh"
+    if [[ ! -f "$_omp_cache" ]] || [[ "$_omp_config" -nt "$_omp_cache" ]]; then
+        oh-my-posh init zsh --config "$_omp_config" > "$_omp_cache"
+    fi
+    source "$_omp_cache"
+    unset _omp_config _omp_cache
 fi
-
-# =============================================================================
-# ESSENTIAL PLUGINS (immediate load)
-# =============================================================================
-
-# zsh-vi-mode must load immediately for input to work
-zinit light jeffreytse/zsh-vi-mode
 
 # =============================================================================
 # SOURCE CONFIGURATION FILES (before turbo plugins)
