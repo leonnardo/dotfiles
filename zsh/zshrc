@@ -3,8 +3,8 @@
 # EARLY SETUP
 # =============================================================================
 
-# Auto-attach to tmux via sesh in Ghostty
-if [[ -z "$TMUX" ]] && [[ -n "$GHOSTTY_RESOURCES_DIR" ]]; then
+# Auto-attach to tmux via sesh in Ghostty or Windows Terminal
+if [[ -z "$TMUX" ]] && [[ -n "$GHOSTTY_RESOURCES_DIR" || -n "$WT_SESSION" ]]; then
     exec sesh connect "$(
         sesh list --icons | fzf \
             --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
