@@ -24,8 +24,7 @@ newline = true
 type = 'path'
 foreground = 'white'
 background = 'transpparent'
-# template = '  {{.Path}} '
-template = '󰆧 {{.Path}} '
+template = '{{.Path}} '
 
 [blocks.segments.properties]
 style = 'full'
