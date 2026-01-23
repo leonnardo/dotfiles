@@ -86,15 +86,9 @@ zle -N zle-line-init
 # PROMPT (immediate load)
 # =============================================================================
 
-# oh-my-posh - cached for fast startup (regenerates when theme file changes)
+# oh-my-posh
 if (( $+commands[oh-my-posh] )); then
-    _omp_config=~/.config/oh-my-posh/themes/lrabello.toml
-    _omp_cache="$XDG_CACHE_HOME/zsh/oh-my-posh-init.zsh"
-    if [[ ! -f "$_omp_cache" ]] || [[ "$_omp_config" -nt "$_omp_cache" ]]; then
-        oh-my-posh init zsh --config "$_omp_config" > "$_omp_cache"
-    fi
-    source "$_omp_cache"
-    unset _omp_config _omp_cache
+    eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.toml)"
 fi
 
 # =============================================================================
