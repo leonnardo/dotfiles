@@ -48,6 +48,15 @@
 - For complex filters, prefer heredoc over nested quotes
 - When JSON contains file content as escaped string, extract with `jq -r` to /tmp before analyzing
 
+## CLI Errors
+
+- NEVER guess solutions when commands fail - always verify first
+- On ANY CLI error (not just "unrecognized arguments"):
+  1. Run `<command> --help` or `man <command>`
+  2. Search Context7 for library/framework docs
+  3. Use WebSearch for tool-specific issues
+- Only retry after confirming the correct syntax/approach
+
 ## Git
 
 - Squash-friendly, terse commit messages (<50 chars)
