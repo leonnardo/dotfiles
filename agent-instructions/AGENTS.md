@@ -41,12 +41,9 @@
 
 ## Shell (zsh)
 
-- Use `jq` for JSON, `yq` for YAML - never parse with Python scripts
-- Always use single quotes for filters: `jq '.key'`, `yq '.key'`
-- Handle nulls: `.key // ""` or `.key?`
-- Escape `$` in filters or use single quotes
-- For complex filters, prefer heredoc over nested quotes
-- When JSON contains file content as escaped string, extract with `jq -r` to /tmp before analyzing
+- Use `jq`/`yq` with single quotes: `jq '.key // ""'`
+- Complex filters: heredoc over nested quotes
+- Escaped JSON content: extract with `jq -r` to /tmp first
 
 ## CLI Errors
 
@@ -85,26 +82,15 @@ Skip for: single-file fixes, obvious bugs, small tweaks.
 - Use `Task` tool with `subagent_type=Plan` for architectural tradeoffs and multi-step reasoning
 - When stuck on a problem, spawn a Plan agent to break it down before acting
 
-## Azure DevOps
+## Log Analysis
 
-- NEVER call Azure DevOps MCP tools directly - use `azure-devops-fetcher` agent
-- Prompt must specify fields to return (use templates from /azure-devops skill)
-- `pipelines_run_pipeline` requires `resources.pipelines: {}` even if empty
-- Preview runs read from remote branch - push changes before validating with `previewRun: true`
-- Pipeline paths vary - search by `definitionIds` if you know the ID
+- NEVER read logs directly - delegate to `Task` subagent (general-purpose)
+- Subagent extracts errors/warnings/root cause, returns summary (<20 lines)
+- Build/test: `run_in_background: true`, then analyze via subagent
 
-## Log & Verbose Output Analysis
+## Self-Improvement (Meta-Rules)
 
-- ALWAYS delegate application log reading to subagent - NO EXCEPTIONS
-- NEVER read logs directly in main context, regardless of size
-- Spawn `Task` with `subagent_type=general-purpose` to:
-  1. Read the full log/output
-  2. Extract: errors, warnings, root cause, affected files
-  3. Save full log to `/tmp/logs/{timestamp}.log` if needed for reference
-  4. Return structured summary (<20 lines max)
-- For multiple log sources, spawn parallel agents
-- Build/test output: always use `run_in_background: true`, then analyze via subagent
-
-## Self-Improvement
-
-- If a workflow friction could be avoided with a CLAUDE.md rule, suggest it
+When writing new rules (via `/reflect` or manually):
+- Start with NEVER or ALWAYS
+- Lead with why (1-3 bullets max)
+- Include concrete example if helpful
