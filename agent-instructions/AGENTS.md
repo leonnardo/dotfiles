@@ -93,6 +93,18 @@ Skip for: single-file fixes, obvious bugs, small tweaks.
 - Preview runs read from remote branch - push changes before validating with `previewRun: true`
 - Pipeline paths vary - search by `definitionIds` if you know the ID
 
+## Log & Verbose Output Analysis
+
+- ALWAYS delegate application log reading to subagent - NO EXCEPTIONS
+- NEVER read logs directly in main context, regardless of size
+- Spawn `Task` with `subagent_type=general-purpose` to:
+  1. Read the full log/output
+  2. Extract: errors, warnings, root cause, affected files
+  3. Save full log to `/tmp/logs/{timestamp}.log` if needed for reference
+  4. Return structured summary (<20 lines max)
+- For multiple log sources, spawn parallel agents
+- Build/test output: always use `run_in_background: true`, then analyze via subagent
+
 ## Self-Improvement
 
 - If a workflow friction could be avoided with a CLAUDE.md rule, suggest it
