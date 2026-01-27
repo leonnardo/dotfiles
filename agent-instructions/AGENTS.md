@@ -88,6 +88,24 @@ Skip for: single-file fixes, obvious bugs, small tweaks.
 - Subagent extracts errors/warnings/root cause, returns summary (<20 lines)
 - Build/test: `run_in_background: true`, then analyze via subagent
 
+## Background Tasks (CRITICAL)
+
+NEVER use foreground sleep loops for monitoring. This includes:
+- `while true; do ... sleep N; done`
+- `watch -n N ...`
+- Any polling pattern that blocks the conversation
+
+ALWAYS use `run_in_background: true` for:
+- Log tailing: `tail -f`, `journalctl -f`, `kubectl logs -f`
+- Dev servers: `npm run dev`, `yarn start`, `go run`, `python -m http.server`
+- Watch commands: `--watch`, `inotifywait`, `fswatch`
+- Long builds/tests: `npm test`, `go test`, `pytest`
+
+To monitor background tasks:
+1. Start with `run_in_background: true`
+2. Use `BashOutput` or `TaskOutput` to check periodically
+3. For complex analysis, delegate to Task subagent
+
 ## Self-Improvement (Meta-Rules)
 
 When writing new rules (via `/reflect` or manually):
