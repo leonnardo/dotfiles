@@ -23,8 +23,12 @@ if [[ -z "$TMUX" ]] && [[ -n "$GHOSTTY_RESOURCES_DIR" || -n "$WT_SESSION" ]]; th
                 --preview 'sesh preview {}'
         )"
     else
-        # No sessions - connect to main, let continuum restore
-        exec sesh connect ~
+        # No sessions - ask user what to do
+        choice=$(printf "🪟  Create new tmux session\n🐚  Stay in shell (no tmux)" | fzf \
+            --prompt "No tmux sessions: " --reverse --height=4 --no-info)
+        case "$choice" in
+            *"Create new"*) exec tmux ;;
+        esac
     fi
 fi
 
