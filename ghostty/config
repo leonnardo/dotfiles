@@ -17,6 +17,17 @@ mouse-hide-while-typing = true
 window-decoration = true
 confirm-close-surface = false
 
+# Clipboard
+clipboard-read = "allow"
+clipboard-write = "allow"
+clipboard-trim-trailing-spaces = true
+
+# macOS
+macos-option-as-alt = true
+
+# Shell integration
+shell-integration-features = "no-cursor,sudo,title"
+
 #macos-titlebar-style = "hidden"
 bold-is-bright = true
 
@@ -51,3 +62,6 @@ keybind = super+bracket_left=previous_tab
 keybind = super+bracket_right=next_tab
 
 keybind = super+r=text:\x12
+
+# Tmux copy mode
+keybind = super+shift+c=text:\x00[
