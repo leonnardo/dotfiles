@@ -137,7 +137,7 @@ zinit wait"0b" lucid has"zoxide" for \
 
 # Batch C: Syntax highlighting + autosuggestions (load last, trigger compinit)
 zinit wait"0c" lucid for \
-    atinit"zicompinit; zicdreplay; compdef _dotnet_zsh_complete dotnet" \
+    atinit"zicompinit; zicdreplay; compdef _dotnet_zsh_complete dotnet; compdef _eza ls" \
         zdharma-continuum/fast-syntax-highlighting \
     atload"_zsh_autosuggest_start" \
         zsh-users/zsh-autosuggestions

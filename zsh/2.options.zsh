@@ -1,3 +1,6 @@
+# completes aliases as distinct commands (enables completion for aliased commands)
+setopt complete_aliases
+
 # enables command correction/suggestion
 setopt correct
 
