@@ -48,7 +48,7 @@ fi
 
 # WSL: Add selective Windows binaries to PATH
 if [[ -d /mnt/c/Windows ]]; then
-    export PATH="$PATH:/mnt/c/Windows:/mnt/c/Windows/System32:/mnt/c/Program Files/PowerShell/7:/mnt/c/Users/lrabello/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/lrabello/AppData/Local/Programs/Microsoft VS Code Insiders/bin"
+    export PATH="$PATH:/mnt/c/Windows:/mnt/c/Windows/System32:/mnt/c/Program Files/PowerShell/7:/mnt/c/Users/{{ .chezmoi.username }}/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/{{ .chezmoi.username }}/AppData/Local/Programs/Microsoft VS Code Insiders/bin"
 fi
 
 # Ensure cache directory exists

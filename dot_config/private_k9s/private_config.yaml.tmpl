@@ -1,7 +1,7 @@
 k9s:
   liveViewAutoRefresh: false
   gpuVendors: {}
-  screenDumpDir: {{ .chezmoi.homeDir }}/Library/Application Support/k9s/screen-dumps
+  screenDumpDir: {{ if eq .chezmoi.os "darwin" }}{{ .chezmoi.homeDir }}/Library/Application Support/k9s/screen-dumps{{ else }}{{ env "XDG_DATA_HOME" | default (printf "%s/.local/share" .chezmoi.homeDir) }}/k9s/screen-dumps{{ end }}
   refreshRate: 1
   apiServerTimeout: 2m0s
   maxConnRetry: 5
@@ -33,7 +33,7 @@ k9s:
       namespaces: []
       labels: {}
   logger:
-    tail: 100
+    tail: 200
     buffer: 5000
     sinceSeconds: -1
     textWrap: false
