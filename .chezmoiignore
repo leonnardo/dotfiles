@@ -1,0 +1,25 @@
+README.md
+docs/
+.claude/
+
+# Generated / secrets
+.config/opencode/antigravity-accounts.json
+.config/opencode/node_modules
+.config/opencode/bun.lock
+.config/opencode/oh-my-opencode.json.bak.*
+
+{{ if ne .chezmoi.os "darwin" }}
+.config/aerospace
+.config/ghostty
+.config/kanata
+.config/karabiner
+.config/sketchybar
+.config/skhd
+.config/spacebar
+.config/yabai
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+.config/hyprland
+.config/waybar
+{{ end }}

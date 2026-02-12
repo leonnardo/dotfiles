@@ -1,0 +1,73 @@
+font-family = "JetBrainsMono NFM SemiBold"
+font-size = 14.5
+window-save-state = "always"
+
+window-width = 140
+window-height = 40
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+
+theme = "TokyoNight Night"
+
+adjust-cell-height = 2
+background-opacity = 0.90
+background-blur-radius = 25
+mouse-hide-while-typing = true
+window-decoration = true
+confirm-close-surface = false
+
+# Clipboard
+clipboard-read = "allow"
+clipboard-write = "allow"
+clipboard-trim-trailing-spaces = true
+
+# macOS
+macos-option-as-alt = true
+
+# Shell integration
+shell-integration-features = "no-cursor,sudo,title"
+
+#macos-titlebar-style = "hidden"
+bold-is-bright = true
+
+# Keybinds
+keybind = shift+enter=text:\n
+# \x02 is ctrl+b (default tmux prefix)
+# \x01 is ctrl+a (common alternative tmux prefix)
+# \x00 is ctrl+space (common alternative tmux prefix)
+keybind = cmd+t=text:\x00t
+keybind = cmd+w=text:\x00w
+keybind = cmd+o=text:\x00s
+
+# Pane navigation (vim-style, sends ctrl+arrow)
+keybind = cmd+h=text:\x1b[1;5D
+keybind = cmd+j=text:\x1b[1;5B
+keybind = cmd+k=text:\x1b[1;5A
+keybind = cmd+l=text:\x1b[1;5C
+keybind = cmd+d=text:\x00%
+keybind = cmd+shift+d=text:\x00-
+keybind = cmd+shift+z=text:\x00z
+keybind = cmd+shift+f=text:\x00F
+
+keybind = super+shift+enter=new_tab
+keybind = super+shift+t=new_tab
+keybind = super+shift+w=close_tab:this
+
+keybind = super+digit_1=text:\x001
+keybind = super+digit_2=text:\x002
+keybind = super+digit_3=text:\x003
+keybind = super+digit_4=text:\x004
+keybind = super+digit_5=text:\x005
+keybind = super+digit_6=text:\x006
+keybind = super+digit_7=text:\x007
+keybind = super+digit_8=text:\x008
+keybind = super+digit_9=text:\x009
+
+keybind = super+bracket_left=previous_tab
+keybind = super+bracket_right=next_tab
+
+keybind = super+r=text:\x12
+
+# Tmux copy mode
+keybind = super+shift+c=text:\x00[
