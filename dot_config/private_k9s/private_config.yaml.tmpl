@@ -1,7 +1,11 @@
+{{- $dataDir := printf "%s/.local/share" .chezmoi.homeDir -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $dataDir = printf "%s/Library/Application Support" .chezmoi.homeDir -}}
+{{- end -}}
 k9s:
   liveViewAutoRefresh: false
   gpuVendors: {}
-  screenDumpDir: {{ if eq .chezmoi.os "darwin" }}{{ .chezmoi.homeDir }}/Library/Application Support/k9s/screen-dumps{{ else }}{{ env "XDG_DATA_HOME" | default (printf "%s/.local/share" .chezmoi.homeDir) }}/k9s/screen-dumps{{ end }}
+  screenDumpDir: {{ $dataDir }}/k9s/screen-dumps
   refreshRate: 1
   apiServerTimeout: 2m0s
   maxConnRetry: 5
