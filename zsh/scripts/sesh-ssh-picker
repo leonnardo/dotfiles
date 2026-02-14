@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# sesh-ssh-picker: Combined tmux session + SSH host picker
+# Used by zshrc early setup to select a tmux session or SSH host on terminal open.
+# Supports self-calling with flags for fzf reload commands.
+
+set -uo pipefail
+
+SSH_ICON="󰣀 "
+SELF="$0"
+
+list_ssh_hosts() {
+    awk '/^Host / && !/\*/ {for(i=2;i<=NF;i++) print "'"$SSH_ICON"'" $i}' ~/.ssh/config 2>/dev/null
+}
+
+# Self-calling mode: output lists for fzf reload
+case "${1:-}" in
+    --all)
+        sesh list -t --icons
+        list_ssh_hosts
+        exit 0
+        ;;
+    --tmux)
+        sesh list -t --icons
+        exit 0
+        ;;
+    --config)
+        sesh list -c --icons
+        exit 0
+        ;;
+    --zoxide)
+        sesh list -z --icons
+        exit 0
+        ;;
+    --ssh)
+        list_ssh_hosts
+        exit 0
+        ;;
+esac
+
+# Interactive picker mode
+selection=$(
+    "$SELF" --all | fzf \
+        --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
+        --reverse \
+        --footer '  ^a all ^t tmux ^g configs ^x zoxide ^h ssh ^d tmux kill ^f find' \
+        --bind 'tab:down,btab:up' \
+        --bind "ctrl-a:change-prompt(⚡  )+reload($SELF --all)" \
+        --bind "ctrl-t:change-prompt(🪟  )+reload($SELF --tmux)" \
+        --bind "ctrl-g:change-prompt(⚙️  )+reload($SELF --config)" \
+        --bind "ctrl-x:change-prompt(📁  )+reload($SELF --zoxide)" \
+        --bind "ctrl-h:change-prompt(󰣀  )+reload($SELF --ssh)" \
+        --bind "ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)" \
+        --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload('"$SELF"' --all)' \
+        --preview-window 'right:55%' \
+        --preview 'sesh preview {}'
+) || exit 0
+
+# Dispatch based on selection type
+if [[ "$selection" == "$SSH_ICON"* ]]; then
+    host="${selection#"$SSH_ICON"}"
+    exec env TERM=tmux-256color ssh -t "$host" 'tmux attach || tmux new-session'
+else
+    exec sesh connect "$selection"
+fi

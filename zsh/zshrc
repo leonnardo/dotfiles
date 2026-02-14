@@ -5,31 +5,7 @@
 
 # Auto-attach to tmux via sesh in Ghostty or Windows Terminal
 if [[ -z "$TMUX" ]] && [[ -n "$GHOSTTY_RESOURCES_DIR" || -n "$WT_SESSION" ]]; then
-    if tmux list-sessions &>/dev/null; then
-        # Sessions exist - show picker
-        exec sesh connect "$(
-            sesh list --icons | fzf \
-                --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
-                --reverse \
-                --footer '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
-                --bind 'tab:down,btab:up' \
-                --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
-                --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
-                --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
-                --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
-                --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
-                --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
-                --preview-window 'right:55%' \
-                --preview 'sesh preview {}'
-        )"
-    else
-        # No sessions - ask user what to do
-        choice=$(printf "🪟  Create new tmux session\n🐚  Stay in shell (no tmux)" | fzf \
-            --prompt "No tmux sessions: " --reverse --height=4 --no-info)
-        case "$choice" in
-            *"Create new"*) exec tmux ;;
-        esac
-    fi
+    exec "${${(%):-%x}:A:h}/scripts/sesh-ssh-picker"
 fi
 
 if [[ "$PATH" == *"github.copilot-chat"* ]]; then
@@ -108,6 +84,39 @@ fi
 
 zinit is-snippet for \
     "$ZDOTDIR"/[0-9]*.zsh
+
+# =============================================================================
+# SESSION-LOCAL HISTORY (up/down = this session only)
+# =============================================================================
+# Track the HISTNO boundary at session start. Commands typed in this session
+# get HISTNO > _session_hist_boundary. Up arrow won't cross that line.
+# fzf Ctrl+R uses fc -rl which has the full in-memory history (loaded at startup).
+# History isn't loaded during zshrc, so we capture the boundary on first prompt.
+_session_hist_boundary=0
+_capture_hist_boundary() {
+    _session_hist_boundary=$HISTCMD
+    precmd_functions=(${precmd_functions:#_capture_hist_boundary})
+}
+precmd_functions+=(_capture_hist_boundary)
+
+up-line-or-local-history() {
+    if (( HISTNO > _session_hist_boundary )); then
+        zle up-line-or-history
+    fi
+}
+zle -N up-line-or-local-history
+
+down-line-or-local-history() {
+    zle down-line-or-history
+}
+zle -N down-line-or-local-history
+
+bindkey '^[[A' up-line-or-local-history
+bindkey '^[[B' down-line-or-local-history
+bindkey -M viins '^[[A' up-line-or-local-history
+bindkey -M viins '^[[B' down-line-or-local-history
+bindkey -M vicmd '^[[A' up-line-or-local-history
+bindkey -M vicmd '^[[B' down-line-or-local-history
 
 # =============================================================================
 # TURBO-LOADED PLUGINS
