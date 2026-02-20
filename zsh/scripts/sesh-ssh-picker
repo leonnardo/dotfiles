@@ -6,16 +6,32 @@
 set -uo pipefail
 
 SSH_ICON="󰣀 "
+LOCAL_ICON=" "
+LOCAL_TARGET="local-shell"
 SELF="$0"
 
 list_ssh_hosts() {
-    awk '/^Host / && !/\*/ {for(i=2;i<=NF;i++) print "'"$SSH_ICON"'" $i}' ~/.ssh/config 2>/dev/null
+    awk '
+        /^Host[[:space:]]+/ {
+            for (i = 2; i <= NF; i++) {
+                host = $i
+                # Ignore wildcard patterns and dedupe while preserving order.
+                if (host ~ /[*?]/) continue
+                if (!seen[host]++) print "'"$SSH_ICON"'" host
+            }
+        }
+    ' ~/.ssh/config 2>/dev/null
+}
+
+list_local_shell() {
+    printf '%s%s\n' "$LOCAL_ICON" "$LOCAL_TARGET"
 }
 
 # Self-calling mode: output lists for fzf reload
 case "${1:-}" in
     --all)
         sesh list -t --icons
+        list_local_shell
         list_ssh_hosts
         exit 0
         ;;
@@ -35,6 +51,10 @@ case "${1:-}" in
         list_ssh_hosts
         exit 0
         ;;
+    --local)
+        list_local_shell
+        exit 0
+        ;;
 esac
 
 # Interactive picker mode
@@ -42,13 +62,14 @@ selection=$(
     "$SELF" --all | fzf \
         --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
         --reverse \
-        --footer '  ^a all ^t tmux ^g configs ^x zoxide ^h ssh ^d tmux kill ^f find' \
+        --footer '  ^a all ^t tmux ^g configs ^x zoxide ^h ssh ^l local ^d tmux kill ^f find' \
         --bind 'tab:down,btab:up' \
         --bind "ctrl-a:change-prompt(⚡  )+reload($SELF --all)" \
         --bind "ctrl-t:change-prompt(🪟  )+reload($SELF --tmux)" \
         --bind "ctrl-g:change-prompt(⚙️  )+reload($SELF --config)" \
         --bind "ctrl-x:change-prompt(📁  )+reload($SELF --zoxide)" \
         --bind "ctrl-h:change-prompt(󰣀  )+reload($SELF --ssh)" \
+        --bind "ctrl-l:change-prompt(  )+reload($SELF --local)" \
         --bind "ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)" \
         --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload('"$SELF"' --all)' \
         --preview-window 'right:55%' \
@@ -58,7 +79,9 @@ selection=$(
 # Dispatch based on selection type
 if [[ "$selection" == "$SSH_ICON"* ]]; then
     host="${selection#"$SSH_ICON"}"
-    exec env TERM=tmux-256color ssh -t "$host" 'tmux attach || tmux new-session'
+    exec env TERM=tmux-256color ssh "$host"
+elif [[ "$selection" == "$LOCAL_ICON$LOCAL_TARGET" ]]; then
+    exec env SESH_SSH_PICKER_BYPASS=1 "${SHELL:-/bin/zsh}" -l
 else
     exec sesh connect "$selection"
 fi
