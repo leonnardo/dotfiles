@@ -1,5 +1,5 @@
 font-family = "JetBrainsMono NFM SemiBold"
-font-size = 14.5
+font-size = 14
 window-save-state = "always"
 
 window-width = 140
@@ -11,8 +11,8 @@ window-padding-balance = true
 theme = "TokyoNight Night"
 
 adjust-cell-height = 2
-background-opacity = 0.8
-background-blur-radius = 40
+background-opacity = 0.90
+background-blur-radius = 25
 mouse-hide-while-typing = true
 window-decoration = true
 confirm-close-surface = false
@@ -38,7 +38,13 @@ keybind = shift+enter=text:\n
 # \x00 is ctrl+space (common alternative tmux prefix)
 keybind = cmd+t=text:\x00t
 keybind = cmd+w=text:\x00w
-keybind = cmd+k=text:\x00s
+keybind = cmd+o=text:\x00s
+
+# Pane navigation (vim-style, sends ctrl+arrow)
+keybind = cmd+h=text:\x1b[1;5D
+keybind = cmd+j=text:\x1b[1;5B
+keybind = cmd+k=text:\x1b[1;5A
+keybind = cmd+l=text:\x1b[1;5C
 keybind = cmd+d=text:\x00%
 keybind = cmd+shift+d=text:\x00-
 keybind = cmd+shift+z=text:\x00z
