@@ -8,6 +8,7 @@ set -uo pipefail
 SSH_ICON="󰣀 "
 LOCAL_ICON=" "
 LOCAL_TARGET="local-shell"
+LOCAL_MIN_TARGET="local-min-zsh"
 SELF="$0"
 
 list_ssh_hosts() {
@@ -25,6 +26,7 @@ list_ssh_hosts() {
 
 list_local_shell() {
     printf '%s%s\n' "$LOCAL_ICON" "$LOCAL_TARGET"
+    printf '%s%s\n' "$LOCAL_ICON" "$LOCAL_MIN_TARGET"
 }
 
 # Self-calling mode: output lists for fzf reload
@@ -82,6 +84,8 @@ if [[ "$selection" == "$SSH_ICON"* ]]; then
     exec env TERM=tmux-256color ssh "$host"
 elif [[ "$selection" == "$LOCAL_ICON$LOCAL_TARGET" ]]; then
     exec env SESH_SSH_PICKER_BYPASS=1 "${SHELL:-/bin/zsh}" -l
+elif [[ "$selection" == "$LOCAL_ICON$LOCAL_MIN_TARGET" ]]; then
+    exec zsh -fi
 else
     exec sesh connect "$selection"
 fi
