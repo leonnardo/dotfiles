@@ -45,6 +45,16 @@ return {
       },
     },
   },
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters = {
+        ["markdownlint-cli2"] = {
+          args = { "--config", vim.fn.expand("~/src/dotfiles/markdownlint/.markdownlint-cli2.jsonc") },
+        },
+      },
+    },
+  },
   { -- pretty task list
     "bngarren/checkmate.nvim",
     ft = "markdown", -- Lazy loads for Markdown files matching patterns in 'files'
