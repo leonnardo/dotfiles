@@ -46,6 +46,9 @@ return {
     },
     picker = {
       hidden = true,
+      layout = {
+        preset = "ivy",
+      },
       formatters = {
         file = {
           filename_first = true,
@@ -53,11 +56,6 @@ return {
         },
       },
       sources = {
-        grep = {
-          layout = {
-            preset = "vertical",
-          },
-        },
         buffers = {
           current = false,
         },
