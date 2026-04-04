@@ -3,6 +3,11 @@
 # EARLY SETUP
 # =============================================================================
 
+# Ghostty shell integration (CWD tracking for tab/split inherit)
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+  source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+fi
+
 
 if [[ "$PATH" == *"github.copilot-chat"* ]]; then
     PS1='$ '
