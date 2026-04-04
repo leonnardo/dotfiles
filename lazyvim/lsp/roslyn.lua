@@ -1,6 +1,6 @@
 return {
   -- Prefer .slnf (solution filter) over full .sln for faster loading
-  root_markers = { ".slnf", ".sln", ".csproj", "Directory.Build.props" },
+  root_markers = { ".slnf", ".slnx", ".sln", ".csproj", "Directory.Build.props" },
   filetypes = { "cs" },
   settings = {
     ["csharp|code_lens"] = {

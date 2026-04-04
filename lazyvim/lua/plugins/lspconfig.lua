@@ -17,6 +17,10 @@ return {
       -- },
     },
     log_level = vim.log.levels.OFF,
-    servers = {},
+    servers = {
+      omnisharp = {
+        enabled = false,
+      },
+    },
   },
 }

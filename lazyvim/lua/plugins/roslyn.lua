@@ -9,9 +9,15 @@ return {
     ---@type RoslynNvimConfig
     opts = {
       filewatching = "off",
-      -- Prefer .Dev.sln files when available for faster load times
+      -- Prefer filtered or dedicated solution files when available for faster load times
       choose_target = function(targets)
-        -- Prioritize .Dev.sln > .slnf > .sln for fastest loading
+        -- Prioritize .Dev.slnx/.Dev.sln > .slnf > .slnx > .sln
+        local dev_slnx = vim.iter(targets):find(function(t)
+          return t:match("%.Dev%.slnx$")
+        end)
+        if dev_slnx then
+          return dev_slnx
+        end
         local dev_sln = vim.iter(targets):find(function(t)
           return t:match("%.Dev%.sln$")
         end)
@@ -24,7 +30,19 @@ return {
         if slnf then
           return slnf
         end
-        -- Fall back to first target (usually .sln)
+        local slnx = vim.iter(targets):find(function(t)
+          return t:match("%.slnx$")
+        end)
+        if slnx then
+          return slnx
+        end
+        local sln = vim.iter(targets):find(function(t)
+          return t:match("%.sln$")
+        end)
+        if sln then
+          return sln
+        end
+        -- Fall back to first target (usually a project file)
         return targets[1]
       end,
       -- Disable broad search for faster startup on large solutions

@@ -21,10 +21,10 @@ vim.opt.list = true
 vim.opt.listchars = {
   tab = '→ ',
   trail = '·',
-  space = '·',
   eol = '↵',
   nbsp = '␣',
 }
+
 vim.opt.fillchars:append({ diff = ' ' })
 
 -- Native completion (popup behavior, autotrigger via LspAttach in autocmds.lua)
