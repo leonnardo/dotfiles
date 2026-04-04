@@ -86,37 +86,11 @@ zinit is-snippet for \
     "$ZDOTDIR"/[0-9]*.zsh
 
 # =============================================================================
-# SESSION-LOCAL HISTORY (up/down = this session only)
+# HISTORY KEYBINDINGS
 # =============================================================================
-# Track the HISTNO boundary at session start. Commands typed in this session
-# get HISTNO > _session_hist_boundary. Up arrow won't cross that line.
-# fzf Ctrl+R uses fc -rl which has the full in-memory history (loaded at startup).
-# History isn't loaded during zshrc, so we capture the boundary on first prompt.
-_session_hist_boundary=0
-_capture_hist_boundary() {
-    _session_hist_boundary=$HISTCMD
-    precmd_functions=(${precmd_functions:#_capture_hist_boundary})
-}
-precmd_functions+=(_capture_hist_boundary)
-
-up-line-or-local-history() {
-    if (( HISTNO > _session_hist_boundary )); then
-        zle up-line-or-history
-    fi
-}
-zle -N up-line-or-local-history
-
-down-line-or-local-history() {
-    zle down-line-or-history
-}
-zle -N down-line-or-local-history
-
-bindkey '^[[A' up-line-or-local-history
-bindkey '^[[B' down-line-or-local-history
-bindkey -M viins '^[[A' up-line-or-local-history
-bindkey -M viins '^[[B' down-line-or-local-history
-bindkey -M vicmd '^[[A' up-line-or-local-history
-bindkey -M vicmd '^[[B' down-line-or-local-history
+# Up arrow → fzf history search (bound in fzf atload, after widget is available)
+# Down arrow → standard next history entry
+# Ctrl+R → fzf history search (set by fzf --zsh)
 
 # =============================================================================
 # TURBO-LOADED PLUGINS
@@ -129,7 +103,12 @@ zinit wait"0a" lucid for \
 
 # Batch B: fzf ecosystem + zoxide (needs completions available)
 zinit wait"0b" lucid for \
-    atload'source <(fzf --zsh)' \
+    atload'
+      source <(fzf --zsh)
+      bindkey "^[[A" fzf-history-widget
+      bindkey -M viins "^[[A" fzf-history-widget
+      bindkey -M vicmd "^[[A" fzf-history-widget
+    ' \
         junegunn/fzf \
     Aloxaf/fzf-tab
 

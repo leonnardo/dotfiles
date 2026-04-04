@@ -3,8 +3,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_ENV_HINTS=1
 export MANPAGER="nvim +Man!"
 export EDITOR=nvim
-export PATH=$PATH:~/.local/bin
-export PATH="~/.dotnet/tools:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$HOME/.dotnet/tools:$PATH"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
