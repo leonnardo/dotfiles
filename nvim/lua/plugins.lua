@@ -2,14 +2,14 @@
 -- Each plugin: vim.pack.add() followed by setup()
 
 -- Colorscheme
-vim.pack.add('https://github.com/folke/tokyonight.nvim')
+vim.pack.add({ 'https://github.com/folke/tokyonight.nvim' })
 vim.cmd.colorscheme('tokyonight-night')
 
 -- LSP server default configs (provides lsp/*.lua for hundreds of servers)
-vim.pack.add('https://github.com/neovim/nvim-lspconfig')
+vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
 
 -- Treesitter (main branch: parsers installed via :TSInstall)
-vim.pack.add({ src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' })
+vim.pack.add({ { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' } })
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('Treesitter', {}),
   callback = function(ev)
@@ -18,15 +18,15 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Git signs
-vim.pack.add('https://github.com/lewis6991/gitsigns.nvim')
+vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' })
 require('gitsigns').setup({})
 
 -- Split navigation (tmux-aware)
-vim.pack.add('https://github.com/mrjones2014/smart-splits.nvim')
+vim.pack.add({ 'https://github.com/mrjones2014/smart-splits.nvim' })
 require('smart-splits').setup({})
 
 -- Picker + explorer
-vim.pack.add('https://github.com/folke/snacks.nvim')
+vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 require('snacks').setup({
   picker = {
     preset = 'ivy',
@@ -34,13 +34,13 @@ require('snacks').setup({
 })
 
 -- Keybind discovery
-vim.pack.add('https://github.com/folke/which-key.nvim')
+vim.pack.add({ 'https://github.com/folke/which-key.nvim' })
 require('which-key').setup({})
 
 -- Editing: surround (add/delete/replace)
-vim.pack.add('https://github.com/nvim-mini/mini.surround')
+vim.pack.add({ 'https://github.com/nvim-mini/mini.surround' })
 require('mini.surround').setup({})
 
 -- Editing: enhanced text objects
-vim.pack.add('https://github.com/nvim-mini/mini.ai')
+vim.pack.add({ 'https://github.com/nvim-mini/mini.ai' })
 require('mini.ai').setup({})
