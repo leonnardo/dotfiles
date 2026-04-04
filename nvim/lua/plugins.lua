@@ -29,7 +29,15 @@ require('smart-splits').setup({})
 vim.pack.add({ 'https://github.com/folke/snacks.nvim' })
 require('snacks').setup({
   picker = {
-    preset = 'ivy',
+    layout = {
+      preset = 'ivy',
+    },
+    formatters = {
+      file = { filename_first = true },
+    },
+    sources = {
+      buffers = { current = false },
+    },
   },
 })
 
