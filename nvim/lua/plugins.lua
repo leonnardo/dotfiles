@@ -8,8 +8,14 @@ vim.cmd.colorscheme('tokyonight-night')
 -- LSP server default configs (provides lsp/*.lua for hundreds of servers)
 vim.pack.add('https://github.com/neovim/nvim-lspconfig')
 
--- Treesitter (main branch: manual install + vim.treesitter.start())
+-- Treesitter (main branch: parsers installed via :TSInstall)
 vim.pack.add({ src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' })
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('Treesitter', {}),
+  callback = function(ev)
+    pcall(vim.treesitter.start, ev.buf)
+  end,
+})
 
 -- Git signs
 vim.pack.add('https://github.com/lewis6991/gitsigns.nvim')
