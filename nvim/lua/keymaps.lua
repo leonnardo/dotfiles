@@ -3,10 +3,10 @@
 
 -- Smart-splits: navigate between splits (tmux-aware)
 local splits = require('smart-splits')
-vim.keymap.set('n', '<C-Left>', splits.move_cursor_left)
-vim.keymap.set('n', '<C-Down>', splits.move_cursor_down)
-vim.keymap.set('n', '<C-Up>', splits.move_cursor_up)
-vim.keymap.set('n', '<C-Right>', splits.move_cursor_right)
+vim.keymap.set('n', '<C-Left>', splits.move_cursor_left, { desc = 'Move to left split' })
+vim.keymap.set('n', '<C-Down>', splits.move_cursor_down, { desc = 'Move to below split' })
+vim.keymap.set('n', '<C-Up>', splits.move_cursor_up, { desc = 'Move to above split' })
+vim.keymap.set('n', '<C-Right>', splits.move_cursor_right, { desc = 'Move to right split' })
 
 -- Snacks picker
 vim.keymap.set('n', '<leader><space>', function() Snacks.picker.files() end, { desc = 'Find files' })
