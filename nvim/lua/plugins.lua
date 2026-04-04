@@ -52,3 +52,8 @@ require('mini.surround').setup({})
 -- Editing: enhanced text objects
 vim.pack.add({ 'https://github.com/nvim-mini/mini.ai' })
 require('mini.ai').setup({})
+
+-- Inline diagnostics (replaces native virtual_text)
+vim.pack.add({ 'https://github.com/rachartier/tiny-inline-diagnostic.nvim' })
+vim.diagnostic.config({ virtual_text = false })
+require('tiny-inline-diagnostic').setup({})
