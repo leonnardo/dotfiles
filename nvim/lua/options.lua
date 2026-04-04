@@ -27,6 +27,5 @@ vim.opt.listchars = {
 }
 vim.opt.fillchars:append({ diff = ' ' })
 
--- Native completion
-vim.o.autocomplete = true
+-- Native completion (popup behavior, autotrigger via LspAttach in autocmds.lua)
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'fuzzy' }
