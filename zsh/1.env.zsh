@@ -9,3 +9,4 @@ ZOXIDE_CMD_OVERRIDE="cd"
 DOTNET_CLI_TELEMETRY_OPTOUT=1
 DOTNET_VERSION="$(mise current dotnet)"
 MSBuildSDKsPATH="$DOTNET_ROOT/sdk/$DOTNET_VERSION/Sdks"
+export UseSharedCompilation=false

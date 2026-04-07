@@ -25,8 +25,11 @@ fi
 
 # WSL: Add selective Windows binaries to PATH
 if [[ -d /mnt/c/Windows ]]; then
-    export PATH="$PATH:/mnt/c/Windows:/mnt/c/Windows/System32:/mnt/c/Program Files/PowerShell/7:/mnt/c/Users/lrabello/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/lrabello/AppData/Local/Programs/Microsoft VS Code Insiders/bin"
+    export PATH="$PATH:/mnt/c/Windows:/mnt/c/Windows/System32:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Program Files/PowerShell/7:/mnt/c/Users/lrabello/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/lrabello/AppData/Local/Programs/Microsoft VS Code Insiders/bin"
 fi
+
+# Microsoft Agency CLI
+[[ -d "$HOME/.config/agency/CurrentVersion" ]] && export PATH="$PATH:$HOME/.config/agency/CurrentVersion"
 
 # Ensure cache directory exists
 [[ ! -d "$XDG_CACHE_HOME/zsh" ]] && mkdir -p "$XDG_CACHE_HOME/zsh"
@@ -144,3 +147,5 @@ zinit wait"1" lucid has"mise" for \
 zinit wait"2" lucid has"flux" for \
     atload'eval "$(flux completion zsh)"' \
         zdharma-continuum/null
+
+. "$HOME/.agency/uvx/env"

@@ -1,7 +1,7 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 if vim.g.vscode then
   require("vscodenvim.keymaps")
-  vim.opt.clipboard = "unnamedplus"
+  require("config.clipboard").setup()
 else
   require("config.lazy")
 end
