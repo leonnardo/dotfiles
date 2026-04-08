@@ -35,21 +35,21 @@ fi
 [[ ! -d "$XDG_CACHE_HOME/zsh" ]] && mkdir -p "$XDG_CACHE_HOME/zsh"
 
 # =============================================================================
-# ZINIT INITIALIZATION
+# ANTIDOTE INITIALIZATION
 # =============================================================================
 
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-if [[ ! -d "$ZINIT_HOME" ]]; then
-    mkdir -p "$(dirname $ZINIT_HOME)"
-    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+ANTIDOTE_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/antidote"
+if [[ ! -d "$ANTIDOTE_HOME" ]]; then
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_HOME"
 fi
+source "$ANTIDOTE_HOME/antidote.zsh"
 
-# Zinit optimization settings (must be set before sourcing zinit.zsh)
-declare -A ZINIT
-ZINIT[COMPINIT_OPTS]=-C
-ZINIT[ZCOMPDUMP_PATH]="$XDG_CACHE_HOME/zsh/.zcompdump"
-
-source "${ZINIT_HOME}/zinit.zsh"
+# Static plugin loading (regenerates only when .zsh_plugins.txt changes)
+zsh_plugins="$ZDOTDIR/.zsh_plugins"
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
+    antidote bundle <${zsh_plugins}.txt >| ${zsh_plugins}.zsh
+fi
+source ${zsh_plugins}.zsh
 
 # =============================================================================
 # VI MODE (native zsh - fast alternative to zsh-vi-mode plugin)
@@ -82,70 +82,53 @@ if (( $+commands[oh-my-posh] )); then
 fi
 
 # =============================================================================
-# SOURCE CONFIGURATION FILES (before turbo plugins)
-# =============================================================================
-# Source numbered config files in order using zinit snippets
-
-zinit is-snippet for \
-    "$ZDOTDIR"/[0-9]*.zsh
-
-# =============================================================================
-# HISTORY KEYBINDINGS
-# =============================================================================
-# Up arrow → fzf history search (bound in fzf atload, after widget is available)
-# Down arrow → standard next history entry
-# Ctrl+R → fzf history search (set by fzf --zsh)
-
-# =============================================================================
-# TURBO-LOADED PLUGINS
+# SOURCE CONFIGURATION FILES
 # =============================================================================
 
-# Batch A: Completions infrastructure (loads first)
-zinit wait"0a" lucid for \
-    blockf atpull'zinit creinstall -q .' \
-        zsh-users/zsh-completions
-
-# Batch B: fzf ecosystem + zoxide (needs completions available)
-zinit wait"0b" lucid for \
-    atload'
-      source <(fzf --zsh)
-      bindkey "^[[A" fzf-history-widget
-      bindkey -M viins "^[[A" fzf-history-widget
-      bindkey -M vicmd "^[[A" fzf-history-widget
-    ' \
-        junegunn/fzf \
-    Aloxaf/fzf-tab
-
-# zoxide - load after fzf-tab for proper completion integration
-# Create a ZLE widget for interactive zoxide, then bind it
-zinit wait"0b" lucid has"zoxide" for \
-    atload'
-      eval "$(zoxide init --cmd cd zsh)"
-      function _zoxide_cdi_widget() { __zoxide_zi; zle reset-prompt }
-      zle -N _zoxide_cdi_widget
-      bindkey "^o" _zoxide_cdi_widget
-    ' \
-        zdharma-continuum/null
-
-# Batch C: Syntax highlighting + autosuggestions (load last, trigger compinit)
-zinit wait"0c" lucid for \
-    atinit"zicompinit; zicdreplay; compdef _dotnet_zsh_complete dotnet; compdef _eza ls" \
-        zdharma-continuum/fast-syntax-highlighting \
-    atload"_zsh_autosuggest_start" \
-        zsh-users/zsh-autosuggestions
+for conf in "$ZDOTDIR"/[0-9]*.zsh; do
+    source "$conf"
+done
 
 # =============================================================================
-# LAZY-LOADED TOOLS (defer until needed)
+# COMPLETION SYSTEM
 # =============================================================================
 
-# mise - lazy load, activates ~1s after prompt
-zinit wait"1" lucid has"mise" for \
-    atload'eval "$(mise activate zsh)"' \
-        zdharma-continuum/null
+autoload -Uz compinit
+compinit -C -d "$XDG_CACHE_HOME/zsh/.zcompdump"
+compdef _dotnet_zsh_complete dotnet
+compdef _eza ls
 
-# flux completion - lazy load ~2s after prompt
-zinit wait"2" lucid has"flux" for \
-    atload'eval "$(flux completion zsh)"' \
-        zdharma-continuum/null
+# =============================================================================
+# DEFERRED TOOL INITIALIZATION
+# =============================================================================
+# Uses zsh-defer (loaded synchronously by antidote as first plugin)
+
+# fzf shell integration + vi-mode keybindings
+zsh-defer -c '
+    eval "$(fzf --zsh)"
+    bindkey "^[[A" fzf-history-widget
+    bindkey -M viins "^[[A" fzf-history-widget
+    bindkey -M vicmd "^[[A" fzf-history-widget
+'
+
+# zoxide (smart cd)
+if (( $+commands[zoxide] )); then
+    zsh-defer -c '
+        eval "$(zoxide init --cmd cd zsh)"
+        function _zoxide_cdi_widget() { __zoxide_zi; zle reset-prompt }
+        zle -N _zoxide_cdi_widget
+        bindkey "^o" _zoxide_cdi_widget
+    '
+fi
+
+# Autosuggestions: call _zsh_autosuggest_start explicitly after the plugin
+# loads via kind:defer (the plugin's precmd hook only fires on NEXT prompt)
+zsh-defer -c '_zsh_autosuggest_start'
+
+# mise (runtime version manager)
+(( $+commands[mise] )) && zsh-defer -c 'eval "$(mise activate zsh)"'
+
+# flux completion
+(( $+commands[flux] )) && zsh-defer -c 'eval "$(flux completion zsh)"'
 
 . "$HOME/.agency/uvx/env"

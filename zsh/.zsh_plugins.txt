@@ -1,0 +1,15 @@
+# zsh-defer — explicit dependency for deferred loading
+# (ensures zsh-defer is available in zshrc for custom deferred code)
+romkatv/zsh-defer
+
+# Completions (fpath only — loaded before compinit)
+zsh-users/zsh-completions kind:fpath path:src
+
+# fzf-tab — integrates fzf into the completion system
+Aloxaf/fzf-tab kind:defer
+
+# Syntax highlighting (deferred for fast prompt)
+zdharma-continuum/fast-syntax-highlighting kind:defer
+
+# Autosuggestions (deferred — _zsh_autosuggest_start called explicitly in zshrc)
+zsh-users/zsh-autosuggestions kind:defer
