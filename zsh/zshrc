@@ -131,4 +131,4 @@ zsh-defer -c '_zsh_autosuggest_start'
 # flux completion
 (( $+commands[flux] )) && zsh-defer -c 'eval "$(flux completion zsh)"'
 
-. "$HOME/.agency/uvx/env"
+(( $+commands[agency] )) && . "$HOME/.agency/uvx/env"

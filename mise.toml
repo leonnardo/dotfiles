@@ -1,7 +1,0 @@
-[tools]
-node = "lts"
-go = "latest"
-python = "3.14"
-dotnet = "10"
-rust = "latest"
-bun = "latest"
