@@ -54,23 +54,10 @@ source ${zsh_plugins}.zsh
 # =============================================================================
 # VI MODE (native zsh - fast alternative to zsh-vi-mode plugin)
 # =============================================================================
+# Must come before sourcing [0-9]*.zsh so viins/vicmd keymaps exist when
+# 3.keybindings.zsh runs. All other vi-mode config lives in 3.keybindings.zsh.
 bindkey -v
 export KEYTIMEOUT=1
-
-# Cursor shape changes for different vi modes
-function zle-keymap-select {
-    case $KEYMAP in
-        vicmd) echo -ne '\e[2 q';;      # block cursor for normal mode
-        viins|main) echo -ne '\e[6 q';; # beam cursor for insert mode
-    esac
-}
-zle -N zle-keymap-select
-
-# Ensure beam cursor on new prompts
-function zle-line-init {
-    echo -ne '\e[6 q'
-}
-zle -N zle-line-init
 
 # =============================================================================
 # PROMPT (immediate load)
@@ -103,23 +90,11 @@ compdef _eza ls
 # =============================================================================
 # Uses zsh-defer (loaded synchronously by antidote as first plugin)
 
-# fzf shell integration + vi-mode keybindings
-zsh-defer -c '
-    eval "$(fzf --zsh)"
-    bindkey "^[[A" fzf-history-widget
-    bindkey -M viins "^[[A" fzf-history-widget
-    bindkey -M vicmd "^[[A" fzf-history-widget
-'
+# fzf shell integration (keybindings in 3.keybindings.zsh)
+zsh-defer -c 'eval "$(fzf --zsh)"'
 
-# zoxide (smart cd)
-if (( $+commands[zoxide] )); then
-    zsh-defer -c '
-        eval "$(zoxide init --cmd cd zsh)"
-        function _zoxide_cdi_widget() { __zoxide_zi; zle reset-prompt }
-        zle -N _zoxide_cdi_widget
-        bindkey "^o" _zoxide_cdi_widget
-    '
-fi
+# zoxide (smart cd) — keybindings in 3.keybindings.zsh
+(( $+commands[zoxide] )) && zsh-defer -c 'eval "$(zoxide init --cmd cd zsh)"'
 
 # Autosuggestions: call _zsh_autosuggest_start explicitly after the plugin
 # loads via kind:defer (the plugin's precmd hook only fires on NEXT prompt)

@@ -1,4 +1,5 @@
-FZF_DEFAULT_OPTS="--walker-skip=bin,obj"
+[[ "$TERM" == "xterm-ghostty" ]] && export TERM=xterm-256color
+export FZF_DEFAULT_OPTS="--walker-skip=bin,obj"
 
 HISTSIZE=15000
 HISTFILE=~/.zsh_history

@@ -12,21 +12,28 @@
     }
   },
   "mcp": {
-    "sequential-thinking": {
-      "enabled": true,
-      "type": "local",
-      "command": [
-        "docker",
-        "run",
-        "--rm",
-        "-i",
-        "mcp/sequentialthinking"
-      ]
-    },
     "context7": {
       "enabled": true,
       "type": "remote",
       "url": "https://mcp.context7.com/mcp"
+    },
+    "ado": {
+      "type": "local",
+      "command": [
+        "agency",
+        "mcp",
+        "ado",
+        "--org",
+        "o365exchange"
+      ]
+    },
+    "enghub": {
+      "type": "local",
+      "command": [
+        "agency",
+        "mcp",
+        "enghub"
+      ]
     }
   },
   "plugin": [

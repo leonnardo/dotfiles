@@ -59,6 +59,13 @@ return {
         buffers = {
           current = false,
         },
+        explorer = {
+          matcher = {
+            fuzzy = true,
+            smartcase = true,
+            ignorecase = true,
+          },
+        },
       },
     },
   },

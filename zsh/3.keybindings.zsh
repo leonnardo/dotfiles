@@ -1,22 +1,48 @@
 # =============================================================================
 # KEYBINDINGS
 # =============================================================================
-# Native zsh vi-mode is enabled in zshrc. This file defines additional bindings.
+# `bindkey -v` and KEYTIMEOUT are set in zshrc (must run before this file is
+# sourced so viins/vicmd keymaps exist).
 
 # -----------------------------------------------------------------------------
-# Vi-mode configuration
+# Vi-mode: cursor shape per keymap
 # -----------------------------------------------------------------------------
-# Use jk to exit insert mode (like ZVM_VI_INSERT_ESCAPE_BINDKEY=jk)
-bindkey -M viins 'jk' vi-cmd-mode
+function zle-keymap-select {
+    case $KEYMAP in
+        vicmd) echo -ne '\e[2 q';;      # block cursor for normal mode
+        viins|main) echo -ne '\e[6 q';; # beam cursor for insert mode
+    esac
+}
+zle -N zle-keymap-select
+
+function zle-line-init {
+    echo -ne '\e[6 q'
+}
+zle -N zle-line-init
 
 # -----------------------------------------------------------------------------
-# fzf keybindings (set after fzf loads in turbo mode)
+# Edit current command line in $EDITOR (neovim)
 # -----------------------------------------------------------------------------
-# Note: fzf bindings are set up in the turbo-loaded fzf section of zshrc
-# via `source <(fzf --zsh)`. The following ensures they work in vi-mode.
+# - `v` in normal mode (vi-like: same as bash vi-mode)
+# - `Ctrl-X Ctrl-E` in insert mode (bash-compatible)
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd 'v' edit-command-line
+bindkey -M viins '^X^E' edit-command-line
 
-# These will be available after fzf-tab loads (wait"0b"):
-# Ctrl+R: fzf-history-widget (history search)
-# Ctrl+T: fzf-file-widget (file search)  
-# Alt+C:  fzf-cd-widget (cd to directory)
-# Ctrl+O: zoxide interactive (bound in zoxide's atload)
+# -----------------------------------------------------------------------------
+# fzf: up-arrow opens history search
+# -----------------------------------------------------------------------------
+# fzf-history-widget is defined later by `eval "$(fzf --zsh)"` in zshrc.
+# bindkey resolves the widget name at invocation time, so binding early is fine.
+bindkey -M viins "^[[A" fzf-history-widget
+bindkey -M vicmd "^[[A" fzf-history-widget
+
+# -----------------------------------------------------------------------------
+# zoxide: Ctrl-O opens interactive directory jump
+# -----------------------------------------------------------------------------
+# __zoxide_zi is defined later by `eval "$(zoxide init ...)"` in zshrc.
+function _zoxide_cdi_widget() { __zoxide_zi; zle reset-prompt }
+zle -N _zoxide_cdi_widget
+bindkey -M viins '^o' _zoxide_cdi_widget
+bindkey -M vicmd '^o' _zoxide_cdi_widget
