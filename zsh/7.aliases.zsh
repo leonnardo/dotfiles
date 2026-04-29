@@ -4,7 +4,7 @@ if (( $+commands[eza] )); then
   alias lt="eza --icons -TL 2"
 fi
 
-(( $+commands[bat] )) && alias cat="bat"
+(( $+commands[bat] )) && alias cat="bat -pp"
 (( $+commands[btop] )) && alias top="btop"
 
 alias lg="lazygit"
