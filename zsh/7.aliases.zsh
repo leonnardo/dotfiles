@@ -6,6 +6,7 @@ fi
 
 (( $+commands[bat] )) && alias cat="bat -pp"
 (( $+commands[btop] )) && alias top="btop"
+(( $+commands[xh] )) && alias curl="xh"
 
 alias lg="lazygit"
 alias ld="lazydocker"
