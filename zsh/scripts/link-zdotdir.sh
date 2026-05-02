@@ -42,10 +42,7 @@ mkdir -p "$TARGET_ZDOTDIR"
 link_item "$REPO_ZSH_DIR/zshrc" "$TARGET_ZDOTDIR/.zshrc"
 link_item "$REPO_ZSH_DIR/zprofile" "$TARGET_ZDOTDIR/.zprofile"
 link_item "$REPO_ZSH_DIR/.zsh_plugins.txt" "$TARGET_ZDOTDIR/.zsh_plugins.txt"
-
-while IFS= read -r config_file; do
-    link_item "$config_file" "$TARGET_ZDOTDIR/$(basename "$config_file")"
-done < <(find "$REPO_ZSH_DIR" -maxdepth 1 -type f -name '[0-9]*.zsh' | sort)
+link_item "$REPO_ZSH_DIR/rc.d" "$TARGET_ZDOTDIR/rc.d"
 
 if [[ -d "$REPO_ZSH_DIR/func" ]]; then
     link_item "$REPO_ZSH_DIR/func" "$TARGET_ZDOTDIR/func"

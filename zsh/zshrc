@@ -9,12 +9,12 @@ if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
 fi
 
 
-if [[ "$PATH" == *"github.copilot-chat"* ]]; then
-    PS1='$ '
-    local si_script="$HOME/.vscode-server-insiders/bin/$(ls -t ~/.vscode-server-insiders/bin 2>/dev/null | head -1)/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-rc.zsh"
-    [[ -f "$si_script" ]] && . "$si_script"
-    return
-fi
+# if [[ "$PATH" == *"github.copilot-chat"* ]]; then
+#     PS1='$ '
+#     local si_script="$HOME/.vscode-server-insiders/bin/$(ls -t ~/.vscode-server-insiders/bin 2>/dev/null | head -1)/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-rc.zsh"
+#     [[ -f "$si_script" ]] && . "$si_script"
+#     return
+# fi
 
 # fpath modifications FIRST (beforeO compinit)
 export fpath=($ZDOTDIR/func $fpath)
@@ -54,8 +54,8 @@ source ${zsh_plugins}.zsh
 # =============================================================================
 # VI MODE (native zsh - fast alternative to zsh-vi-mode plugin)
 # =============================================================================
-# Must come before sourcing [0-9]*.zsh so viins/vicmd keymaps exist when
-# 3.keybindings.zsh runs. All other vi-mode config lives in 3.keybindings.zsh.
+# Must come before sourcing rc.d/*.zsh so viins/vicmd keymaps exist when
+# 30-keybindings.zsh runs. All other vi-mode config lives in rc.d/30-keybindings.zsh.
 bindkey -v
 export KEYTIMEOUT=1
 
@@ -72,7 +72,7 @@ fi
 # SOURCE CONFIGURATION FILES
 # =============================================================================
 
-for conf in "$ZDOTDIR"/[0-9]*.zsh; do
+for conf in "$ZDOTDIR"/rc.d/*.zsh(N-.); do
     source "$conf"
 done
 
@@ -90,10 +90,10 @@ compdef _eza ls
 # =============================================================================
 # Uses zsh-defer (loaded synchronously by antidote as first plugin)
 
-# fzf shell integration (keybindings in 3.keybindings.zsh)
+# fzf shell integration (keybindings in rc.d/30-keybindings.zsh)
 zsh-defer -c 'eval "$(fzf --zsh)"'
 
-# zoxide (smart cd) — keybindings in 3.keybindings.zsh
+# zoxide (smart cd) — keybindings in rc.d/30-keybindings.zsh
 (( $+commands[zoxide] )) && zsh-defer -c 'eval "$(zoxide init --cmd cd zsh)"'
 
 # Autosuggestions: call _zsh_autosuggest_start explicitly after the plugin

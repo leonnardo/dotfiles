@@ -11,3 +11,17 @@ Create the expected links in `ZDOTDIR` (or `XDG_CONFIG_HOME/zsh` when `ZDOTDIR` 
 ```sh
 ./zsh/scripts/link-zdotdir.sh
 ```
+
+## Interactive config modules
+
+`zshrc` sources drop-in modules from `rc.d/*.zsh` in lexicographic order. Use numeric prefixes to make load order explicit:
+
+```text
+00-env.zsh
+10-options.zsh
+20-functions.zsh
+30-keybindings.zsh
+40-completion-styles.zsh
+50-custom-completions.zsh
+90-aliases.zsh
+```

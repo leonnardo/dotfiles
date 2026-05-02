@@ -22,3 +22,18 @@ function tm() {
 function fman() {
     man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }
+
+# Worktrunk wrapper: when cwd is NOT a git repo, transparently target the
+# orbit-style bare cache for this project (~/.local/state/orbit/repos/<basename>).
+# Lets `wt list` / `wt switch` work from the hub root the way `orbit` does,
+# without changing worktrunk's behavior anywhere else.
+function wt() {
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
+        local bare="$HOME/.local/state/orbit/repos/$(basename "$PWD")"
+        if [[ -f "$bare/HEAD" ]]; then
+            command wt -C "$bare" "$@"
+            return
+        fi
+    fi
+    command wt "$@"
+}
