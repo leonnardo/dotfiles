@@ -63,9 +63,20 @@ export KEYTIMEOUT=1
 # PROMPT (immediate load)
 # =============================================================================
 
-# oh-my-posh
-if (( $+commands[oh-my-posh] )); then
-    eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.toml)"
+# starship
+if (( $+commands[starship] )); then
+    export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
+    eval "$(starship init zsh)"
+
+    transient_prompt_plugin="${XDG_CACHE_HOME:-$HOME/.cache}/antidote/github.com/olets/zsh-transient-prompt/transient-prompt.zsh-theme"
+    if [[ -r "$transient_prompt_plugin" ]]; then
+        TRANSIENT_PROMPT_PROMPT="$PROMPT"
+        TRANSIENT_PROMPT_RPROMPT="$RPROMPT"
+        TRANSIENT_PROMPT_TRANSIENT_PROMPT='$(starship module character)'
+        TRANSIENT_PROMPT_TRANSIENT_RPROMPT=''
+        source "$transient_prompt_plugin"
+    fi
+    unset transient_prompt_plugin
 fi
 
 # =============================================================================
@@ -107,3 +118,5 @@ zsh-defer -c '_zsh_autosuggest_start'
 (( $+commands[flux] )) && zsh-defer -c 'eval "$(flux completion zsh)"'
 
 (( $+commands[agency] )) && . "$HOME/.agency/uvx/env"
+
+(( $+commands[atuin] )) && zsh-defer -c 'eval "$(atuin init zsh)"'

@@ -13,3 +13,6 @@ zdharma-continuum/fast-syntax-highlighting kind:defer
 
 # Autosuggestions (deferred — _zsh_autosuggest_start called explicitly in zshrc)
 zsh-users/zsh-autosuggestions kind:defer
+
+# Transient prompt support for zsh (sourced manually after Starship init)
+olets/zsh-transient-prompt kind:fpath
