@@ -3,6 +3,9 @@ return {
   version = "*",
   lazy = false,
   opts = {
+    ui = {
+      enable = false,
+    },
     legacy_commands = false,
     workspaces = {
       {

@@ -45,7 +45,7 @@ return {
       checkbox = {
         enabled = true,
         bullet = false,
-        left_pad = 7,
+        left_pad = 1,
         right_pad = 1,
         unchecked = {
           icon = "󰄱",
