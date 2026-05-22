@@ -11,10 +11,9 @@ return {
         render_modes = false,
         atx = true,
         setext = true,
-        sign = true,
+        sign = false,
         icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
         position = "overlay",
-        signs = { "󰫎 " },
         width = "full",
         left_margin = 0,
         left_pad = 0,
@@ -43,6 +42,20 @@ return {
         },
         custom = {},
       },
+      checkbox = {
+        enabled = true,
+        bullet = false,
+        left_pad = 7,
+        right_pad = 1,
+        unchecked = {
+          icon = "󰄱",
+          highlight = "RenderMarkdownUnchecked",
+        },
+        checked = {
+          icon = "󰱒",
+          highlight = "RenderMarkdownChecked",
+        },
+      },
     },
   },
   {
@@ -53,14 +66,6 @@ return {
           args = { "--config", vim.fn.expand("~/src/dotfiles/markdownlint/.markdownlint-cli2.jsonc") },
         },
       },
-    },
-  },
-  { -- pretty task list
-    "bngarren/checkmate.nvim",
-    ft = "markdown", -- Lazy loads for Markdown files matching patterns in 'files'
-    enabled = false,
-    opts = {
-      files = { "*.md", "todo", "TODO", "*.todo" }, -- File patterns to match for lazy loading
     },
   },
 }
