@@ -55,6 +55,13 @@ return {
           icon = "󰱒",
           highlight = "RenderMarkdownChecked",
         },
+        custom = {
+          in_progress = {
+            raw = "[/]",
+            rendered = "󰦖",
+            highlight = "RenderMarkdownTodo",
+          },
+        },
       },
     },
   },
